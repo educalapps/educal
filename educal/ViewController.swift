@@ -30,6 +30,7 @@ class ViewController: UIViewController {
 
     func saybye(){
         println("goodbye")
+        var msg = "hallo daar"
     }
 
 
