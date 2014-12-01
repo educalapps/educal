@@ -28,8 +28,10 @@ class ViewController: UIViewController {
         
     }
 
-    func saybye(){
+    func saybye()->String{
         println("goodbye")
+        var test:String = "Goodbye"
+        return test
     }
 
 
