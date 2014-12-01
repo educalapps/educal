@@ -13,7 +13,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="DB5-9T-dvb" kind="show" id="Piu-Fd-ZaT"/>
+                        <segue destination="DB5-9T-dvb" kind="relationship" relationship="rootViewController" id="IPw-mB-6gR"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1xM-32-c7b" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -68,6 +68,7 @@
                             </mask>
                         </variation>
                     </view>
+                    <navigationItem key="navigationItem" id="Tl0-Sm-t43"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n0z-h0-ikH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
