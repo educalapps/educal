@@ -22,7 +22,7 @@ class ViewController: UIViewController {
         // something changed here by jurriaan !!
         
         
-        
+        // here somtig
         // some more code here !!!!!!
         
         // Nieuwe comment
