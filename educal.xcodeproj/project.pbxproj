@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		284AA4881A2C9AEA00B76945 /* NewFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284AA4871A2C9AEA00B76945 /* NewFile.swift */; };
+		284AA48A1A2C9DCF00B76945 /* ClassesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284AA4891A2C9DCF00B76945 /* ClassesTableViewController.swift */; };
 		E11AA4CE1A2C8D0C008C162F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11AA4CD1A2C8D0C008C162F /* AppDelegate.swift */; };
 		E11AA4D11A2C8D0C008C162F /* educal.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E11AA4CF1A2C8D0C008C162F /* educal.xcdatamodeld */; };
 		E11AA4D31A2C8D0C008C162F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11AA4D21A2C8D0C008C162F /* ViewController.swift */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		284AA4871A2C9AEA00B76945 /* NewFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFile.swift; sourceTree = "<group>"; };
+		284AA4891A2C9DCF00B76945 /* ClassesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassesTableViewController.swift; sourceTree = "<group>"; };
 		E11AA4C81A2C8D0C008C162F /* educal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = educal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E11AA4CC1A2C8D0C008C162F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E11AA4CD1A2C8D0C008C162F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 				E11AA4CF1A2C8D0C008C162F /* educal.xcdatamodeld */,
 				E11AA4CB1A2C8D0C008C162F /* Supporting Files */,
 				284AA4871A2C9AEA00B76945 /* NewFile.swift */,
+				284AA4891A2C9DCF00B76945 /* ClassesTableViewController.swift */,
 			);
 			path = educal;
 			sourceTree = "<group>";
@@ -218,6 +221,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				284AA48A1A2C9DCF00B76945 /* ClassesTableViewController.swift in Sources */,
 				E11AA4D31A2C8D0C008C162F /* ViewController.swift in Sources */,
 				E11AA4CE1A2C8D0C008C162F /* AppDelegate.swift in Sources */,
 				284AA4881A2C9AEA00B76945 /* NewFile.swift in Sources */,
