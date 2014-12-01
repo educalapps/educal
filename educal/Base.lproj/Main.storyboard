@@ -73,10 +73,10 @@
             </objects>
             <point key="canvasLocation" x="741" y="300"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Classes Table View Controller-->
         <scene sceneID="EJU-AB-941">
             <objects>
-                <tableViewController id="K7A-ZF-ikE" sceneMemberID="viewController">
+                <tableViewController id="K7A-ZF-ikE" customClass="ClassesTableViewController" customModule="educal" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="4b8-zu-dfV">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
