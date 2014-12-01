@@ -15,6 +15,7 @@
 		E11AA4D81A2C8D0C008C162F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E11AA4D71A2C8D0C008C162F /* Images.xcassets */; };
 		E11AA4DB1A2C8D0C008C162F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E11AA4D91A2C8D0C008C162F /* LaunchScreen.xib */; };
 		E11AA4E71A2C8D0C008C162F /* educalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11AA4E61A2C8D0C008C162F /* educalTests.swift */; };
+		E15C109C1A2C9DCC00731772 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15C109B1A2C9DCC00731772 /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		E11AA4E01A2C8D0C008C162F /* educalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = educalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E11AA4E51A2C8D0C008C162F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E11AA4E61A2C8D0C008C162F /* educalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = educalTests.swift; sourceTree = "<group>"; };
+		E15C109B1A2C9DCC00731772 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 				E11AA4CD1A2C8D0C008C162F /* AppDelegate.swift */,
 				E11AA4D21A2C8D0C008C162F /* ViewController.swift */,
 				E11AA4D41A2C8D0C008C162F /* Main.storyboard */,
+				E15C109B1A2C9DCC00731772 /* LoginViewController.swift */,
 				E11AA4D71A2C8D0C008C162F /* Images.xcassets */,
 				E11AA4D91A2C8D0C008C162F /* LaunchScreen.xib */,
 				E11AA4CF1A2C8D0C008C162F /* educal.xcdatamodeld */,
@@ -221,6 +224,7 @@
 				E11AA4D31A2C8D0C008C162F /* ViewController.swift in Sources */,
 				E11AA4CE1A2C8D0C008C162F /* AppDelegate.swift in Sources */,
 				284AA4881A2C9AEA00B76945 /* NewFile.swift in Sources */,
+				E15C109C1A2C9DCC00731772 /* LoginViewController.swift in Sources */,
 				E11AA4D11A2C8D0C008C162F /* educal.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
