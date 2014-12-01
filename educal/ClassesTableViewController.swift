@@ -29,7 +29,7 @@ class ClassesTableViewController: UITableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
+        // Return the number of sections. 
         return 0
     }
 
