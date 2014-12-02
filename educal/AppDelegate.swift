@@ -13,10 +13,38 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
+    func UIColorFromRGB(rgbValue: UInt) -> UIColor {
+        return UIColor(
+            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+            alpha: CGFloat(1.0)
+        )
+    }
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+       
+        // Show launchscreen for 2 seconds
+        sleep(2);
+        
+        // Set Shadow
+        var barShadow: NSShadow = NSShadow()
+        barShadow.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
+        barShadow.shadowOffset = CGSize(width: 0, height: 1)
+        
+        var navigationBarAppearace = UINavigationBar.appearance()
+        
+        navigationBarAppearace.tintColor = UIColor.whiteColor()
+        navigationBarAppearace.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        //navigationBarAppearace.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor(),  NSShadowAttributeName: barShadow]
+        navigationBarAppearace.barTintColor = UIColorFromRGB(0xd1190d)
+        
+        // Set status bar to white
+        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
+        
+
+        
         return true
     }
 
