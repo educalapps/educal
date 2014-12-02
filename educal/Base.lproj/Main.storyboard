@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="92v-xo-hhM">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -24,7 +25,6 @@
         <!--Login View Controller-->
         <scene sceneID="N1c-Bv-5e0">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="n0z-h0-ikH" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="DB5-9T-dvb" customClass="LoginViewController" customModule="educal" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lBn-lb-NJx"/>
@@ -46,7 +46,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="eeS-Ea-839" kind="show" id="Qlx-0q-FxI"/>
+                                    <action selector="loginBtnPressed:" destination="DB5-9T-dvb" eventType="touchUpInside" id="oYM-Md-aRd"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CKB-AK-SxI">
@@ -104,19 +104,19 @@
                             <mask key="constraints">
                                 <exclude reference="Wnu-y6-G9v"/>
                                 <exclude reference="erq-UH-0Ly"/>
-                                <exclude reference="OPr-MS-oGb"/>
                                 <exclude reference="4VC-zG-XP8"/>
                                 <exclude reference="6xu-df-ova"/>
                                 <exclude reference="AcB-Oy-c6Z"/>
                                 <exclude reference="YP4-ef-Fkv"/>
                                 <exclude reference="ikx-1t-2lh"/>
+                                <exclude reference="u1U-hN-wlJ"/>
                                 <exclude reference="2iL-Tz-ecQ"/>
                                 <exclude reference="5NN-cj-0Iz"/>
                                 <exclude reference="NiY-d9-tqg"/>
                                 <exclude reference="UOV-4h-L2E"/>
                                 <exclude reference="WBI-ZX-R35"/>
+                                <exclude reference="OPr-MS-oGb"/>
                                 <exclude reference="HtA-bo-eT9"/>
-                                <exclude reference="u1U-hN-wlJ"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -131,31 +131,36 @@
                             <mask key="constraints">
                                 <include reference="Wnu-y6-G9v"/>
                                 <include reference="erq-UH-0Ly"/>
-                                <include reference="OPr-MS-oGb"/>
                                 <include reference="4VC-zG-XP8"/>
                                 <include reference="6xu-df-ova"/>
                                 <include reference="AcB-Oy-c6Z"/>
                                 <include reference="YP4-ef-Fkv"/>
                                 <include reference="ikx-1t-2lh"/>
+                                <include reference="u1U-hN-wlJ"/>
                                 <include reference="2iL-Tz-ecQ"/>
                                 <include reference="5NN-cj-0Iz"/>
                                 <include reference="NiY-d9-tqg"/>
                                 <include reference="UOV-4h-L2E"/>
                                 <include reference="WBI-ZX-R35"/>
+                                <include reference="OPr-MS-oGb"/>
                                 <include reference="HtA-bo-eT9"/>
-                                <include reference="u1U-hN-wlJ"/>
                             </mask>
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="Tl0-Sm-t43"/>
+                    <connections>
+                        <outlet property="passwordTextfield" destination="q0O-F8-Pen" id="tQy-5y-5HB"/>
+                        <outlet property="usernameTextfield" destination="CKB-AK-SxI" id="VLk-IK-UER"/>
+                    </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n0z-h0-ikH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="717" y="-412"/>
+            <point key="canvasLocation" x="717" y="1012"/>
         </scene>
         <!--Classes-->
         <scene sceneID="CXF-Ps-d38">
             <objects>
-                <tableViewController id="eeS-Ea-839" sceneMemberID="viewController">
+                <tableViewController id="eeS-Ea-839" customClass="ClassesTableViewController" customModule="educal" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="vgF-qP-Wes">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -180,6 +185,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="DB5-9T-dvb" kind="presentation" identifier="loginSegue" modalTransitionStyle="partialCurl" id="ZfY-ng-s1c"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KZf-jE-aIA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -252,19 +260,19 @@
                                 <exclude reference="6lh-pW-rVS"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="1cM-wG-HCO"/>
-                                <exclude reference="cqb-1B-oML"/>
-                                <exclude reference="fdG-qg-rD4"/>
-                                <exclude reference="kGE-mR-yD6"/>
-                                <exclude reference="mN9-kZ-ILP"/>
+                                <exclude reference="T4T-qF-iIU"/>
+                                <exclude reference="moz-Yf-bZe"/>
                                 <exclude reference="p8C-tI-Trh"/>
                                 <exclude reference="6RU-VL-P24"/>
                                 <exclude reference="I5p-x1-vhh"/>
                                 <exclude reference="M3n-sF-mYg"/>
                                 <exclude reference="SFH-o9-0Uu"/>
                                 <exclude reference="iw3-Om-rhS"/>
-                                <exclude reference="T4T-qF-iIU"/>
-                                <exclude reference="moz-Yf-bZe"/>
+                                <exclude reference="1cM-wG-HCO"/>
+                                <exclude reference="cqb-1B-oML"/>
+                                <exclude reference="fdG-qg-rD4"/>
+                                <exclude reference="kGE-mR-yD6"/>
+                                <exclude reference="mN9-kZ-ILP"/>
                                 <exclude reference="kte-fb-FIj"/>
                             </mask>
                         </variation>
@@ -277,19 +285,19 @@
                                 <include reference="6lh-pW-rVS"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="1cM-wG-HCO"/>
-                                <include reference="cqb-1B-oML"/>
-                                <include reference="fdG-qg-rD4"/>
-                                <include reference="kGE-mR-yD6"/>
-                                <include reference="mN9-kZ-ILP"/>
+                                <include reference="T4T-qF-iIU"/>
+                                <include reference="moz-Yf-bZe"/>
                                 <include reference="p8C-tI-Trh"/>
                                 <include reference="6RU-VL-P24"/>
                                 <include reference="I5p-x1-vhh"/>
                                 <include reference="M3n-sF-mYg"/>
                                 <include reference="SFH-o9-0Uu"/>
                                 <include reference="iw3-Om-rhS"/>
-                                <include reference="T4T-qF-iIU"/>
-                                <include reference="moz-Yf-bZe"/>
+                                <include reference="1cM-wG-HCO"/>
+                                <include reference="cqb-1B-oML"/>
+                                <include reference="fdG-qg-rD4"/>
+                                <include reference="kGE-mR-yD6"/>
+                                <include reference="mN9-kZ-ILP"/>
                                 <include reference="kte-fb-FIj"/>
                             </mask>
                         </variation>
