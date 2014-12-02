@@ -21,7 +21,7 @@ class ClassesTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        if true {
+        if false {
             performSegueWithIdentifier("loginSegue", sender: self)
         }
     }
