@@ -45,7 +45,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="K7A-ZF-ikE" kind="show" id="y3e-Di-Uzh"/>
+                                    <segue destination="eeS-Ea-839" kind="show" id="Qlx-0q-FxI"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CKB-AK-SxI">
@@ -152,31 +152,57 @@
             </objects>
             <point key="canvasLocation" x="741" y="300"/>
         </scene>
-        <!--Classes Table View Controller-->
-        <scene sceneID="EJU-AB-941">
+        <!--Classes-->
+        <scene sceneID="CXF-Ps-d38">
             <objects>
-                <tableViewController id="K7A-ZF-ikE" customClass="ClassesTableViewController" customModule="educal" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="4b8-zu-dfV">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                <tableViewController id="eeS-Ea-839" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="vgF-qP-Wes">
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="5lb-lH-9wZ">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="zFP-u9-3a0">
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5lb-lH-9wZ" id="WH4-eM-TDB">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zFP-u9-3a0" id="0QA-pc-Xdh">
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="K7A-ZF-ikE" id="0rd-1H-mZT"/>
-                            <outlet property="delegate" destination="K7A-ZF-ikE" id="dCS-La-5hs"/>
+                            <outlet property="dataSource" destination="eeS-Ea-839" id="pUQ-EY-BV0"/>
+                            <outlet property="delegate" destination="eeS-Ea-839" id="9dl-Wc-VEH"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Classes" id="f5w-gD-ROI">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="gCt-6p-1fN">
+                            <connections>
+                                <segue destination="DKe-7H-mKB" kind="push" id="qHE-Lf-TPA"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="120-1E-He9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KZf-jE-aIA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1515" y="300"/>
+            <point key="canvasLocation" x="1644" y="304"/>
+        </scene>
+        <!--Add class-->
+        <scene sceneID="jvl-L3-5dA">
+            <objects>
+                <viewController id="DKe-7H-mKB" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pQU-Ee-OKB"/>
+                        <viewControllerLayoutGuide type="bottom" id="f1P-hf-4UF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="O4S-bZ-q0N">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Add class" id="bcE-go-rCg">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="jEd-KB-en6"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nJE-3p-wGg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2457" y="300"/>
         </scene>
     </scenes>
 </document>
