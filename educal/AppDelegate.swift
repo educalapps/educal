@@ -24,8 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
-        
+       
+        // Show launchscreen for 2 seconds
+        sleep(2);
         // Set Shadow
         var barShadow: NSShadow = NSShadow()
         barShadow.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
