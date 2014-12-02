@@ -10,6 +10,8 @@ import UIKit
 
 class ClassesTableViewController: UITableViewController {
 
+    var loggedIn = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,12 +23,14 @@ class ClassesTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        if true {
+        if !loggedIn {
             performSegueWithIdentifier("loginSegue", sender: self)
         }
     }
     
-    
+    @IBAction func unwindToClassesList(segue:UIStoryboardSegue) {
+        loggedIn = true
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

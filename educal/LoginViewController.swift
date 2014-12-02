@@ -17,7 +17,14 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.title = "log in"
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        var barbutton = UIBarButtonItem()
+        barbutton.title = ""
+        navigationItem.setLeftBarButtonItem(barbutton, animated: false)
+        navigationItem.hidesBackButton = true
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -26,6 +33,6 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func loginBtnPressed(sender: UIButton) {
-        dismissViewControllerAnimated(true, completion: nil)
+        println("logged in succesfully")
     }
 }
