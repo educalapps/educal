@@ -27,18 +27,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        
         // Show launchscreen for 2 seconds
         sleep(2);
+        
         // Set Shadow
         var barShadow: NSShadow = NSShadow()
         barShadow.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
         barShadow.shadowOffset = CGSize(width: 0, height: 1)
         
         var navigationBarAppearace = UINavigationBar.appearance()
-        var barButtons = UIBarButtonItem.appearance()
         
         navigationBarAppearace.tintColor = UIColor.whiteColor()
         navigationBarAppearace.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         //navigationBarAppearace.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor(),  NSShadowAttributeName: barShadow]
         navigationBarAppearace.barTintColor = UIColorFromRGB(0xd1190d)
+        
+        // Set status bar to white
+        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
+        
+
         
         return true
     }

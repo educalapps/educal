@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="92v-xo-hhM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="92v-xo-hhM">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -227,39 +227,53 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6lh-pW-rVS">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="92" id="gk6-KD-rWc"/>
+                                    <constraint firstAttribute="width" constant="92" id="eLw-nc-WHi"/>
                                 </constraints>
                                 <state key="normal" title="Add class">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="gk6-KD-rWc"/>
+                                        <exclude reference="eLw-nc-WHi"/>
                                     </mask>
                                 </variation>
                                 <variation key="widthClass=compact">
                                     <mask key="constraints">
-                                        <include reference="gk6-KD-rWc"/>
+                                        <include reference="eLw-nc-WHi"/>
                                     </mask>
                                 </variation>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="SjC-eW-o19" firstAttribute="trailing" secondItem="mt2-fs-L03" secondAttribute="trailing" id="1cg-HA-bOz"/>
+                            <constraint firstItem="K7R-C8-t4A" firstAttribute="leading" secondItem="gnZ-1B-GXy" secondAttribute="leading" id="1vf-Ao-8Li"/>
                             <constraint firstItem="SjC-eW-o19" firstAttribute="top" secondItem="mt2-fs-L03" secondAttribute="bottom" constant="14" id="2Bj-af-wsw"/>
                             <constraint firstItem="mt2-fs-L03" firstAttribute="leading" secondItem="SjC-eW-o19" secondAttribute="leading" id="7N7-Dc-PWH"/>
+                            <constraint firstItem="SjC-eW-o19" firstAttribute="leading" secondItem="mt2-fs-L03" secondAttribute="leading" id="8dC-Qf-VXa"/>
                             <constraint firstItem="SjC-eW-o19" firstAttribute="centerX" secondItem="O4S-bZ-q0N" secondAttribute="centerX" id="9xM-o4-lEZ"/>
+                            <constraint firstItem="mt2-fs-L03" firstAttribute="top" secondItem="pQU-Ee-OKB" secondAttribute="bottom" constant="38" id="F5J-5p-C0C"/>
                             <constraint firstItem="gnZ-1B-GXy" firstAttribute="top" secondItem="SjC-eW-o19" secondAttribute="bottom" constant="22" id="G02-Vr-Gsv"/>
                             <constraint firstItem="mt2-fs-L03" firstAttribute="trailing" secondItem="SjC-eW-o19" secondAttribute="trailing" id="H6A-XJ-OvY"/>
+                            <constraint firstItem="6lh-pW-rVS" firstAttribute="top" secondItem="K7R-C8-t4A" secondAttribute="bottom" constant="37" id="Iu1-5H-feO"/>
+                            <constraint firstItem="6lh-pW-rVS" firstAttribute="trailing" secondItem="K7R-C8-t4A" secondAttribute="trailing" id="J2j-uD-Mvt"/>
                             <constraint firstItem="K7R-C8-t4A" firstAttribute="top" secondItem="gnZ-1B-GXy" secondAttribute="bottom" constant="14" id="JnD-yw-3zV"/>
                             <constraint firstItem="6lh-pW-rVS" firstAttribute="top" secondItem="K7R-C8-t4A" secondAttribute="bottom" constant="37" id="OIr-bu-Yz4"/>
                             <constraint firstItem="mt2-fs-L03" firstAttribute="leading" secondItem="O4S-bZ-q0N" secondAttribute="leadingMargin" constant="11" id="QnV-EF-V1q"/>
                             <constraint firstItem="gnZ-1B-GXy" firstAttribute="trailing" secondItem="K7R-C8-t4A" secondAttribute="trailing" id="TTn-eA-euG"/>
+                            <constraint firstItem="K7R-C8-t4A" firstAttribute="trailing" secondItem="gnZ-1B-GXy" secondAttribute="trailing" id="U7u-aT-NM2"/>
                             <constraint firstItem="K7R-C8-t4A" firstAttribute="leading" secondItem="gnZ-1B-GXy" secondAttribute="leading" id="W20-1m-EwY"/>
+                            <constraint firstItem="gnZ-1B-GXy" firstAttribute="top" secondItem="SjC-eW-o19" secondAttribute="bottom" constant="22" id="WII-Em-YFd"/>
+                            <constraint firstItem="SjC-eW-o19" firstAttribute="leading" secondItem="gnZ-1B-GXy" secondAttribute="leading" id="XOb-UZ-vrM"/>
+                            <constraint firstItem="mt2-fs-L03" firstAttribute="leading" secondItem="O4S-bZ-q0N" secondAttribute="leadingMargin" constant="11" id="adI-ae-MVx"/>
+                            <constraint firstItem="SjC-eW-o19" firstAttribute="top" secondItem="mt2-fs-L03" secondAttribute="bottom" constant="14" id="dU7-gW-obv"/>
                             <constraint firstItem="mt2-fs-L03" firstAttribute="top" secondItem="pQU-Ee-OKB" secondAttribute="bottom" constant="38" id="h7x-Z8-fi7"/>
                             <constraint firstItem="gnZ-1B-GXy" firstAttribute="trailing" secondItem="SjC-eW-o19" secondAttribute="trailing" id="hDu-Bw-yXv"/>
                             <constraint firstItem="SjC-eW-o19" firstAttribute="leading" secondItem="gnZ-1B-GXy" secondAttribute="leading" id="i5N-Sk-frX"/>
                             <constraint firstItem="K7R-C8-t4A" firstAttribute="trailing" secondItem="6lh-pW-rVS" secondAttribute="trailing" id="kcL-mP-epS"/>
+                            <constraint firstItem="gnZ-1B-GXy" firstAttribute="trailing" secondItem="SjC-eW-o19" secondAttribute="trailing" id="ozR-wm-OVS"/>
+                            <constraint firstItem="mt2-fs-L03" firstAttribute="centerX" secondItem="O4S-bZ-q0N" secondAttribute="centerX" id="qRR-O3-B7z"/>
+                            <constraint firstItem="K7R-C8-t4A" firstAttribute="top" secondItem="gnZ-1B-GXy" secondAttribute="bottom" constant="14" id="xto-BF-oEe"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
