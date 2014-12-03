@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="92v-xo-hhM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="92v-xo-hhM">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -98,6 +98,11 @@
                                 <exclude reference="zrf-5O-Eft"/>
                                 <exclude reference="Zsi-el-zfT"/>
                                 <exclude reference="5TD-D8-vCe"/>
+                                <exclude reference="vvH-Q6-mp8"/>
+                                <exclude reference="CKB-AK-SxI"/>
+                                <exclude reference="q0O-F8-Pen"/>
+                                <exclude reference="zrf-5O-Eft"/>
+                                <exclude reference="Zsi-el-zfT"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="eaP-Ex-vz9"/>
@@ -124,6 +129,11 @@
                                 <include reference="zrf-5O-Eft"/>
                                 <include reference="Zsi-el-zfT"/>
                                 <include reference="5TD-D8-vCe"/>
+                                <include reference="vvH-Q6-mp8"/>
+                                <include reference="CKB-AK-SxI"/>
+                                <include reference="q0O-F8-Pen"/>
+                                <include reference="zrf-5O-Eft"/>
+                                <include reference="Zsi-el-zfT"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="eaP-Ex-vz9"/>
