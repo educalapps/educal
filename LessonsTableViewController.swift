@@ -1,31 +1,32 @@
 //
-//  ClassesTableViewController.swift
+//  LessonsTableViewController.swift
 //  educal
 //
-//  Created by Bastiaan van Weijen on 01-12-14.
+//  Created by Bastiaan van Weijen on 08-12-14.
 //  Copyright (c) 2014 Jurriaan Lindhout. All rights reserved.
 //
 
 import UIKit
 
-class ClassesTableViewController: UITableViewController {
+// Global variables
+var classId:String?
 
-    var loggedIn = false
+class LessonsTableViewController: UITableViewController {
+
     var timelineData:NSMutableArray! = NSMutableArray()
-    var selectedLessonId:String?
     
-    @IBAction func loadData(){
-        timelineData.removeAllObjects()
-        
-        var findTimelineData:PFQuery = PFQuery(className: "Class")
-        
-        findTimelineData.findObjectsInBackgroundWithBlock{
-            (objects:[AnyObject]!, error:NSError!)->Void in
-            
-            if error == nil{
-                for object in objects{
-                    let classe:PFObject = object as PFObject
-                    self.timelineData.addObject(classe)
+    func getLessonsForClass(){
+        var query = PFQuery(className:"Lesson")
+        query.whereKey("classId", equalTo:classId)
+        query.findObjectsInBackgroundWithBlock {
+            (objects: [AnyObject]!, error: NSError!) -> Void in
+            if error == nil {
+                // The find succeeded.
+                NSLog("Successfully retrieved \(objects.count) scores.")
+                // Do something with the found objects
+                for object in objects {
+                    let lesson:PFObject = object as PFObject
+                    self.timelineData.addObject(lesson)
                 }
                 
                 let array:NSArray = self.timelineData.reverseObjectEnumerator().allObjects
@@ -33,33 +34,23 @@ class ClassesTableViewController: UITableViewController {
                 
                 self.tableView.reloadData()
                 
+                
+            } else {
+                // Log details of the failure
+                NSLog("Error: %@ %@", error, error.userInfo!)
             }
-            
         }
     }
-    
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.getLessonsForClass()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        if !loggedIn {
-            performSegueWithIdentifier("loginSegue", sender: self)
-        }
-        
-        self.loadData()
-    }
-    
-    @IBAction func unwindToClassesList(segue:UIStoryboardSegue) {
-        loggedIn = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -71,7 +62,7 @@ class ClassesTableViewController: UITableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
-        // Return the number of sections. 
+        // Return the number of sections.
         return 1
     }
 
@@ -82,24 +73,17 @@ class ClassesTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ClassCell", forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("lessonCell", forIndexPath: indexPath) as UITableViewCell
 
         let item:PFObject = self.timelineData.objectAtIndex(indexPath.row) as PFObject
+        var curLessonId = item.objectId
         
         cell.textLabel?.text = (item.objectForKey("title") as String)
-
+        cell.detailTextLabel?.text = (item.objectForKey("code") as String)
+        
         return cell
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
-        
-        let item:PFObject = self.timelineData.objectAtIndex(indexPath.row) as PFObject
-        
-        var curClassId = item.objectId
-        println(curClassId)
-        classId = curClassId
-    }
-    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

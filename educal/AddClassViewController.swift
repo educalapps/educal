@@ -39,13 +39,13 @@ class AddClassViewController: UIViewController {
                 NSLog("Successfully retrieved \(objects.count) scores.")
                 // Do something with the found objects
                 for object in objects {
-                    NSLog("%@", object.objectId)
+                    var curSchoolId = object.objectId
+                    var gameScore = PFObject(className:"Class")
                     
-//                    var gameScore = PFObject(className:"Class")
-//                    gameScore["title"] = self.nameTextfield.text
-//                    gameScore["code"] = self.codeTextfield.text
-//                    gameScore["schoolId"] = object.objectID
-//                    gameScore.saveInBackgroundWithTarget(nil, selector: nil)
+                    gameScore["title"] = self.nameTextfield.text
+                    gameScore["code"] = self.codeTextfield.text
+                    gameScore["schoolId"] = curSchoolId
+                    gameScore.saveInBackgroundWithTarget(nil, selector: nil)
                     
                 }
             } else {
