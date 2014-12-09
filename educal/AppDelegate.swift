@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
        
-        // Show launchscreen for 1 seconds
+        // Show launchscreen for 1 seconds 
         sleep(1);
         
         // Set Shadow
