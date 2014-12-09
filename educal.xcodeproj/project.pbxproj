@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		284AA48A1A2C9DCF00B76945 /* ClassesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284AA4891A2C9DCF00B76945 /* ClassesTableViewController.swift */; };
-		287F50191A362AC30088C256 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 287F50181A362AC30088C256 /* logo.png */; };
 		289480911A35C94A008507BF /* AddClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289480901A35C94A008507BF /* AddClassViewController.swift */; };
 		289480961A35CA61008507BF /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 289480921A35CA61008507BF /* Bolts.framework */; };
 		289480971A35CA61008507BF /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 289480931A35CA61008507BF /* Parse.framework */; };
@@ -46,7 +45,6 @@
 
 /* Begin PBXFileReference section */
 		284AA4891A2C9DCF00B76945 /* ClassesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassesTableViewController.swift; sourceTree = "<group>"; };
-		287F50181A362AC30088C256 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		289480901A35C94A008507BF /* AddClassViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddClassViewController.swift; sourceTree = "<group>"; };
 		289480921A35CA61008507BF /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		289480931A35CA61008507BF /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -109,14 +107,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		287F501A1A362AC70088C256 /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				287F50181A362AC30088C256 /* logo.png */,
-			);
-			name = Images;
-			sourceTree = "<group>";
-		};
 		2894809A1A35CA68008507BF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -171,7 +161,6 @@
 		E11AA4CA1A2C8D0C008C162F /* educal */ = {
 			isa = PBXGroup;
 			children = (
-				287F501A1A362AC70088C256 /* Images */,
 				2894809A1A35CA68008507BF /* Frameworks */,
 				28AE49811A2DFC9400C9A67D /* Controllers */,
 				E11AA4CD1A2C8D0C008C162F /* AppDelegate.swift */,
@@ -292,7 +281,6 @@
 			files = (
 				E11AA4D61A2C8D0C008C162F /* Main.storyboard in Resources */,
 				E11AA4D81A2C8D0C008C162F /* Images.xcassets in Resources */,
-				287F50191A362AC30088C256 /* logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

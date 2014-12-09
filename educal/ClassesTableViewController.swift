@@ -14,7 +14,7 @@ class ClassesTableViewController: UITableViewController {
     var timelineData:NSMutableArray! = NSMutableArray()
     var selectedLessonId:String?
     
-    @IBAction func loadData(){
+    func loadData(){
         timelineData.removeAllObjects()
         
         var findTimelineData:PFQuery = PFQuery(className: "Class")
