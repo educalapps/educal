@@ -96,7 +96,6 @@ class ClassesTableViewController: UITableViewController {
         let item:PFObject = self.timelineData.objectAtIndex(indexPath.row) as PFObject
         
         var curClassId = item.objectId
-        println(curClassId)
         classId = curClassId
     }
     
