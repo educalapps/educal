@@ -9,9 +9,6 @@
 import UIKit
 
 class LoginTableViewController: UITableViewController, UITextFieldDelegate {
-
-    // Variables
-    var userDefaults = NSUserDefaults.standardUserDefaults()
     
     @IBOutlet weak var emailTextfield: UITextField!
     @IBOutlet weak var passwordTextfield: UITextField!
@@ -21,12 +18,6 @@ class LoginTableViewController: UITableViewController, UITextFieldDelegate {
             (user: PFUser!, error: NSError!) -> Void in
             if user != nil {
                 // Do stuff after successful login.
-                self.userDefaults.setValue(user.objectId, forKey: "userId")
-                self.userDefaults.setValue(user.username, forKey: "username")
-                self.userDefaults.setValue(user["name"], forKey: "userNickname")
-                self.userDefaults.setValue(user.email, forKey: "userEmail")
-                self.userDefaults.synchronize()
-                
                 self.performSegueWithIdentifier("signInSegue", sender: self)
             } else {
                 // The login failed. Check error to see why.
@@ -41,10 +32,10 @@ class LoginTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     override func viewWillAppear(animated: Bool) {
-        if userDefaults.objectForKey("userId") != nil {
+        var currentUser = PFUser.currentUser()
+        
+        if currentUser != nil {
             self.performSegueWithIdentifier("signInSegue", sender: self)
-        } else{
-            println("Niet ingelogd")
         }
     }
     
@@ -60,7 +51,10 @@ class LoginTableViewController: UITableViewController, UITextFieldDelegate {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "signInSegue") {
-            var username:String = userDefaults.objectForKey("userNickname") as String
+            var curUser = PFUser.currentUser()
+            
+            
+            var username:String = curUser["name"] as String
             Functions.Instance().showAlert("Congratulations \(username)!", description: "From now your life will be organized as fuck!")
         }
     }
