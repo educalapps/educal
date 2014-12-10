@@ -42,7 +42,7 @@ class LoginTableViewController: UITableViewController, UITextFieldDelegate {
     
     override func viewWillAppear(animated: Bool) {
         if userDefaults.objectForKey("userId") != nil {
-            println("Ingelogd!")
+            self.performSegueWithIdentifier("signInSegue", sender: self)
         } else{
             println("Niet ingelogd")
         }
@@ -50,8 +50,6 @@ class LoginTableViewController: UITableViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -62,18 +60,9 @@ class LoginTableViewController: UITableViewController, UITextFieldDelegate {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "signInSegue") {
-            println(userDefaults.objectForKey("userId"))
-            println(userDefaults.objectForKey("username"))
-            println(userDefaults.objectForKey("userEmail"))
-            println(userDefaults.objectForKey("userNickname"))
-            
-            var username:String = userDefaults.objectForKey("name") as String
+            var username:String = userDefaults.objectForKey("userNickname") as String
             Functions.Instance().showAlert("Congratulations \(username)!", description: "From now your life will be organized as fuck!")
         }
-    }
-    
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-        self.view.endEditing(true)
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
