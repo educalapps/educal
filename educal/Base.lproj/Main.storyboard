@@ -682,7 +682,7 @@
         <!--Sign up-->
         <scene sceneID="ofD-TX-ryR">
             <objects>
-                <tableViewController id="AyD-5b-6Cd" sceneMemberID="viewController">
+                <tableViewController id="AyD-5b-6Cd" customClass="RegistrationTableViewController" customModule="educal" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="OVN-Ri-MLc">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -720,7 +720,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type your name here" minimumFontSize="17" clearButtonMode="unlessEditing" translatesAutoresizingMaskIntoConstraints="NO" id="SKK-qL-blI">
                                                     <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -770,7 +770,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type your e-mail here" minimumFontSize="17" clearButtonMode="unlessEditing" translatesAutoresizingMaskIntoConstraints="NO" id="8Bd-uS-ymR">
                                                     <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="E-mail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VhJ-m2-LxN">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
@@ -790,10 +790,19 @@
                                                         </mask>
                                                     </variation>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(username)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ay0-mK-eW4">
+                                                    <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="ay0-mK-eW4" firstAttribute="leading" secondItem="JR0-9M-hYK" secondAttribute="leadingMargin" constant="63" id="CiZ-dQ-uK1"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="8Bd-uS-ymR" secondAttribute="bottom" constant="-2" id="HFd-CI-qke"/>
                                                 <constraint firstItem="VhJ-m2-LxN" firstAttribute="leading" secondItem="JR0-9M-hYK" secondAttribute="leadingMargin" constant="11" id="Jge-uZ-Nep"/>
+                                                <constraint firstItem="ay0-mK-eW4" firstAttribute="top" secondItem="JR0-9M-hYK" secondAttribute="topMargin" constant="5" id="MBi-3L-ctq"/>
+                                                <constraint firstItem="8Bd-uS-ymR" firstAttribute="top" secondItem="ay0-mK-eW4" secondAttribute="bottom" constant="10" id="Vi1-MK-b97"/>
                                                 <constraint firstItem="VhJ-m2-LxN" firstAttribute="top" secondItem="JR0-9M-hYK" secondAttribute="topMargin" constant="7" id="aMH-46-9i0"/>
                                                 <constraint firstItem="VhJ-m2-LxN" firstAttribute="leading" secondItem="8Bd-uS-ymR" secondAttribute="leading" id="bCi-wa-N33"/>
                                                 <constraint firstItem="8Bd-uS-ymR" firstAttribute="centerX" secondItem="JR0-9M-hYK" secondAttribute="centerX" id="iki-2o-BwD"/>
@@ -803,28 +812,36 @@
                                                 <mask key="subviews">
                                                     <exclude reference="8Bd-uS-ymR"/>
                                                     <exclude reference="VhJ-m2-LxN"/>
+                                                    <exclude reference="ay0-mK-eW4"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <exclude reference="HFd-CI-qke"/>
-                                                    <exclude reference="iki-2o-BwD"/>
-                                                    <exclude reference="m49-Og-kUy"/>
                                                     <exclude reference="Jge-uZ-Nep"/>
                                                     <exclude reference="aMH-46-9i0"/>
                                                     <exclude reference="bCi-wa-N33"/>
+                                                    <exclude reference="HFd-CI-qke"/>
+                                                    <exclude reference="Vi1-MK-b97"/>
+                                                    <exclude reference="iki-2o-BwD"/>
+                                                    <exclude reference="m49-Og-kUy"/>
+                                                    <exclude reference="CiZ-dQ-uK1"/>
+                                                    <exclude reference="MBi-3L-ctq"/>
                                                 </mask>
                                             </variation>
                                             <variation key="widthClass=compact">
                                                 <mask key="subviews">
                                                     <include reference="8Bd-uS-ymR"/>
                                                     <include reference="VhJ-m2-LxN"/>
+                                                    <include reference="ay0-mK-eW4"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="HFd-CI-qke"/>
-                                                    <include reference="iki-2o-BwD"/>
-                                                    <include reference="m49-Og-kUy"/>
                                                     <include reference="Jge-uZ-Nep"/>
                                                     <include reference="aMH-46-9i0"/>
                                                     <include reference="bCi-wa-N33"/>
+                                                    <include reference="HFd-CI-qke"/>
+                                                    <include reference="Vi1-MK-b97"/>
+                                                    <include reference="iki-2o-BwD"/>
+                                                    <include reference="m49-Og-kUy"/>
+                                                    <include reference="CiZ-dQ-uK1"/>
+                                                    <include reference="MBi-3L-ctq"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -835,11 +852,6 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6bz-uX-b4Z" id="ycq-CW-Zbw">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type your password here" minimumFontSize="17" clearButtonMode="unlessEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ljj-wJ-Ojy">
-                                                    <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
-                                                </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TG2-2V-iMp">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <constraints>
@@ -861,6 +873,11 @@
                                                         </mask>
                                                     </variation>
                                                 </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type your password here" minimumFontSize="17" clearButtonMode="unlessEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ljj-wJ-Ojy">
+                                                    <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
+                                                </textField>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottomMargin" secondItem="ljj-wJ-Ojy" secondAttribute="bottom" constant="-2" id="Q8J-ir-iId"/>
@@ -872,8 +889,8 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="subviews">
-                                                    <exclude reference="ljj-wJ-Ojy"/>
                                                     <exclude reference="TG2-2V-iMp"/>
+                                                    <exclude reference="ljj-wJ-Ojy"/>
                                                 </mask>
                                                 <mask key="constraints">
                                                     <exclude reference="axv-qQ-M2s"/>
@@ -886,8 +903,8 @@
                                             </variation>
                                             <variation key="widthClass=compact">
                                                 <mask key="subviews">
-                                                    <include reference="ljj-wJ-Ojy"/>
                                                     <include reference="TG2-2V-iMp"/>
+                                                    <include reference="ljj-wJ-Ojy"/>
                                                 </mask>
                                                 <mask key="constraints">
                                                     <include reference="axv-qQ-M2s"/>
@@ -912,6 +929,9 @@
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" title="Sign up now!"/>
+                                                    <connections>
+                                                        <action selector="signUpPressed:" destination="AyD-5b-6Cd" eventType="touchUpInside" id="7N2-zJ-SL9"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -953,6 +973,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Sign up" id="vJO-HA-kKj"/>
+                    <connections>
+                        <outlet property="emailTextfield" destination="8Bd-uS-ymR" id="7lP-sM-k3E"/>
+                        <outlet property="nameTextfield" destination="SKK-qL-blI" id="G4t-Zh-1hH"/>
+                        <outlet property="passwordTextfield" destination="ljj-wJ-Ojy" id="V0m-uG-qJK"/>
+                        <segue destination="8dA-as-p1s" kind="presentation" identifier="signInAfterSignUp" modalTransitionStyle="flipHorizontal" id="Hj2-wo-gg4"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L8i-nf-qeq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -983,4 +1009,7 @@
         <image name="courses-icon" width="48" height="48"/>
         <image name="homework-icon" width="32" height="32"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Hj2-wo-gg4"/>
+    </inferredMetricsTieBreakers>
 </document>
