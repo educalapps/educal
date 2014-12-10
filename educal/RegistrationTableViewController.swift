@@ -14,7 +14,7 @@ class RegistrationTableViewController: UITableViewController {
     @IBOutlet weak var emailTextfield: UITextField!
     @IBOutlet weak var passwordTextfield: UITextField!
     
-    @IBAction func signUpPressed(sender: AnyObject) {
+    @IBAction func signUpPressed(sender: UIButton) {
         var user = PFUser()
         user.username = emailTextfield.text
         user.password = passwordTextfield.text
