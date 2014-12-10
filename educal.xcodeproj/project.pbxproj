@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		284AA48A1A2C9DCF00B76945 /* _ClassesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284AA4891A2C9DCF00B76945 /* _ClassesTableViewController.swift */; };
-		289480911A35C94A008507BF /* _AddClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289480901A35C94A008507BF /* _AddClassViewController.swift */; };
 		289480961A35CA61008507BF /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 289480921A35CA61008507BF /* Bolts.framework */; };
 		289480971A35CA61008507BF /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 289480931A35CA61008507BF /* Parse.framework */; };
 		289480981A35CA61008507BF /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 289480941A35CA61008507BF /* ParseFacebookUtils.framework */; };
@@ -25,14 +23,12 @@
 		289480AE1A35CB45008507BF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 289480A51A35CB45008507BF /* SystemConfiguration.framework */; };
 		28C61A191A38689C00D396E8 /* RegistrationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C61A181A38689C00D396E8 /* RegistrationTableViewController.swift */; };
 		28C61A1B1A3873E500D396E8 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C61A1A1A3873E500D396E8 /* Functions.swift */; };
-		28F79F9F1A3612E400C8297E /* _LessonsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F79F9E1A3612E400C8297E /* _LessonsTableViewController.swift */; };
+		28C61A1F1A387AE600D396E8 /* LoginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C61A1E1A387AE600D396E8 /* LoginTableViewController.swift */; };
 		E11AA4CE1A2C8D0C008C162F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11AA4CD1A2C8D0C008C162F /* AppDelegate.swift */; };
 		E11AA4D11A2C8D0C008C162F /* educal.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E11AA4CF1A2C8D0C008C162F /* educal.xcdatamodeld */; };
-		E11AA4D31A2C8D0C008C162F /* _ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11AA4D21A2C8D0C008C162F /* _ViewController.swift */; };
 		E11AA4D61A2C8D0C008C162F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E11AA4D41A2C8D0C008C162F /* Main.storyboard */; };
 		E11AA4D81A2C8D0C008C162F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E11AA4D71A2C8D0C008C162F /* Images.xcassets */; };
 		E11AA4E71A2C8D0C008C162F /* educalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11AA4E61A2C8D0C008C162F /* educalTests.swift */; };
-		E15C109C1A2C9DCC00731772 /* _LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15C109B1A2C9DCC00731772 /* _LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,8 +42,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		284AA4891A2C9DCF00B76945 /* _ClassesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = _ClassesTableViewController.swift; sourceTree = "<group>"; };
-		289480901A35C94A008507BF /* _AddClassViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = _AddClassViewController.swift; sourceTree = "<group>"; };
 		289480921A35CA61008507BF /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		289480931A35CA61008507BF /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		289480941A35CA61008507BF /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
@@ -65,18 +59,16 @@
 		289480AF1A35CC62008507BF /* educal-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "educal-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		28C61A181A38689C00D396E8 /* RegistrationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationTableViewController.swift; sourceTree = "<group>"; };
 		28C61A1A1A3873E500D396E8 /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
-		28F79F9E1A3612E400C8297E /* _LessonsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _LessonsTableViewController.swift; path = ../_LessonsTableViewController.swift; sourceTree = "<group>"; };
+		28C61A1E1A387AE600D396E8 /* LoginTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTableViewController.swift; sourceTree = "<group>"; };
 		E11AA4C81A2C8D0C008C162F /* educal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = educal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E11AA4CC1A2C8D0C008C162F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E11AA4CD1A2C8D0C008C162F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E11AA4D01A2C8D0C008C162F /* educal.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = educal.xcdatamodel; sourceTree = "<group>"; };
-		E11AA4D21A2C8D0C008C162F /* _ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _ViewController.swift; sourceTree = "<group>"; };
 		E11AA4D51A2C8D0C008C162F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E11AA4D71A2C8D0C008C162F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E11AA4E01A2C8D0C008C162F /* educalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = educalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E11AA4E51A2C8D0C008C162F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E11AA4E61A2C8D0C008C162F /* educalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = educalTests.swift; sourceTree = "<group>"; };
-		E15C109B1A2C9DCC00731772 /* _LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = _LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,13 +127,9 @@
 		28AE49811A2DFC9400C9A67D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				28C61A1E1A387AE600D396E8 /* LoginTableViewController.swift */,
 				28C61A181A38689C00D396E8 /* RegistrationTableViewController.swift */,
 				28C61A1A1A3873E500D396E8 /* Functions.swift */,
-				28F79F9E1A3612E400C8297E /* _LessonsTableViewController.swift */,
-				289480901A35C94A008507BF /* _AddClassViewController.swift */,
-				284AA4891A2C9DCF00B76945 /* _ClassesTableViewController.swift */,
-				E15C109B1A2C9DCC00731772 /* _LoginViewController.swift */,
-				E11AA4D21A2C8D0C008C162F /* _ViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -304,14 +292,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				284AA48A1A2C9DCF00B76945 /* _ClassesTableViewController.swift in Sources */,
-				289480911A35C94A008507BF /* _AddClassViewController.swift in Sources */,
 				28C61A1B1A3873E500D396E8 /* Functions.swift in Sources */,
 				28C61A191A38689C00D396E8 /* RegistrationTableViewController.swift in Sources */,
-				28F79F9F1A3612E400C8297E /* _LessonsTableViewController.swift in Sources */,
-				E11AA4D31A2C8D0C008C162F /* _ViewController.swift in Sources */,
+				28C61A1F1A387AE600D396E8 /* LoginTableViewController.swift in Sources */,
 				E11AA4CE1A2C8D0C008C162F /* AppDelegate.swift in Sources */,
-				E15C109C1A2C9DCC00731772 /* _LoginViewController.swift in Sources */,
 				E11AA4D11A2C8D0C008C162F /* educal.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

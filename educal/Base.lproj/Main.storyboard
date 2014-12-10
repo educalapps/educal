@@ -334,10 +334,10 @@
             </objects>
             <point key="canvasLocation" x="-192" y="298"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Login Table View Controller-->
         <scene sceneID="tP4-dL-Uep">
             <objects>
-                <tableViewController id="4qI-hE-ZQ8" sceneMemberID="viewController">
+                <tableViewController id="4qI-hE-ZQ8" customClass="LoginTableViewController" customModule="educal" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="eai-MD-HGj">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -392,7 +392,10 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type your name here" minimumFontSize="17" clearButtonMode="unlessEditing" translatesAutoresizingMaskIntoConstraints="NO" id="z76-wh-Z7e">
                                                     <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="4qI-hE-ZQ8" id="Zrt-EG-bQ7"/>
+                                                    </connections>
                                                 </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="E-mail:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mqU-cs-f3b">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
@@ -462,7 +465,10 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type your password here" minimumFontSize="17" clearButtonMode="unlessEditing" translatesAutoresizingMaskIntoConstraints="NO" id="0Oa-6P-aAX">
                                                     <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="go" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="4qI-hE-ZQ8" id="dmK-TP-yaQ"/>
+                                                    </connections>
                                                 </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jdP-pb-qOc">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
@@ -498,13 +504,13 @@
                                                     <exclude reference="jdP-pb-qOc"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <exclude reference="fDo-dC-OZ2"/>
                                                     <exclude reference="DpE-mm-mKa"/>
                                                     <exclude reference="K0s-Rp-1sL"/>
                                                     <exclude reference="PHb-hm-E5n"/>
                                                     <exclude reference="Wkt-5Y-g7u"/>
                                                     <exclude reference="Z6W-zQ-s4u"/>
                                                     <exclude reference="yns-gU-hqM"/>
+                                                    <exclude reference="fDo-dC-OZ2"/>
                                                 </mask>
                                             </variation>
                                             <variation key="widthClass=compact">
@@ -513,13 +519,13 @@
                                                     <include reference="jdP-pb-qOc"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="fDo-dC-OZ2"/>
                                                     <include reference="DpE-mm-mKa"/>
                                                     <include reference="K0s-Rp-1sL"/>
                                                     <include reference="PHb-hm-E5n"/>
                                                     <include reference="Wkt-5Y-g7u"/>
                                                     <include reference="Z6W-zQ-s4u"/>
                                                     <include reference="yns-gU-hqM"/>
+                                                    <include reference="fDo-dC-OZ2"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -529,29 +535,6 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mi0-B8-M8B" id="muZ-oL-tcC">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dmM-96-8AI">
-                                                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                                    <color key="backgroundColor" red="0.81960784310000001" green="0.098039215690000001" blue="0.050980392159999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="41" id="J0I-aK-X07"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <state key="normal" title="Sign in"/>
-                                                    <variation key="default">
-                                                        <mask key="constraints">
-                                                            <exclude reference="J0I-aK-X07"/>
-                                                        </mask>
-                                                    </variation>
-                                                    <variation key="widthClass=compact">
-                                                        <mask key="constraints">
-                                                            <include reference="J0I-aK-X07"/>
-                                                        </mask>
-                                                    </variation>
-                                                    <connections>
-                                                        <segue destination="8dA-as-p1s" kind="presentation" modalTransitionStyle="flipHorizontal" id="8G5-3k-TLx"/>
-                                                    </connections>
-                                                </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="REF-1y-yyP">
                                                     <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                                     <color key="backgroundColor" red="0.81960784310000001" green="0.098039215690000001" blue="0.050980392159999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -581,6 +564,9 @@
                                                             <include reference="wuX-0f-VXR"/>
                                                         </mask>
                                                     </variation>
+                                                    <connections>
+                                                        <action selector="facebookSignInPressed:" destination="4qI-hE-ZQ8" eventType="touchUpInside" id="eqS-g4-mM0"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New to Educal? Create an account first." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BMw-3b-Kdg">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
@@ -601,6 +587,29 @@
                                                         </mask>
                                                     </variation>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dmM-96-8AI">
+                                                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                                    <color key="backgroundColor" red="0.81960784310000001" green="0.098039215690000001" blue="0.050980392159999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="41" id="J0I-aK-X07"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <state key="normal" title="Sign in"/>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="J0I-aK-X07"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="widthClass=compact">
+                                                        <mask key="constraints">
+                                                            <include reference="J0I-aK-X07"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <connections>
+                                                        <action selector="signInPressed:" destination="4qI-hE-ZQ8" eventType="touchUpInside" id="QqS-Em-jeb"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="BMw-3b-Kdg" firstAttribute="leading" secondItem="mwz-cx-oL0" secondAttribute="leading" id="1is-hD-qHd"/>
@@ -619,10 +628,10 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="subviews">
-                                                    <exclude reference="dmM-96-8AI"/>
                                                     <exclude reference="REF-1y-yyP"/>
                                                     <exclude reference="mwz-cx-oL0"/>
                                                     <exclude reference="BMw-3b-Kdg"/>
+                                                    <exclude reference="dmM-96-8AI"/>
                                                 </mask>
                                                 <mask key="constraints">
                                                     <exclude reference="1is-hD-qHd"/>
@@ -642,10 +651,10 @@
                                             </variation>
                                             <variation key="widthClass=compact">
                                                 <mask key="subviews">
-                                                    <include reference="dmM-96-8AI"/>
                                                     <include reference="REF-1y-yyP"/>
                                                     <include reference="mwz-cx-oL0"/>
                                                     <include reference="BMw-3b-Kdg"/>
+                                                    <include reference="dmM-96-8AI"/>
                                                 </mask>
                                                 <mask key="constraints">
                                                     <include reference="1is-hD-qHd"/>
@@ -674,6 +683,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="E9G-Eg-uEA"/>
+                    <connections>
+                        <outlet property="emailTextfield" destination="z76-wh-Z7e" id="5CB-yl-qhI"/>
+                        <outlet property="passwordTextfield" destination="0Oa-6P-aAX" id="GTv-bK-Gle"/>
+                        <segue destination="8dA-as-p1s" kind="presentation" identifier="signInSegue" modalTransitionStyle="flipHorizontal" id="RhV-xX-HlI"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0bB-Eu-bo3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -815,13 +829,13 @@
                                                     <exclude reference="ay0-mK-eW4"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <exclude reference="Jge-uZ-Nep"/>
-                                                    <exclude reference="aMH-46-9i0"/>
-                                                    <exclude reference="bCi-wa-N33"/>
                                                     <exclude reference="HFd-CI-qke"/>
                                                     <exclude reference="Vi1-MK-b97"/>
                                                     <exclude reference="iki-2o-BwD"/>
                                                     <exclude reference="m49-Og-kUy"/>
+                                                    <exclude reference="Jge-uZ-Nep"/>
+                                                    <exclude reference="aMH-46-9i0"/>
+                                                    <exclude reference="bCi-wa-N33"/>
                                                     <exclude reference="CiZ-dQ-uK1"/>
                                                     <exclude reference="MBi-3L-ctq"/>
                                                 </mask>
@@ -833,13 +847,13 @@
                                                     <include reference="ay0-mK-eW4"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="Jge-uZ-Nep"/>
-                                                    <include reference="aMH-46-9i0"/>
-                                                    <include reference="bCi-wa-N33"/>
                                                     <include reference="HFd-CI-qke"/>
                                                     <include reference="Vi1-MK-b97"/>
                                                     <include reference="iki-2o-BwD"/>
                                                     <include reference="m49-Og-kUy"/>
+                                                    <include reference="Jge-uZ-Nep"/>
+                                                    <include reference="aMH-46-9i0"/>
+                                                    <include reference="bCi-wa-N33"/>
                                                     <include reference="CiZ-dQ-uK1"/>
                                                     <include reference="MBi-3L-ctq"/>
                                                 </mask>
@@ -1010,6 +1024,6 @@
         <image name="homework-icon" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Hj2-wo-gg4"/>
+        <segue reference="RhV-xX-HlI"/>
     </inferredMetricsTieBreakers>
 </document>
