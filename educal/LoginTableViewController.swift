@@ -16,7 +16,7 @@ class LoginTableViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var emailTextfield: UITextField!
     @IBOutlet weak var passwordTextfield: UITextField!
     
-    @IBAction func signInPressed(sender: UIButton) {
+    @IBAction func signInPressed(sender: UIButton?) {
         PFUser.logInWithUsernameInBackground(emailTextfield.text, password:passwordTextfield.text) {
             (user: PFUser!, error: NSError!) -> Void in
             if user != nil {
@@ -72,8 +72,23 @@ class LoginTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+        self.view.endEditing(true)
+    }
+    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        if textField.returnKeyType == UIReturnKeyType.Next {
+            textField.resignFirstResponder()
+            switch textField {
+                case emailTextfield:
+                    passwordTextfield.becomeFirstResponder()
+                default:
+                    println("no textfield found")
+            }
+        } else if textField.returnKeyType == UIReturnKeyType.Go {
+            signInPressed(nil)
+        }
+        
         return true
     }
     
