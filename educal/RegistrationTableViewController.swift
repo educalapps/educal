@@ -56,6 +56,8 @@ class RegistrationTableViewController: UITableViewController, UITextFieldDelegat
         }
     }
     
+    
+    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if textField.returnKeyType == UIReturnKeyType.Next {
             textField.resignFirstResponder()
