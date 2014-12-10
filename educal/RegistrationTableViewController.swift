@@ -8,13 +8,13 @@
 
 import UIKit
 
-class RegistrationTableViewController: UITableViewController {
+class RegistrationTableViewController: UITableViewController, UITextFieldDelegate {
 
     @IBOutlet weak var nameTextfield: UITextField!
     @IBOutlet weak var emailTextfield: UITextField!
     @IBOutlet weak var passwordTextfield: UITextField!
     
-    @IBAction func signUpPressed(sender: UIButton) {
+    @IBAction func signUpPressed(sender: UIButton?) {
         var user = PFUser()
         user.username = emailTextfield.text
         user.password = passwordTextfield.text
@@ -56,5 +56,24 @@ class RegistrationTableViewController: UITableViewController {
         }
     }
     
+    
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if textField.returnKeyType == UIReturnKeyType.Next {
+            textField.resignFirstResponder()
+            switch textField {
+                case nameTextfield:
+                    emailTextfield.becomeFirstResponder()
+                case emailTextfield:
+                    passwordTextfield.becomeFirstResponder()
+                default:
+                    println("no textfield found")
+            }
+        } else if textField.returnKeyType == UIReturnKeyType.Go {
+            signUpPressed(nil)
+        }
+        
+        return true
+    }
     
 }
