@@ -28,4 +28,10 @@ class Functions {
         alert.addButtonWithTitle("OK")
         alert.show()
     }
+    
+    func showLoginViewController(source:UIViewController){
+        var mainstoryboard = UIApplication.sharedApplication().delegate?.window??.rootViewController?.storyboard
+        var loginController:UIViewController = mainstoryboard?.instantiateViewControllerWithIdentifier("LoginViewController") as UIViewController
+        source.presentViewController(loginController, animated: true, completion: nil)
+    }
 }

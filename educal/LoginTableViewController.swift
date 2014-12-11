@@ -18,7 +18,7 @@ class LoginTableViewController: UITableViewController, UITextFieldDelegate {
             (user: PFUser!, error: NSError!) -> Void in
             if user != nil {
                 // Do stuff after successful login.
-                self.performSegueWithIdentifier("signInSegue", sender: self)
+                self.dismissViewControllerAnimated(true, completion: nil)
             } else {
                 // The login failed. Check error to see why.
                 var errorMsg:String = error.userInfo?["error"] as String
@@ -32,11 +32,7 @@ class LoginTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     override func viewWillAppear(animated: Bool) {
-        var currentUser = PFUser.currentUser()
         
-        if currentUser != nil {
-            self.performSegueWithIdentifier("signInSegue", sender: self)
-        }
     }
     
     override func viewDidLoad() {
@@ -50,13 +46,7 @@ class LoginTableViewController: UITableViewController, UITextFieldDelegate {
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.identifier == "signInSegue") {
-            var curUser = PFUser.currentUser()
-            
-            
-            var username:String = curUser["name"] as String
-            Functions.Instance().showAlert("Congratulations \(username)!", description: "From now your life will be organized as fuck!")
-        }
+        
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
