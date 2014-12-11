@@ -12,9 +12,9 @@ class HomeworkTableViewController: UITableViewController {
     
     var refreshController:UIRefreshControl!
     
-    @IBAction func signOutPressed(sender: AnyObject) {
+    @IBAction func signOutPressed(sender: AnyObject) {        
         PFUser.logOut()
-        self.performSegueWithIdentifier("signOutSegue", sender: self)
+        Functions.Instance().showLoginViewController(self)
     }
     
     

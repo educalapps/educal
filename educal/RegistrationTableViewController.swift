@@ -27,7 +27,7 @@ class RegistrationTableViewController: UITableViewController, UITextFieldDelegat
             (succeeded: Bool!, error: NSError!) -> Void in
             if error == nil {
                 // Hooray! Let them use the app now.
-                self.performSegueWithIdentifier("signInAfterSignUp", sender: self)
+                self.dismissViewControllerAnimated(true, completion: nil)
             } else {
                 Functions.Instance().showAlert("Error!", description: error.userInfo?["error"] as String)
             }
@@ -44,16 +44,7 @@ class RegistrationTableViewController: UITableViewController, UITextFieldDelegat
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.identifier == "signInAfterSignUp") {
-            var userDefaults = NSUserDefaults.standardUserDefaults()
-            userDefaults.setValue(nameTextfield.text, forKey: "name")
-            userDefaults.synchronize()
-            
-            
-            var username:String = userDefaults.objectForKey("name") as String
-            
-            Functions.Instance().showAlert("Congratulations \(username)!", description: "From now your life will be organized as fuck!")
-        }
+        
     }
     
     
