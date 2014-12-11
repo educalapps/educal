@@ -12,6 +12,12 @@ class HomeworkTableViewController: UITableViewController {
     
     var refreshController:UIRefreshControl!
     
+    @IBAction func signOutPressed(sender: AnyObject) {
+        PFUser.logOut()
+        self.performSegueWithIdentifier("signOutSegue", sender: self)
+    }
+    
+    
     func refresh(sender:AnyObject){
         // Code to refresh table view
         sleep(1)
@@ -91,14 +97,15 @@ class HomeworkTableViewController: UITableViewController {
     }
     */
 
-    /*
-    // MARK: - Navigation
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        
+        if (segue.identifier == "signOutSegue") {
+            Functions.Instance().showAlert("Sign out!", description: "You are succesfully sign out!")
+        }
     }
-    */
+
 
 }
