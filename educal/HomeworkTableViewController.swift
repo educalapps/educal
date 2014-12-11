@@ -13,8 +13,19 @@ class HomeworkTableViewController: UITableViewController {
     var refreshController:UIRefreshControl!
     
     @IBAction func signOutPressed(sender: AnyObject) {
+        var alert = UIAlertController(title: "Sign out", message: "Are you sure you want to sign out?", preferredStyle: UIAlertControllerStyle.Alert)
         
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler:nil))
         
+        alert.addAction(UIAlertAction(title: "Ok", style: .Default , handler: {
+            (action: UIAlertAction!) in
+            
+            // Sign out user
+            PFUser.logOut()
+            Functions.Instance().showLoginViewController(self)
+        }))
+        
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     
