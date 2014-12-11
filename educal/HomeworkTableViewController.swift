@@ -10,8 +10,29 @@ import UIKit
 
 class HomeworkTableViewController: UITableViewController {
     
+    @IBOutlet weak var homeworkSegment: UISegmentedControl!
     var refreshController:UIRefreshControl!
     
+    var array1 = ["q","w","e","r","t","y"]
+    var array2 = ["1","2","3","4","5","6"]
+    var array3 = ["4","5","6","7","8","9"]
+    
+    var showableArray : [String] = []
+    
+    @IBOutlet var homeworkTableView: UITableView!
+
+    @IBAction func segmentChanged(sender: AnyObject) {
+        if homeworkSegment.selectedSegmentIndex == 0 {
+            showableArray = array1
+        } else if homeworkSegment.selectedSegmentIndex == 1 {
+            showableArray = array2
+        } else if homeworkSegment.selectedSegmentIndex == 2 {
+            showableArray = array3
+        }
+        
+        homeworkTableView.reloadData()
+        //println(homeworkSegment.selectedSegmentIndex)
+    }
     @IBAction func signOutPressed(sender: AnyObject) {
         var alert = UIAlertController(title: "Sign out", message: "Are you sure you want to sign out?", preferredStyle: UIAlertControllerStyle.Alert)
         
@@ -35,6 +56,10 @@ class HomeworkTableViewController: UITableViewController {
         self.refreshController.endRefreshing()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        showableArray = array1
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -54,24 +79,24 @@ class HomeworkTableViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 0
+        return showableArray.count
     }
 
-    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("homeworkCell", forIndexPath: indexPath) as UITableViewCell
+        
+        cell.textLabel?.text = showableArray[indexPath.row]
 
         // Configure the cell...
 
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
@@ -107,16 +132,6 @@ class HomeworkTableViewController: UITableViewController {
         return true
     }
     */
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-        
-        if (segue.identifier == "signOutSegue") {
-            Functions.Instance().showAlert("Sign out!", description: "You are succesfully sign out!")
-        }
-    }
 
 
 }
