@@ -66,12 +66,63 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Courses" id="02I-Vc-MFr">
                         <barButtonItem key="leftBarButtonItem" systemItem="action" id="uHh-Jp-xhN"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="cFb-2C-sJ7"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="cFb-2C-sJ7">
+                            <connections>
+                                <segue destination="HoV-bK-vjy" kind="show" id="Bgv-S1-0dc"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1SY-Z2-Yhe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3216" y="664"/>
+        </scene>
+        <!--New Course-->
+        <scene sceneID="nu9-sD-gOT">
+            <objects>
+                <tableViewController id="HoV-bK-vjy" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="QiR-zO-3Eu">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CourseTextFieldCell" id="cYk-i3-N7y">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cYk-i3-N7y" id="QM1-jo-fUS">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uKq-hl-xIA">
+                                            <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <variation key="widthClass=compact" fixedFrame="YES">
+                                                <rect key="frame" x="8" y="7" width="384" height="30"/>
+                                            </variation>
+                                        </textField>
+                                    </subviews>
+                                    <variation key="default">
+                                        <mask key="subviews">
+                                            <exclude reference="uKq-hl-xIA"/>
+                                        </mask>
+                                    </variation>
+                                    <variation key="widthClass=compact">
+                                        <mask key="subviews">
+                                            <include reference="uKq-hl-xIA"/>
+                                        </mask>
+                                    </variation>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="HoV-bK-vjy" id="HRP-bg-43V"/>
+                            <outlet property="delegate" destination="HoV-bK-vjy" id="q9F-80-cbA"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="New Course" id="LmS-Fb-nGz"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bg2-gp-cZR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3999" y="664"/>
         </scene>
         <!--Courses-->
         <scene sceneID="50T-Fn-xZh">
@@ -170,7 +221,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Qy-gD-x3d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3297" y="-43.5"/>
+            <point key="canvasLocation" x="3216" y="-40"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="Baf-sX-pgc">
@@ -370,7 +421,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6W2-B0-7m2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3999" y="-42"/>
+            <point key="canvasLocation" x="3999" y="-40"/>
         </scene>
         <!--LoginViewController-->
         <scene sceneID="Dj4-kt-rdS">
