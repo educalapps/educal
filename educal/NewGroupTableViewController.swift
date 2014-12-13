@@ -1,48 +1,21 @@
 //
-//  AddHomeworkTableViewController.swift
+//  NewGroupTableViewController.swift
 //  educal
 //
-//  Created by Bastiaan van Weijen on 11-12-14.
+//  Created by Bastiaan van Weijen on 13-12-14.
 //  Copyright (c) 2014 Jurriaan Lindhout. All rights reserved.
 //
 
 import UIKit
 
-class AddHomeworkTableViewController: UITableViewController {
-
-    @IBOutlet var addHomeworkTable: UITableView!
-    
-    var personalTitle = ["Title","Description","Deadline"]
-    var personalPlaceholder = ["Type your title here","Type your description here","Type your deadline here"]
-    
-    var courseTitle = ["Title","Description", "Group"]
-    var coursePlaceholder = ["Type your title here","Type your description here", ""]
-    
-    var course = ["a","b","c","d","e","f"]
-    
-    var showableArray : [String] = []
-    var showableArrayDetail : [String] = []
-    
-    
-    @IBOutlet weak var segmentControl: UISegmentedControl!
-    
-    @IBAction func segmentChanged(sender: AnyObject) {
-        if segmentControl.selectedSegmentIndex == 0 {
-            showableArray = personalTitle
-            showableArrayDetail = personalPlaceholder
-        } else if segmentControl.selectedSegmentIndex == 1 {
-            showableArray = courseTitle
-            showableArrayDetail = coursePlaceholder
-        }
+class NewGroupTableViewController: UITableViewController {
+    @IBOutlet weak var groupNameTextfield: UITextField!
+    @IBOutlet weak var codeTextfield: UITextField!
+    @IBOutlet weak var deadlineTextfield: UITextField!
+    @IBAction func addGroup(sender: AnyObject) {
         
-        addHomeworkTable.reloadData()
     }
-    
-    override func viewWillAppear(animated: Bool) {
-        showableArray = personalTitle
-        showableArrayDetail = personalPlaceholder
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -69,32 +42,18 @@ class AddHomeworkTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return showableArray.count
+        return 3
     }
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if showableArray[indexPath.row] == "Group" {
-            
-        }
-    }
-    
+
+    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        if showableArray[indexPath.row] != "Group" {
-            let cell:HomeworkTableViewCell = tableView.dequeueReusableCellWithIdentifier("homeworkCell", forIndexPath: indexPath) as HomeworkTableViewCell
-            
-            cell.titleLabel.text = showableArray[indexPath.row]
-            cell.inputTextfield.placeholder = personalPlaceholder[indexPath.row]
-            
-            return cell
-        } else{
-            let cell = tableView.dequeueReusableCellWithIdentifier("addGroupCell", forIndexPath: indexPath) as UITableViewCell
-            
-            cell.textLabel?.text = showableArray[indexPath.row]
-            
-            return cell
-        }
+        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as UITableViewCell
+
+        // Configure the cell...
+
+        return cell
     }
+    */
 
     /*
     // Override to support conditional editing of the table view.
