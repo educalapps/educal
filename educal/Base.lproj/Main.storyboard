@@ -84,7 +84,7 @@
                         <barButtonItem key="leftBarButtonItem" systemItem="action" id="uHh-Jp-xhN"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="cFb-2C-sJ7">
                             <connections>
-                                <segue destination="HoV-bK-vjy" kind="show" id="Bgv-S1-0dc"/>
+                                <action selector="addCoursePressed:" destination="Ndw-8X-NoP" id="TUY-nb-n3t"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -92,6 +92,7 @@
                         <outlet property="coursesSegment" destination="I2D-rq-OGn" id="rvQ-0B-uxa"/>
                         <outlet property="coursesTableView" destination="fFR-a7-SFw" id="Kis-pW-Lju"/>
                         <outlet property="searchDisplayController" destination="a4W-i7-J4Q" id="2zh-hO-7Ap"/>
+                        <segue destination="HoV-bK-vjy" kind="show" identifier="courseDetailSegue" id="lFq-B2-AOP"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1SY-Z2-Yhe" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -217,9 +218,6 @@
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                    <variation key="widthClass=compact">
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    </variation>
                                                 </textView>
                                             </subviews>
                                             <constraints>

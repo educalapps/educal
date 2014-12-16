@@ -14,12 +14,17 @@ class AddCourseTableViewController: UITableViewController {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var codeTextField: UITextField!
     @IBOutlet weak var descriptionTextField: UITextView!
+    
+    var course:PFObject?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        self.clearsSelectionOnViewWillAppear = true
+        
+        if (course != nil) {
+            titleTextField.text = course?["title"] as String
+            codeTextField.text = course?["code"] as String
+            descriptionTextField.text = course?["description"] as String
+        }
 
     }
 
@@ -31,13 +36,16 @@ class AddCourseTableViewController: UITableViewController {
     
     @IBAction func savePressed(sender: UIBarButtonItem) {
         
-        if !titleTextField.text.isEmpty || !codeTextField.text.isEmpty {
-            var course = PFObject(className: "Course")
-            course["userObjectId"] = PFUser.currentUser()
-            course["title"] = titleTextField.text
-            course["code"] = codeTextField.text
-            course["description"] = descriptionTextField.text
-            course.saveInBackgroundWithTarget(nil, selector: nil)
+        if !titleTextField.text.isEmpty && !codeTextField.text.isEmpty {
+            
+            if course == nil {
+                course = PFObject(className: "Course")
+            }
+            course?["userObjectId"] = PFUser.currentUser()
+            course?["title"] = titleTextField.text
+            course?["code"] = codeTextField.text
+            course?["description"] = descriptionTextField.text
+            course?.saveInBackgroundWithTarget(nil, selector: nil)
             println("saved")
             performSegueWithIdentifier("BackToCoursesTableView", sender: sender)
         } else {

@@ -157,12 +157,11 @@
 			isa = PBXGroup;
 			children = (
 				280A4D081A404B930092DF56 /* Homework */,
+				E1EAAD2B1A40663C001D12BE /* Courses */,
 				28C61A1E1A387AE600D396E8 /* LoginTableViewController.swift */,
 				28C61A181A38689C00D396E8 /* RegistrationTableViewController.swift */,
 				28C61A1A1A3873E500D396E8 /* Functions.swift */,
 				E1C9C78D1A399C33006E4071 /* MainTabBarController.swift */,
-				E139677C1A3B6FFB00E8D40A /* AddCourseTableViewController.swift */,
-				E1EAAD291A3F05A6001D12BE /* CoursesTableViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -233,6 +232,15 @@
 				E1EAAD271A3EF0F5001D12BE /* Course.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		E1EAAD2B1A40663C001D12BE /* Courses */ = {
+			isa = PBXGroup;
+			children = (
+				E139677C1A3B6FFB00E8D40A /* AddCourseTableViewController.swift */,
+				E1EAAD291A3F05A6001D12BE /* CoursesTableViewController.swift */,
+			);
+			name = Courses;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
