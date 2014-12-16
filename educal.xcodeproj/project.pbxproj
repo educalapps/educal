@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		28137FAB1A407FB300B12CC4 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28137FAA1A407FB300B12CC4 /* CustomTableViewCell.swift */; };
 		289480961A35CA61008507BF /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 289480921A35CA61008507BF /* Bolts.framework */; };
 		289480971A35CA61008507BF /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 289480931A35CA61008507BF /* Parse.framework */; };
 		289480981A35CA61008507BF /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 289480941A35CA61008507BF /* ParseFacebookUtils.framework */; };
@@ -50,6 +51,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		28137FAA1A407FB300B12CC4 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		289480921A35CA61008507BF /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		289480931A35CA61008507BF /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		289480941A35CA61008507BF /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				28B351EE1A39BD3200DBE2D0 /* AddHomeworkTableViewController.swift */,
 				28C702151A3F7B1D00B012A3 /* DetailHomeworkTableViewController.swift */,
 				28C61A201A3898E300D396E8 /* HomeworkTableViewController.swift */,
+				28137FAA1A407FB300B12CC4 /* CustomTableViewCell.swift */,
 			);
 			name = Homework;
 			sourceTree = "<group>";
@@ -342,6 +345,7 @@
 				28C61A1F1A387AE600D396E8 /* LoginTableViewController.swift in Sources */,
 				E11AA4CE1A2C8D0C008C162F /* AppDelegate.swift in Sources */,
 				E1EAAD2A1A3F05A6001D12BE /* CoursesTableViewController.swift in Sources */,
+				28137FAB1A407FB300B12CC4 /* CustomTableViewCell.swift in Sources */,
 				E139677D1A3B6FFB00E8D40A /* AddCourseTableViewController.swift in Sources */,
 				28C702161A3F7B1D00B012A3 /* DetailHomeworkTableViewController.swift in Sources */,
 				E11AA4D11A2C8D0C008C162F /* educal.xcdatamodeld in Sources */,

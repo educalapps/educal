@@ -136,16 +136,24 @@ class HomeworkTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("homeworkCell", forIndexPath: indexPath) as UITableViewCell
+//        let cell = tableView.dequeueReusableCellWithIdentifier("homeworkCell", forIndexPath: indexPath) as UITableViewCell
+        
+        let cell:CustomTableViewCell = tableView.dequeueReusableCellWithIdentifier("homeworkCell", forIndexPath: indexPath) as CustomTableViewCell
         
         // Set title of tablecell
-        cell.textLabel?.text = showableArray[indexPath.row]["title"] as? String
+        cell.homeworkTitleLabel?.text = showableArray[indexPath.row]["title"] as? String
+        //cell.textLabel?.text = showableArray[indexPath.row]["title"] as? String
         
         // Set subtitle of tablecell
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "d MMM 'at' HH:mm" // superset of OP's format
+        dateFormatter.dateFormat = "d MMM" // superset of OP's format
         let str = dateFormatter.stringFromDate(showableArray[indexPath.row]["deadline"] as NSDate)
-        cell.detailTextLabel?.text = str
+        
+        // Split date by day and month
+        var strArray = split(str) {$0 == " "}
+        
+        cell.dateDayLabel?.text = strArray[0].uppercaseString
+        cell.dateMonthLabel?.text = strArray[1].uppercaseString
         
         
         return cell
