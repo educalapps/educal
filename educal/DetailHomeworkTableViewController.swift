@@ -27,7 +27,7 @@ class DetailHomeworkTableViewController: UITableViewController {
         // Date to String
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "d MMM 'at' HH:mm" // superset of OP's format
-        let str = dateFormatter.stringFromDate(NSDate())
+        let str = dateFormatter.stringFromDate(homeworkObject?["deadline"] as NSDate)
         homeLabel.text = "Deadline: \(str)"
     }
 

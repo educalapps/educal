@@ -13,6 +13,9 @@ class HomeworkTableViewController: UITableViewController {
     // Variables
     var refreshController:UIRefreshControl!
     var showableArray = Array<PFObject>()
+    var thisArray = Array<PFObject>()
+    var nextArray = Array<PFObject>()
+    var allArray = Array<PFObject>()
     var activeSegment:Int = 0
     
     // Outlets
@@ -61,13 +64,32 @@ class HomeworkTableViewController: UITableViewController {
         // Clear all data
         showableArray.removeAll(keepCapacity: false)
         
-        var allHomework = PFQuery(className:"Homework")
+        // Get next week and the week after that
+        var nowDate = NSDate()
+        var oneWeekFurther = nowDate.dateByAddingTimeInterval(60 * 60 * 24 * 7)
+        var twoWeekFurther = nowDate.dateByAddingTimeInterval(60 * 60 * 24 * 14)
         
-        allHomework.whereKey("userObjectId", equalTo:PFUser.currentUser().objectId)
-        allHomework.orderByDescending("deadline")
+        var allHomework = PFQuery(className:"Homework")
+        allHomework.whereKey("userObjectId", equalTo:PFUser.currentUser())
+        
+        switch(activeSegment){
+            case 0:
+                allHomework.whereKey("deadline", greaterThan: nowDate )
+                allHomework.whereKey("deadline", lessThan: oneWeekFurther )
+                allHomework.orderByDescending("deadline")
+            case 1:
+                allHomework.whereKey("deadline", greaterThan: oneWeekFurther )
+                allHomework.whereKey("deadline", lessThan: twoWeekFurther )
+                allHomework.orderByDescending("deadline")
+            default:
+                allHomework.orderByDescending("deadline")
+        }
+        
+        // Get elements
         allHomework.findObjectsInBackgroundWithBlock { (objects: [AnyObject]!, error: NSError!) -> Void in
             if error == nil {
-               
+                
+                // Add object to array
                 for object in objects {
                     self.showableArray.append(object as PFObject)
                 }
@@ -118,6 +140,13 @@ class HomeworkTableViewController: UITableViewController {
         
         // Set title of tablecell
         cell.textLabel?.text = showableArray[indexPath.row]["title"] as? String
+        
+        // Set subtitle of tablecell
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "d MMM 'at' HH:mm" // superset of OP's format
+        let str = dateFormatter.stringFromDate(showableArray[indexPath.row]["deadline"] as NSDate)
+        cell.detailTextLabel?.text = str
+        
         
         return cell
     }
