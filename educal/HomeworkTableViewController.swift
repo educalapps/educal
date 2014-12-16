@@ -146,14 +146,18 @@ class HomeworkTableViewController: UITableViewController {
         
         // Set subtitle of tablecell
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "d MMM" // superset of OP's format
-        let str = dateFormatter.stringFromDate(showableArray[indexPath.row]["deadline"] as NSDate)
+        dateFormatter.dateFormat = "d MMM-HH:mm" // d MMM 'at' HH:mm
+        let newDate = dateFormatter.stringFromDate(showableArray[indexPath.row]["deadline"] as NSDate)
         
         // Split date by day and month
-        var strArray = split(str) {$0 == " "}
+        var newDateArray = split(newDate) {$0 == "-"}
+        var onlyDate = newDateArray[0]
+        var onlyTime = newDateArray[1]
         
-        cell.dateDayLabel?.text = strArray[0].uppercaseString
-        cell.dateMonthLabel?.text = strArray[1].uppercaseString
+        var onlyDateArray = split(onlyDate) {$0 == " "}
+        cell.dateDayLabel?.text = onlyDateArray[0].uppercaseString
+        cell.dateMonthLabel?.text = onlyDateArray[1].uppercaseString
+        cell.homeworkDeadlineLabel?.text = onlyTime
         
         
         return cell
@@ -162,6 +166,8 @@ class HomeworkTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         performSegueWithIdentifier("showDetail", sender: indexPath)
     }
+    
+    
     
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {

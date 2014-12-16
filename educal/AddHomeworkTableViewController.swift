@@ -21,7 +21,7 @@ class AddHomeworkTableViewController: UITableViewController, UITextFieldDelegate
     
     @IBAction func donePressed(sender: AnyObject) {
         
-        if !titleTextfield.text.isEmpty || !deadlineTextfield.text.isEmpty {
+        if !titleTextfield.text.isEmpty && !deadlineTextfield.text.isEmpty {
             // Format date
             var dateString = deadlineTextfield.text
             var dateFormatter = NSDateFormatter()
