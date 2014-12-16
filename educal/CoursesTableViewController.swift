@@ -16,10 +16,15 @@ class CoursesTableViewController: UITableViewController {
     var refreshController:UIRefreshControl!
     var tableContent = Array<Array<PFObject>>()
     var currentSegment = 0
+    var selectedCourse:PFObject?
     
     @IBAction func unwindToCoursesList(sender:UIStoryboardSegue){
         //retrieve data from database and reload tableview
         getData()
+    }
+    
+    @IBAction func addCoursePressed(sender: UIBarButtonItem) {
+        performSegueWithIdentifier("courseDetailSegue", sender: sender)
     }
     
     @IBAction func segmentChanged(sender: UISegmentedControl) {
@@ -147,7 +152,10 @@ class CoursesTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if (tableContent[currentSegment][indexPath.row]["userObjectId"] as PFUser).objectId == PFUser.currentUser().objectId {
-            println("im the owner")
+            
+            selectedCourse = tableContent[currentSegment][indexPath.row]
+            performSegueWithIdentifier("courseDetailSegue", sender: self)
+            
         } else {
             println("im not the owner")
         }
@@ -191,14 +199,17 @@ class CoursesTableViewController: UITableViewController {
     }
     */
 
-    /*
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "courseDetailSegue" && selectedCourse != nil {
+            var dc = segue.destinationViewController as AddCourseTableViewController
+            dc.course = selectedCourse
+            selectedCourse = nil
+        }
+        
     }
-    */
 
 }
