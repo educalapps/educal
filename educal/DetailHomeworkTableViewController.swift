@@ -15,20 +15,40 @@ class DetailHomeworkTableViewController: UITableViewController {
     
     var homeworkObject:PFObject?
     
+    @IBOutlet var detailView: UITableView!
+    @IBOutlet weak var dateMonthLabel: UILabel!
+    @IBOutlet weak var dateDayLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var homeLabel: UILabel!
     @IBOutlet weak var descriptionTextview: UITextView!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        nameLabel.text = homeworkObject?["title"] as? String
+    func setValues(){
+        
+        // Dateformat
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "d MMM-HH:mm" // d MMM 'at' HH:mm
+        let newDate = dateFormatter.stringFromDate(homeworkObject?["deadline"] as NSDate)
+        
+        // Split date by day and month
+        var newDateArray = split(newDate) {$0 == "-"}
+        var onlyDate = newDateArray[0]
+        var onlyTime = newDateArray[1]
+        var onlyDateArray = split(onlyDate) {$0 == " "}
+        
+        // Set fields
+        dateDayLabel?.text = onlyDateArray[0].uppercaseString
+        dateMonthLabel?.text = onlyDateArray[1].uppercaseString
+        homeLabel?.text = onlyTime
         descriptionTextview.text = homeworkObject?["description"] as? String
         
-        // Date to String
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "d MMM 'at' HH:mm" // superset of OP's format
-        let str = dateFormatter.stringFromDate(homeworkObject?["deadline"] as NSDate)
-        homeLabel.text = "Deadline: \(str)"
+        self.tableView.tableFooterView = UIView(frame: CGRectZero)
+        self.tableView.tableFooterView?.hidden = true
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setValues()
     }
 
     override func didReceiveMemoryWarning() {
