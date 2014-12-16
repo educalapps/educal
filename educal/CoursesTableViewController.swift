@@ -11,20 +11,83 @@ import UIKit
 class CoursesTableViewController: UITableViewController {
     
     @IBOutlet var coursesTableView: UITableView!
+    @IBOutlet weak var coursesSegment: UISegmentedControl!
     
+    var refreshController:UIRefreshControl!
+    var showableArray  = Array<PFObject>()
+    var currentSegment = 0
     
     @IBAction func unwindToCoursesList(sender:UIStoryboardSegue){
-        coursesTableView.reloadData()
+        //retrieve data from database and reload tableview
+        getData()
+    }
+    
+    @IBAction func segmentChanged(sender: UISegmentedControl) {
+        currentSegment = sender.selectedSegmentIndex
+        getData()
+    }
+    
+    @IBAction func getData(){
+        // Clear all data
+        showableArray.removeAll(keepCapacity: false)
+        var allCourses:PFQuery?
+        switch currentSegment {
+        case 0:
+            allCourses = PFQuery(className:"CourseForUser")
+            allCourses?.whereKey("userObjectId", equalTo:PFUser.currentUser())
+        case 1:
+            allCourses = PFQuery(className:"Course")
+            allCourses?.whereKey("userObjectId", equalTo:PFUser.currentUser())
+        case 2:
+            allCourses = PFQuery(className:"Course")
+        default:
+            println("No segment selected")
+        }
+        allCourses?.findObjectsInBackgroundWithBlock {
+            (objects: [AnyObject]!, error: NSError!) -> Void in
+            
+            if error == nil {
+                // Do something with the found objects
+                if self.currentSegment != 0 {
+                    for object in objects {
+                        self.showableArray.append(object as PFObject)
+                    }
+                } else {
+                    for object in objects {
+                        self.showableArray.append(object["courseObjectId"] as PFObject)
+                    }
+                }
+                
+                
+                self.coursesTableView.reloadData()
+                
+            } else {
+                // Log details of the failure
+                NSLog("Error: %@ %@", error, error.userInfo!)
+            }
+        }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        //retrieve data from database and reload tableview
+        getData()
+        
+        
+        
+        //set the pull to refresh
+        self.refreshController = UIRefreshControl()
+        //self.refreshController.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refreshController.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(self.refreshController)
+    }
+    
+    func refresh(sender:AnyObject){
+        // Code to refresh table view
+        getData()
+        sleep(1)
+        self.refreshController.endRefreshing()
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,20 +108,7 @@ class CoursesTableViewController: UITableViewController {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
         
-        var numberOfRows = 0
-        
-        var query = PFQuery(className:"Course")
-        query.whereKey("userObjectId", equalTo:PFUser.currentUser().objectId)
-        query.countObjectsInBackgroundWithBlock {
-            (count:Int32, error: NSError!) -> Void in
-            if error == nil {
-                numberOfRows = Int(count)
-            } else {
-                numberOfRows = 0
-            }
-        }
-        
-        return numberOfRows
+        return showableArray.count
     }
 
     
@@ -66,31 +116,29 @@ class CoursesTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("CourseCell", forIndexPath: indexPath) as UITableViewCell
 
         // Configure the cell...
-        cell.textLabel?.text = "test"
+        if showableArray.count != 0 {
+            cell.textLabel?.text = showableArray[indexPath.row]["title"] as? String
+            cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        }
+        
 
         return cell
     }
     
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
+            showableArray[indexPath.row].deleteInBackgroundWithTarget(nil, selector: nil)
+            
+            showableArray.removeAtIndex(indexPath.row)
+            
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
+    
 
     /*
     // Override to support rearranging the table view.
