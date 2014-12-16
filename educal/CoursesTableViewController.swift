@@ -47,6 +47,7 @@ class CoursesTableViewController: UITableViewController {
             case 1:
                 var joinedCourses = PFQuery(className:"CourseForUser")
                 joinedCourses.whereKey("userObjectId", equalTo:PFUser.currentUser())
+                joinedCourses.orderByAscending("courseObjectId")
                 joinedCourses.findObjectsInBackgroundWithBlock{
                     (objects:[AnyObject]!, error:NSError!) -> Void in
                     
@@ -64,6 +65,7 @@ class CoursesTableViewController: UITableViewController {
             case 2:
                 var hostedCourses = PFQuery(className:"Course")
                 hostedCourses.whereKey("userObjectId", equalTo:PFUser.currentUser())
+                hostedCourses.orderByAscending("title")
                 hostedCourses.findObjectsInBackgroundWithBlock{
                     (objects:[AnyObject]!, error:NSError!) -> Void in
                     
@@ -77,6 +79,7 @@ class CoursesTableViewController: UITableViewController {
                 }
             case 3:
                 var allCourses = PFQuery(className:"Course")
+                allCourses.orderByAscending("title")
                 allCourses.findObjectsInBackgroundWithBlock{
                     (objects:[AnyObject]!, error:NSError!) -> Void in
                     
@@ -173,13 +176,17 @@ class CoursesTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
-            tableContent[currentSegment][indexPath.row].deleteInBackgroundWithTarget(nil, selector: nil)
+            tableContent[currentSegment][indexPath.row].deleteInBackgroundWithBlock{
+                (complete:Bool!, error:NSError!) -> Void in
+                self.getData()
+            }
             
             tableContent[currentSegment].removeAtIndex(indexPath.row)
             
+            
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             
-            getData()
+            
         }
     }
     

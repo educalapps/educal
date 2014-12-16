@@ -39,7 +39,7 @@ class AddCourseTableViewController: UITableViewController {
         if !titleTextField.text.isEmpty && !codeTextField.text.isEmpty {
             
             if course == nil {
-                var course = PFObject(className: "Course")
+                course = PFObject(className: "Course")
             }
             course?["userObjectId"] = PFUser.currentUser()
             course?["title"] = titleTextField.text
