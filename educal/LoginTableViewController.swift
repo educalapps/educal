@@ -20,7 +20,7 @@ class LoginTableViewController: UITableViewController, UITextFieldDelegate {
                 // Do stuff after successful login.
                 self.dismissViewControllerAnimated(true, completion: nil)
             } else {
-                // The login failed. Check error to see why.
+                // The login failed. Check error to see why. 
                 var errorMsg:String = error.userInfo?["error"] as String
                 Functions.Instance().showAlert("Error!", description: "Your login failed. Message: \(errorMsg)")
             }
