@@ -13,22 +13,18 @@ class HomeworkTableViewController: UITableViewController {
     @IBOutlet weak var homeworkSegment: UISegmentedControl!
     var refreshController:UIRefreshControl!
     
-    var array1 = ["q","w","e","r","t","y"]
-    var array2 = ["1","2","3","4","5","6"]
-    var array3 = ["4","5","6","7","8","9"]
-    
     var showableArray : [String] = []
     
     @IBOutlet var homeworkTableView: UITableView!
 
     @IBAction func segmentChanged(sender: AnyObject) {
-        if homeworkSegment.selectedSegmentIndex == 0 {
-            showableArray = array1
-        } else if homeworkSegment.selectedSegmentIndex == 1 {
-            showableArray = array2
-        } else if homeworkSegment.selectedSegmentIndex == 2 {
-            showableArray = array3
-        }
+//        if homeworkSegment.selectedSegmentIndex == 0 {
+//            showableArray = array1
+//        } else if homeworkSegment.selectedSegmentIndex == 1 {
+//            showableArray = array2
+//        } else if homeworkSegment.selectedSegmentIndex == 2 {
+//            showableArray = array3
+//        }
         
         homeworkTableView.reloadData()
         //println(homeworkSegment.selectedSegmentIndex)
@@ -52,16 +48,49 @@ class HomeworkTableViewController: UITableViewController {
     
     func refresh(sender:AnyObject){
         // Code to refresh table view
+        self.getData()
         sleep(1)
         self.refreshController.endRefreshing()
     }
     
+    @IBAction func getData(){
+        // Clear all data
+        showableArray.removeAll(keepCapacity: false)
+        
+        var allHomework = PFQuery(className:"Homework")
+        allHomework.whereKey("userObjectId", equalTo:PFUser.currentUser().objectId)
+        allHomework.findObjectsInBackgroundWithBlock {
+            (objects: [AnyObject]!, error: NSError!) -> Void in
+            
+            if error == nil {
+                // The find succeeded.
+                NSLog("Successfully retrieved \(objects.count) scores.")
+                if(objects.count == 0){
+                    self.showableArray.append("No homework found")
+                }
+                
+                // Do something with the found objects
+                for object in objects {
+                    NSLog("%@", object.objectId)
+                    self.showableArray.append(object["title"] as String)
+                }
+                
+                self.homeworkTableView.reloadData()
+                
+            } else {
+                // Log details of the failure
+                NSLog("Error: %@ %@", error, error.userInfo!)
+            }
+        }
+    }
+    
     override func viewWillAppear(animated: Bool) {
-        showableArray = array1
+        homeworkTableView.reloadData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.getData()
         
         self.refreshController = UIRefreshControl()
         //self.refreshController.attributedTitle = NSAttributedString(string: "Pull to refresh")
@@ -92,10 +121,20 @@ class HomeworkTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("homeworkCell", forIndexPath: indexPath) as UITableViewCell
         
         cell.textLabel?.text = showableArray[indexPath.row]
-
-        // Configure the cell...
+        
+//        if showableArray[indexPath.row] == "No homework found" {
+//            cell.accessoryType = .None
+//        }
 
         return cell
+    }
+    
+    @IBAction func unwindToHomework(segue: UIStoryboardSegue) {
+        self.getData()
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        homeworkTitle = showableArray[indexPath.row]
     }
 
     /*
@@ -106,17 +145,19 @@ class HomeworkTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
+            //println("Delete: \(indexPath.row)")
+            showableArray.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
+    
 
     /*
     // Override to support rearranging the table view.
@@ -132,6 +173,5 @@ class HomeworkTableViewController: UITableViewController {
         return true
     }
     */
-
 
 }

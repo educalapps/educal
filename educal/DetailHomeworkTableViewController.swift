@@ -1,24 +1,25 @@
 //
-//  NewGroupTableViewController.swift
+//  DetailHomeworkTableViewController.swift
 //  educal
 //
-//  Created by Bastiaan van Weijen on 13-12-14.
+//  Created by Bastiaan van Weijen on 15-12-14.
 //  Copyright (c) 2014 Jurriaan Lindhout. All rights reserved.
 //
 
 import UIKit
 
-class NewGroupTableViewController: UITableViewController {
-    @IBOutlet weak var groupNameTextfield: UITextField!
-    @IBOutlet weak var codeTextfield: UITextField!
-    @IBOutlet weak var deadlineTextfield: UITextField!
-    @IBAction func addGroup(sender: AnyObject) {
-        
-    }
+var homeworkTitle:String?
 
+
+class DetailHomeworkTableViewController: UITableViewController {
+
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var homeLabel: UILabel!
+    @IBOutlet weak var descriptionTextview: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        nameLabel.text = homeworkTitle
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -33,17 +34,17 @@ class NewGroupTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
-        return 1
-    }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        return 3
-    }
+//    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+//        // #warning Potentially incomplete method implementation.
+//        // Return the number of sections.
+//        return 0
+//    }
+//
+//    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        // #warning Incomplete method implementation.
+//        // Return the number of rows in the section.
+//        return 0
+//    }
 
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
