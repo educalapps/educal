@@ -12,19 +12,23 @@ var homeworkTitle:String?
 
 
 class DetailHomeworkTableViewController: UITableViewController {
-
+    
+    var homeworkObject:PFObject?
+    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var homeLabel: UILabel!
     @IBOutlet weak var descriptionTextview: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        nameLabel.text = homeworkTitle
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        nameLabel.text = homeworkObject?["title"] as? String
+        descriptionTextview.text = homeworkObject?["description"] as? String
+        
+        // Date to String
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "d MMM 'at' HH:mm" // superset of OP's format
+        let str = dateFormatter.stringFromDate(NSDate())
+        homeLabel.text = "Deadline: \(str)"
     }
 
     override func didReceiveMemoryWarning() {

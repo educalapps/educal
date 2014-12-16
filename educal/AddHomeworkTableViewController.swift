@@ -11,25 +11,27 @@ import UIKit
 class AddHomeworkTableViewController: UITableViewController, UITextFieldDelegate {
 
     @IBOutlet weak var titleTextfield: UITextField!
-
     @IBOutlet weak var descriptionTextfield: UITextField!
     @IBOutlet weak var datepickerCell: UITableViewCell!
     @IBOutlet weak var deadlineTextfield: UITextField!
     @IBOutlet var addHomeworkTable: UITableView!
-    
     @IBOutlet weak var deadlinePicker: UIDatePicker!
     
     @IBAction func donePressed(sender: AnyObject) {
         // Format date
-        let dateFormatter = NSDateFormatter()
+        var dateString = deadlineTextfield.text
+        var dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-        let date = dateFormatter.dateFromString(deadlineTextfield.text)
+        
+        var timeZone = NSTimeZone(name: "GMT")
+        dateFormatter.timeZone = timeZone
+        var dateFromString:NSDate = dateFormatter.dateFromString(dateString)!
         
         // Add data to parse
         var homework = PFObject(className:"Homework")
         homework["title"] = titleTextfield.text
         homework["description"] = descriptionTextfield.text
-        homework["deadline"] = date
+        homework["deadline"] = dateFromString
         homework["personal"] = true
         homework["userObjectId"] = PFUser.currentUser().objectId
         homework.saveInBackgroundWithTarget(nil, selector: nil)
@@ -41,6 +43,7 @@ class AddHomeworkTableViewController: UITableViewController, UITextFieldDelegate
         
         dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
         dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
         
         var strDate = dateFormatter.stringFromDate(deadlinePicker.date)
         deadlineTextfield.text = strDate
@@ -60,12 +63,6 @@ class AddHomeworkTableViewController: UITableViewController, UITextFieldDelegate
         datepickerCell.hidden = true
     }
     
-    func textFieldDidBeginEditing(textField: UITextField) {
-        deadlineTextfield.resignFirstResponder()
-        println("freferf")
-    }
-    
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
