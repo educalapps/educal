@@ -32,8 +32,11 @@ class CoursesTableViewController: UITableViewController {
         tableContent.removeAll(keepCapacity: false)
         
         for segment in 1...coursesSegment.numberOfSegments {
+            tableContent.append(Array<PFObject>())
+        }
+        
+        for segment in 1...coursesSegment.numberOfSegments {
             var courses = Array<PFObject>()
-            
             
             switch segment {
             case 1:
@@ -47,7 +50,10 @@ class CoursesTableViewController: UITableViewController {
                         for object in objects {
                             courses.append(object["courseObjectId"] as PFObject)
                         }
-                        self.tableContent.append(courses)
+                        self.tableContent[0] = courses
+                        self.coursesTableView.reloadData()
+                    } else {
+                        println("fout in joined courses")
                     }
                 }
             case 2:
@@ -58,7 +64,10 @@ class CoursesTableViewController: UITableViewController {
                     
                     if error == nil {
                         // Do something with the found objects
-                        self.tableContent.append(objects as Array<PFObject>)
+                        self.tableContent[1] = objects as Array<PFObject>
+                         self.coursesTableView.reloadData()
+                    } else {
+                        println("fout in hosted courses")
                     }
                 }
             case 3:
@@ -68,8 +77,10 @@ class CoursesTableViewController: UITableViewController {
                     
                     if error == nil {
                         // Do something with the found objects
-                        self.tableContent.append(objects as Array<PFObject>)
+                        self.tableContent[2] = objects as Array<PFObject>
                         self.coursesTableView.reloadData()
+                    } else {
+                        println("fout in all courses")
                     }
                 }
             default:
@@ -85,9 +96,9 @@ class CoursesTableViewController: UITableViewController {
         getData()
         
         //set the pull to refresh
-//        self.refreshController = UIRefreshControl()
-//        self.refreshController.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
-//        self.tableView.addSubview(self.refreshController)
+        self.refreshController = UIRefreshControl()
+        self.refreshController.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(self.refreshController)
     }
     
     func refresh(sender:AnyObject){
@@ -115,7 +126,12 @@ class CoursesTableViewController: UITableViewController {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
         
-        return tableContent[currentSegment].count
+        if tableContent.count == 0 {
+            return 0
+        } else {
+            return tableContent[currentSegment].count
+        }
+
     }
 
     
@@ -154,6 +170,8 @@ class CoursesTableViewController: UITableViewController {
             tableContent[currentSegment].removeAtIndex(indexPath.row)
             
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            
+            getData()
         }
     }
     
