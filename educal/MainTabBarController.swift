@@ -21,6 +21,10 @@ class MainTabBarController: UITabBarController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(animated: Bool) {
+        Functions.Instance().refreshCoursesData()
+    }
+    
     override func viewDidAppear(animated: Bool) {
         var currentUser = PFUser.currentUser()
         

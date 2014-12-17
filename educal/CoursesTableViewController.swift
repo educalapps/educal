@@ -20,7 +20,7 @@ class CoursesTableViewController: UITableViewController {
     
     @IBAction func unwindToCoursesList(sender:UIStoryboardSegue){
         //retrieve data from database and reload tableview
-        getData()
+        Functions.Instance().refreshCoursesData(coursesTable: coursesTableView)
     }
     
     @IBAction func addCoursePressed(sender: UIBarButtonItem) {
@@ -32,6 +32,7 @@ class CoursesTableViewController: UITableViewController {
         coursesTableView.reloadData()
     }
     
+    /*
     @IBAction func getData(){
         // Clear tablecontent array
         tableContent.removeAll(keepCapacity: false)
@@ -48,6 +49,7 @@ class CoursesTableViewController: UITableViewController {
                 var joinedCourses = PFQuery(className:"CourseForUser")
                 joinedCourses.whereKey("userObjectId", equalTo:PFUser.currentUser())
                 joinedCourses.orderByAscending("courseObjectId")
+                joinedCourses.includeKey("courseObjectId")
                 joinedCourses.findObjectsInBackgroundWithBlock{
                     (objects:[AnyObject]!, error:NSError!) -> Void in
                     
@@ -96,12 +98,10 @@ class CoursesTableViewController: UITableViewController {
             }
         }
     }
+    */
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //retrieve data from database and reload tableview
-        getData()
         
         //set the pull to refresh
         self.refreshController = UIRefreshControl()
@@ -111,7 +111,7 @@ class CoursesTableViewController: UITableViewController {
     
     func refresh(sender:AnyObject){
         // Code to refresh table view
-        getData()
+        Functions.Instance().refreshCoursesData(coursesTable: coursesTableView)
         sleep(1)
         self.refreshController.endRefreshing()
     }
@@ -134,10 +134,10 @@ class CoursesTableViewController: UITableViewController {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
         
-        if tableContent.count == 0 {
+        if Functions.Instance().coursesTableContent.count == 0 {
             return 0
         } else {
-            return tableContent[currentSegment].count
+            return Functions.Instance().coursesTableContent[currentSegment].count
         }
 
     }
@@ -147,25 +147,19 @@ class CoursesTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("CourseCell", forIndexPath: indexPath) as UITableViewCell
 
         // Configure the cell...
-        cell.textLabel?.text = tableContent[currentSegment][indexPath.row]["title"] as? String
+        cell.textLabel?.text = Functions.Instance().coursesTableContent[currentSegment][indexPath.row]["title"] as? String
         cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
 
         return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if (tableContent[currentSegment][indexPath.row]["userObjectId"] as PFUser).objectId == PFUser.currentUser().objectId {
-            
-            selectedCourse = tableContent[currentSegment][indexPath.row]
-            performSegueWithIdentifier("courseDetailSegue", sender: self)
-            
-        } else {
-            println("im not the owner")
-        }
+        selectedCourse = Functions.Instance().coursesTableContent[currentSegment][indexPath.row]
+        performSegueWithIdentifier("courseDetailSegue", sender: self)
     }
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        if (tableContent[currentSegment][indexPath.row]["userObjectId"] as PFUser).objectId == PFUser.currentUser().objectId {
+        if (Functions.Instance().coursesTableContent[currentSegment][indexPath.row]["userObjectId"] as PFUser).objectId == PFUser.currentUser().objectId {
             return true
         } else {
             return false
@@ -176,12 +170,12 @@ class CoursesTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
-            tableContent[currentSegment][indexPath.row].deleteInBackgroundWithBlock{
+            Functions.Instance().coursesTableContent[currentSegment][indexPath.row].deleteInBackgroundWithBlock{
                 (complete:Bool!, error:NSError!) -> Void in
-                self.getData()
+                Functions.Instance().refreshCoursesData(coursesTable: self.coursesTableView)
             }
             
-            tableContent[currentSegment].removeAtIndex(indexPath.row)
+            Functions.Instance().coursesTableContent[currentSegment].removeAtIndex(indexPath.row)
             
             
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)

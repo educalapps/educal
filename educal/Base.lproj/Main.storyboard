@@ -123,10 +123,10 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kfH-sk-Ux1" id="FEo-hb-gM2">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="ap5-Zk-7f9">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ap5-Zk-7f9">
                                                     <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -168,7 +168,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fuf-7i-SN9" id="e6W-f1-IUp">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Code" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Ni7-Et-MoO">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Code" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ni7-Et-MoO">
                                                     <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -213,11 +213,11 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MMM-Ce-cOG" id="o9z-on-4BM">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tkT-jU-hGL">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="tkT-jU-hGL">
                                                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
                                                 </textView>
                                             </subviews>
                                             <constraints>
@@ -258,13 +258,7 @@
                             <outlet property="delegate" destination="HoV-bK-vjy" id="q9F-80-cbA"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="New Course" id="LmS-Fb-nGz">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Zgr-eg-uid">
-                            <connections>
-                                <action selector="savePressed:" destination="HoV-bK-vjy" id="1Md-BD-1Kx"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="New Course" id="LmS-Fb-nGz"/>
                     <connections>
                         <outlet property="codeTextField" destination="Ni7-Et-MoO" id="I01-m6-tuP"/>
                         <outlet property="descriptionTextField" destination="tkT-jU-hGL" id="Zse-vn-59X"/>
@@ -1575,13 +1569,13 @@
                                                             <exclude reference="9Cb-N7-kJ1"/>
                                                         </mask>
                                                         <mask key="constraints">
+                                                            <exclude reference="ZQm-8q-5Zs"/>
+                                                            <exclude reference="ctn-hs-Zg4"/>
+                                                            <exclude reference="ybu-9O-sQN"/>
                                                             <exclude reference="BJm-fT-nq6"/>
                                                             <exclude reference="HhT-xq-7fx"/>
                                                             <exclude reference="Y42-dO-hNM"/>
                                                             <exclude reference="y2h-po-uju"/>
-                                                            <exclude reference="ZQm-8q-5Zs"/>
-                                                            <exclude reference="ctn-hs-Zg4"/>
-                                                            <exclude reference="ybu-9O-sQN"/>
                                                         </mask>
                                                     </variation>
                                                     <variation key="widthClass=compact">
@@ -1590,13 +1584,13 @@
                                                             <include reference="9Cb-N7-kJ1"/>
                                                         </mask>
                                                         <mask key="constraints">
+                                                            <include reference="ZQm-8q-5Zs"/>
+                                                            <include reference="ctn-hs-Zg4"/>
+                                                            <include reference="ybu-9O-sQN"/>
                                                             <include reference="BJm-fT-nq6"/>
                                                             <include reference="HhT-xq-7fx"/>
                                                             <include reference="Y42-dO-hNM"/>
                                                             <include reference="y2h-po-uju"/>
-                                                            <include reference="ZQm-8q-5Zs"/>
-                                                            <include reference="ctn-hs-Zg4"/>
-                                                            <include reference="ybu-9O-sQN"/>
                                                         </mask>
                                                     </variation>
                                                 </view>
@@ -1618,14 +1612,14 @@
                                                     <exclude reference="WSJ-ym-EbZ"/>
                                                 </mask>
                                                 <mask key="constraints">
+                                                    <exclude reference="I3u-Uh-nvA"/>
+                                                    <exclude reference="J4T-cR-ScQ"/>
+                                                    <exclude reference="Dpl-MR-grC"/>
+                                                    <exclude reference="uoc-XP-XTb"/>
                                                     <exclude reference="H4P-dQ-d8T"/>
                                                     <exclude reference="TzV-EH-nvO"/>
                                                     <exclude reference="Z4n-4Q-DvO"/>
                                                     <exclude reference="jAo-T7-hpq"/>
-                                                    <exclude reference="Dpl-MR-grC"/>
-                                                    <exclude reference="uoc-XP-XTb"/>
-                                                    <exclude reference="I3u-Uh-nvA"/>
-                                                    <exclude reference="J4T-cR-ScQ"/>
                                                 </mask>
                                             </variation>
                                             <variation key="widthClass=compact">
@@ -1635,14 +1629,14 @@
                                                     <include reference="WSJ-ym-EbZ"/>
                                                 </mask>
                                                 <mask key="constraints">
+                                                    <include reference="I3u-Uh-nvA"/>
+                                                    <include reference="J4T-cR-ScQ"/>
+                                                    <include reference="Dpl-MR-grC"/>
+                                                    <include reference="uoc-XP-XTb"/>
                                                     <include reference="H4P-dQ-d8T"/>
                                                     <include reference="TzV-EH-nvO"/>
                                                     <include reference="Z4n-4Q-DvO"/>
                                                     <include reference="jAo-T7-hpq"/>
-                                                    <include reference="Dpl-MR-grC"/>
-                                                    <include reference="uoc-XP-XTb"/>
-                                                    <include reference="I3u-Uh-nvA"/>
-                                                    <include reference="J4T-cR-ScQ"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -1745,11 +1739,11 @@
                                                     <exclude reference="ozO-NK-RCx"/>
                                                 </mask>
                                                 <mask key="constraints">
+                                                    <exclude reference="rv8-yH-dhR"/>
                                                     <exclude reference="01E-eS-r90"/>
                                                     <exclude reference="8Zd-QT-o7D"/>
                                                     <exclude reference="QyT-Bh-Sg0"/>
                                                     <exclude reference="rSj-ll-HLG"/>
-                                                    <exclude reference="rv8-yH-dhR"/>
                                                 </mask>
                                             </variation>
                                             <variation key="widthClass=compact">
@@ -1759,11 +1753,11 @@
                                                     <include reference="ozO-NK-RCx"/>
                                                 </mask>
                                                 <mask key="constraints">
+                                                    <include reference="rv8-yH-dhR"/>
                                                     <include reference="01E-eS-r90"/>
                                                     <include reference="8Zd-QT-o7D"/>
                                                     <include reference="QyT-Bh-Sg0"/>
                                                     <include reference="rSj-ll-HLG"/>
-                                                    <include reference="rv8-yH-dhR"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
