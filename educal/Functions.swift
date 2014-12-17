@@ -38,6 +38,31 @@ class Functions {
         source.presentViewController(loginController, animated: true, completion: nil)
     }
     
+    func showStringFromDate(format: String, date:NSDate) -> String{
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = format
+        let newDate = dateFormatter.stringFromDate(date)
+        
+        return newDate
+    }
+    
+    func showDateFromString(format: String, date:String) -> NSDate{
+        var dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = format
+        var dateFromString:NSDate = dateFormatter.dateFromString(date)!
+        
+        return dateFromString
+    }
+    
+    func UIColorFromRGB(rgbValue: UInt) -> UIColor {
+        return UIColor(
+            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+            alpha: CGFloat(1.0)
+        )
+    }
+    
     func refreshCoursesData(coursesTable:UITableView? = nil){
         // Clear tablecontent array
         coursesTableContent.removeAll(keepCapacity: false)

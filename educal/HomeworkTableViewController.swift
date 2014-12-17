@@ -160,6 +160,7 @@ class HomeworkTableViewController: UITableViewController {
             cell.dateBackgroundView.backgroundColor = UIColor.grayColor()
         } else{
             cell.accessoryType = .DisclosureIndicator
+            cell.dateBackgroundView.backgroundColor = Functions.Instance().UIColorFromRGB(0xd1190d)
         }
         
         // Split date by day and month
