@@ -76,13 +76,13 @@ class HomeworkTableViewController: UITableViewController {
             case 0:
                 allHomework.whereKey("deadline", greaterThan: nowDate )
                 allHomework.whereKey("deadline", lessThan: oneWeekFurther )
-                allHomework.orderByDescending("deadline")
+                allHomework.orderByAscending("deadline")
             case 1:
                 allHomework.whereKey("deadline", greaterThan: oneWeekFurther )
                 allHomework.whereKey("deadline", lessThan: twoWeekFurther )
-                allHomework.orderByDescending("deadline")
+                allHomework.orderByAscending("deadline")
             default:
-                allHomework.orderByDescending("deadline")
+                allHomework.orderByAscending("deadline")
         }
         
         // Get elements
@@ -128,26 +128,39 @@ class HomeworkTableViewController: UITableViewController {
     // Tableview
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
-
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0{
+            return "Completed"
+        } else{
+            return "Uncompleted"
+        }
+    }
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return showableArray.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCellWithIdentifier("homeworkCell", forIndexPath: indexPath) as UITableViewCell
-        
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {        
         let cell:CustomTableViewCell = tableView.dequeueReusableCellWithIdentifier("homeworkCell", forIndexPath: indexPath) as CustomTableViewCell
         
         // Set title of tablecell
         cell.homeworkTitleLabel?.text = showableArray[indexPath.row]["title"] as? String
-        //cell.textLabel?.text = showableArray[indexPath.row]["title"] as? String
         
         // Set subtitle of tablecell
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "d MMM-HH:mm" // d MMM 'at' HH:mm
         let newDate = dateFormatter.stringFromDate(showableArray[indexPath.row]["deadline"] as NSDate)
+        
+        // Set accessorytype
+        if showableArray[indexPath.row]["completed"] as NSObject == true {
+            cell.accessoryType = .Checkmark
+            cell.dateBackgroundView.backgroundColor = UIColor.grayColor()
+        } else{
+            cell.accessoryType = .DisclosureIndicator
+        }
         
         // Split date by day and month
         var newDateArray = split(newDate) {$0 == "-"}

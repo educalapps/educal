@@ -21,28 +21,54 @@ class DetailHomeworkTableViewController: UITableViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var homeLabel: UILabel!
     @IBOutlet weak var descriptionTextview: UITextView!
+    @IBOutlet weak var finshedSwitch: UISwitch!
+    
+    @IBAction func switchChanged(sender: UISwitch) {
+        if sender.on {
+            if homeworkObject?["personal"] as NSObject == true {
+                homeworkObject?["completed"] = true
+                homeworkObject?["completedAt"] = NSDate()
+                homeworkObject?.saveInBackgroundWithTarget(nil, selector: nil)
+            }
+        } else{
+            if homeworkObject?["personal"] as NSObject == true {
+                homeworkObject?["completed"] = false
+                homeworkObject?.saveInBackgroundWithTarget(nil, selector: nil)
+            }
+        }
+    }
     
     func setValues(){
         
         // Dateformat
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "d MMM-HH:mm" // d MMM 'at' HH:mm
-        let newDate = dateFormatter.stringFromDate(homeworkObject?["deadline"] as NSDate)
+        let newDate = Functions.Instance().showStringFromDate("d MMM-HH:mm", date: homeworkObject?["deadline"] as NSDate)
         
         // Split date by day and month
         var newDateArray = split(newDate) {$0 == "-"}
-        var onlyDate = newDateArray[0]
-        var onlyTime = newDateArray[1]
-        var onlyDateArray = split(onlyDate) {$0 == " "}
+        var onlyDateArray = split(newDateArray[0]) {$0 == " "}
         
         // Set fields
         dateDayLabel?.text = onlyDateArray[0].uppercaseString
         dateMonthLabel?.text = onlyDateArray[1].uppercaseString
-        homeLabel?.text = onlyTime
+        homeLabel?.text = newDateArray[1]
+        nameLabel?.text = homeworkObject?["title"] as? String
         descriptionTextview.text = homeworkObject?["description"] as? String
+        if homeworkObject?["completed"] as NSObject == true {
+            finshedSwitch.setOn(true, animated: true)
+        }
+
         
+        // Hide unused cells
         self.tableView.tableFooterView = UIView(frame: CGRectZero)
         self.tableView.tableFooterView?.hidden = true
+        
+        // Add barbutton when is it your homework
+        self.navigationItem.setRightBarButtonItem(UIBarButtonItem(title: "Edit", style: .Plain, target: self, action: "editButtonPressed"), animated: true)
+
+    }
+    
+    func editButtonPressed(){
+        performSegueWithIdentifier("editHomework", sender: self)
     }
     
     override func viewDidLoad() {
@@ -115,14 +141,12 @@ class DetailHomeworkTableViewController: UITableViewController {
     }
     */
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "editHomework"{
+            var dc = segue.destinationViewController as AddHomeworkTableViewController
+            dc.homework = homeworkObject
+        }
+        
     }
-    */
 
 }

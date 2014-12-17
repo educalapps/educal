@@ -34,4 +34,21 @@ class Functions {
         var loginController:UIViewController = mainstoryboard?.instantiateViewControllerWithIdentifier("LoginViewController") as UIViewController
         source.presentViewController(loginController, animated: true, completion: nil)
     }
+    
+    func showStringFromDate(format: String, date:NSDate) -> String{
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = format
+        let newDate = dateFormatter.stringFromDate(date)
+        
+        return newDate
+    }
+    
+    func showDateFromString(format: String, date:String) -> NSDate{
+        var dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = format
+        var dateFromString:NSDate = dateFormatter.dateFromString(date)!
+        
+        return dateFromString
+    }
+    
 }
