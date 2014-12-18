@@ -24,7 +24,7 @@ class HomeworkTableViewController: UITableViewController {
     // Actions
     @IBAction func segmentChanged(sender: UISegmentedControl) {
         activeSegment = sender.selectedSegmentIndex
-        getData()
+        homeworkTableView.reloadData()
     }
     
     @IBAction func signOutPressed(sender: AnyObject) {
@@ -44,14 +44,23 @@ class HomeworkTableViewController: UITableViewController {
     }
     
     @IBAction func unwindToHomework(segue: UIStoryboardSegue) {
-        getData()
+        // Get new data
+        DataProvider.Instance().fetchHomeworkData(){
+            (result:Array<Array<Array<PFObject>>>) in
+            self.homeworkTableView.reloadData()
+        }
+        homeworkTableView.reloadData()
     }
     
     // Custom functions
     
     func refresh(sender:AnyObject){
         // Get new data
-        getData()
+        DataProvider.Instance().fetchHomeworkData(){
+            (result:Array<Array<Array<PFObject>>>) in
+            self.homeworkTableView.reloadData()
+            println("reloading")
+        }
         
         // Keeps the refresher a second longer
         sleep(1)
@@ -60,64 +69,27 @@ class HomeworkTableViewController: UITableViewController {
         self.refreshController.endRefreshing()
     }
     
-    @IBAction func getData(){
-        // Clear all data
-        showableArray.removeAll(keepCapacity: false)
-        
-        // Get next week and the week after that
-        var nowDate = NSDate()
-        var oneWeekFurther = nowDate.dateByAddingTimeInterval(60 * 60 * 24 * 7)
-        var twoWeekFurther = nowDate.dateByAddingTimeInterval(60 * 60 * 24 * 14)
-        
-        var allHomework = PFQuery(className:"Homework")
-        allHomework.whereKey("userObjectId", equalTo:PFUser.currentUser())
-        
-        switch(activeSegment){
-            case 0:
-                allHomework.whereKey("deadline", greaterThan: nowDate )
-                allHomework.whereKey("deadline", lessThan: oneWeekFurther )
-                allHomework.orderByAscending("deadline")
-            case 1:
-                allHomework.whereKey("deadline", greaterThan: oneWeekFurther )
-                allHomework.whereKey("deadline", lessThan: twoWeekFurther )
-                allHomework.orderByAscending("deadline")
-            default:
-                allHomework.orderByAscending("deadline")
-        }
-        
-        // Get elements
-        allHomework.findObjectsInBackgroundWithBlock { (objects: [AnyObject]!, error: NSError!) -> Void in
-            if error == nil {
-                
-                // Add object to array
-                for object in objects {
-                    self.showableArray.append(object as PFObject)
-                }
-                
-                // Reload tableview
-                self.homeworkTableView.reloadData()
-                
-            } else {
-                // Log details of the failure
-                NSLog("Error: %@ %@", error, error.userInfo!)
-            }
-        }
-    }
+
     
     // Default
     
     override func viewWillAppear(animated: Bool) {
-        homeworkTableView.reloadData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.getData()
+        
+        var timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "reloadTable", userInfo: nil, repeats: false)
+        
         
         // Pull to refresh
         self.refreshController = UIRefreshControl()
         self.refreshController.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(self.refreshController)
+    }
+    
+    func reloadTable(){
+        homeworkTableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -133,34 +105,45 @@ class HomeworkTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0{
-            return "Completed"
-        } else{
             return "Uncompleted"
+        } else{
+            return "Completed"
         }
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return showableArray.count
+        if DataProvider.Instance().homeworkTableContent.count == 0 {
+            return 0
+        } else {
+            return DataProvider.Instance().homeworkTableContent[activeSegment][section].count
+        }
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {        
         let cell:CustomTableViewCell = tableView.dequeueReusableCellWithIdentifier("homeworkCell", forIndexPath: indexPath) as CustomTableViewCell
         
+        var thisHomework = DataProvider.Instance().homeworkTableContent[activeSegment][indexPath.section][indexPath.row] as PFObject
+        
         // Set title of tablecell
-        cell.homeworkTitleLabel?.text = showableArray[indexPath.row]["title"] as? String
+        cell.homeworkTitleLabel?.text = thisHomework["title"] as? String
         
         // Set subtitle of tablecell
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "d MMM-HH:mm" // d MMM 'at' HH:mm
-        let newDate = dateFormatter.stringFromDate(showableArray[indexPath.row]["deadline"] as NSDate)
+        let newDate = dateFormatter.stringFromDate(thisHomework["deadline"] as NSDate)
         
         // Set accessorytype
-        if showableArray[indexPath.row]["completed"] as NSObject == true {
+        if thisHomework["completed"] as NSObject == true {
+            cell.tintColor = UIColor.grayColor()
             cell.accessoryType = .Checkmark
             cell.dateBackgroundView.backgroundColor = UIColor.grayColor()
+            cell.homeworkDeadlineLabel.textColor = UIColor.grayColor()
+            cell.homeworkTitleLabel.textColor = UIColor.grayColor()
         } else{
             cell.accessoryType = .DisclosureIndicator
             cell.dateBackgroundView.backgroundColor = Functions.Instance().UIColorFromRGB(0xd1190d)
+            cell.homeworkDeadlineLabel.textColor = Functions.Instance().UIColorFromRGB(0xd1190d)
+            cell.homeworkTitleLabel.textColor = UIColor.blackColor()
         }
         
         // Split date by day and month
@@ -188,9 +171,11 @@ class HomeworkTableViewController: UITableViewController {
         
         if editingStyle == .Delete {
             // Delete the row from the data source
-            showableArray[indexPath.row].deleteInBackgroundWithTarget(nil, selector: nil)
+            var thisHomework = DataProvider.Instance().homeworkTableContent[activeSegment][indexPath.section][indexPath.row] as PFObject
             
-            showableArray.removeAtIndex(indexPath.row)
+            thisHomework.deleteInBackgroundWithTarget(nil, selector: nil)
+            
+            DataProvider.Instance().homeworkTableContent[activeSegment][indexPath.section].removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
     }
@@ -198,8 +183,8 @@ class HomeworkTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if segue.identifier == "showDetail" {
             let DetailViewController = segue.destinationViewController as DetailHomeworkTableViewController
-            DetailViewController.title = showableArray[sender.row]["title"] as? String
-            DetailViewController.homeworkObject = showableArray[sender.row]
+            DetailViewController.title = DataProvider.Instance().homeworkTableContent[activeSegment][sender.section][sender.row]["title"] as? String
+            DetailViewController.homeworkObject = DataProvider.Instance().homeworkTableContent[activeSegment][sender.section][sender.row]
         }
     }
 }

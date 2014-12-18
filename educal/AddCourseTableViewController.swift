@@ -50,7 +50,9 @@ class AddCourseTableViewController: UITableViewController, UITextViewDelegate {
             
             self.navigationItem.setRightBarButtonItem(UIBarButtonItem(title: "Unjoin", style: .Plain, target: self, action: "unjoinCoursePressed"), animated: true)
             
-            Functions.Instance().refreshCoursesData()
+            DataProvider.Instance().fetchCoursesData(){
+                (result:Array<Array<PFObject>>) in
+            }
         }
     }
     
@@ -58,7 +60,9 @@ class AddCourseTableViewController: UITableViewController, UITextViewDelegate {
         joinRelation?.deleteInBackgroundWithBlock{
             (succeeded:Bool, error:NSError!) -> Void in
             Functions.Instance().showAlert("", description: "You have now unjoined this course")
-            Functions.Instance().refreshCoursesData()
+            DataProvider.Instance().fetchCoursesData(){
+                (result:Array<Array<PFObject>>) in
+            }
             self.navigationItem.setRightBarButtonItem(UIBarButtonItem(title: "Join", style: .Plain, target: self, action: "joinCoursePressed"), animated: true)
         }
     }

@@ -24,8 +24,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-       
-        // Show launchscreen for 1 seconds 
+        
+        // Set Parse connection
+        Parse.setApplicationId("pGbBNc60UqTk3vNk0ue93OTTZ5qD8e2fN6pvtfiS", clientKey: "38RE77R80UHiPfXsxi1YSDGaT4tkuAmEnhYpK47V")
+        
+        DataProvider.Instance().fetchHomeworkData(){
+            (result:Array<Array<Array<PFObject>>>) in
+            
+        }
+        
+        DataProvider.Instance().fetchCoursesData(){
+            (result:Array<Array<PFObject>>) in
+            
+        }
+        
+        // Show launchscreen for 1 seconds
         sleep(1);
         
         // Set Shadow
@@ -43,8 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Set status bar to white
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
         
-        // Set Parse connection
-        Parse.setApplicationId("pGbBNc60UqTk3vNk0ue93OTTZ5qD8e2fN6pvtfiS", clientKey: "38RE77R80UHiPfXsxi1YSDGaT4tkuAmEnhYpK47V")
+        
                 
         return true
     }

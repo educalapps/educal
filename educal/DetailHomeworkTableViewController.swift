@@ -36,6 +36,11 @@ class DetailHomeworkTableViewController: UITableViewController {
                 homeworkObject?.saveInBackgroundWithTarget(nil, selector: nil)
             }
         }
+        
+        DataProvider.Instance().fetchHomeworkData(){
+            (result:Array<Array<Array<PFObject>>>) in
+            
+        }
     }
     
     func setValues(){

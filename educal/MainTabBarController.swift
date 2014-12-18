@@ -22,7 +22,7 @@ class MainTabBarController: UITabBarController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        Functions.Instance().refreshCoursesData()
+        
     }
     
     override func viewDidAppear(animated: Bool) {

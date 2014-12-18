@@ -34,6 +34,7 @@
 		E11AA4D81A2C8D0C008C162F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E11AA4D71A2C8D0C008C162F /* Images.xcassets */; };
 		E11AA4E71A2C8D0C008C162F /* educalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11AA4E61A2C8D0C008C162F /* educalTests.swift */; };
 		E139677D1A3B6FFB00E8D40A /* AddCourseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E139677C1A3B6FFB00E8D40A /* AddCourseTableViewController.swift */; };
+		E13A6F1C1A42011100C8AFD7 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13A6F1B1A42011100C8AFD7 /* DataProvider.swift */; };
 		E1C9C78E1A399C33006E4071 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9C78D1A399C33006E4071 /* MainTabBarController.swift */; };
 		E1EAAD251A3EDF3B001D12BE /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EAAD241A3EDF3B001D12BE /* Group.swift */; };
 		E1EAAD281A3EF0F5001D12BE /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EAAD271A3EF0F5001D12BE /* Course.swift */; };
@@ -83,6 +84,7 @@
 		E11AA4E51A2C8D0C008C162F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E11AA4E61A2C8D0C008C162F /* educalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = educalTests.swift; sourceTree = "<group>"; };
 		E139677C1A3B6FFB00E8D40A /* AddCourseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCourseTableViewController.swift; sourceTree = "<group>"; };
+		E13A6F1B1A42011100C8AFD7 /* DataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		E1C9C78D1A399C33006E4071 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		E1EAAD241A3EDF3B001D12BE /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		E1EAAD271A3EF0F5001D12BE /* Course.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 				28C61A181A38689C00D396E8 /* RegistrationTableViewController.swift */,
 				28C61A1A1A3873E500D396E8 /* Functions.swift */,
 				E1C9C78D1A399C33006E4071 /* MainTabBarController.swift */,
+				E13A6F1B1A42011100C8AFD7 /* DataProvider.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 				E1EAAD2A1A3F05A6001D12BE /* CoursesTableViewController.swift in Sources */,
 				28137FAB1A407FB300B12CC4 /* CustomTableViewCell.swift in Sources */,
 				E139677D1A3B6FFB00E8D40A /* AddCourseTableViewController.swift in Sources */,
+				E13A6F1C1A42011100C8AFD7 /* DataProvider.swift in Sources */,
 				28C702161A3F7B1D00B012A3 /* DetailHomeworkTableViewController.swift in Sources */,
 				E11AA4D11A2C8D0C008C162F /* educal.xcdatamodeld in Sources */,
 			);

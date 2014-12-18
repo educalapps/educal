@@ -18,9 +18,16 @@ class CoursesTableViewController: UITableViewController {
     var currentSegment = 0
     var selectedCourse:PFObject?
     
+    func didFinishFetchingString(text: String) {
+        println(text)
+    }
+    
     @IBAction func unwindToCoursesList(sender:UIStoryboardSegue){
         //retrieve data from database and reload tableview
-        Functions.Instance().refreshCoursesData(coursesTable: coursesTableView)
+        DataProvider.Instance().fetchCoursesData(){
+            (result:Array<Array<PFObject>>) in
+            self.coursesTableView.reloadData()
+        }
     }
     
     @IBAction func addCoursePressed(sender: UIBarButtonItem) {
@@ -31,74 +38,6 @@ class CoursesTableViewController: UITableViewController {
         currentSegment = sender.selectedSegmentIndex
         coursesTableView.reloadData()
     }
-    
-    /*
-    @IBAction func getData(){
-        // Clear tablecontent array
-        tableContent.removeAll(keepCapacity: false)
-        
-        for segment in 1...coursesSegment.numberOfSegments {
-            tableContent.append(Array<PFObject>())
-        }
-        
-        for segment in 1...coursesSegment.numberOfSegments {
-            var courses = Array<PFObject>()
-            
-            switch segment {
-            case 1:
-                var joinedCourses = PFQuery(className:"CourseForUser")
-                joinedCourses.whereKey("userObjectId", equalTo:PFUser.currentUser())
-                joinedCourses.orderByAscending("courseObjectId")
-                joinedCourses.includeKey("courseObjectId")
-                joinedCourses.findObjectsInBackgroundWithBlock{
-                    (objects:[AnyObject]!, error:NSError!) -> Void in
-                    
-                    if error == nil {
-                        // Do something with the found objects
-                        for object in objects {
-                            courses.append(object["courseObjectId"] as PFObject)
-                        }
-                        self.tableContent[0] = courses
-                        self.coursesTableView.reloadData()
-                    } else {
-                        println("fout in joined courses")
-                    }
-                }
-            case 2:
-                var hostedCourses = PFQuery(className:"Course")
-                hostedCourses.whereKey("userObjectId", equalTo:PFUser.currentUser())
-                hostedCourses.orderByAscending("title")
-                hostedCourses.findObjectsInBackgroundWithBlock{
-                    (objects:[AnyObject]!, error:NSError!) -> Void in
-                    
-                    if error == nil {
-                        // Do something with the found objects
-                        self.tableContent[1] = objects as Array<PFObject>
-                         self.coursesTableView.reloadData()
-                    } else {
-                        println("fout in hosted courses")
-                    }
-                }
-            case 3:
-                var allCourses = PFQuery(className:"Course")
-                allCourses.orderByAscending("title")
-                allCourses.findObjectsInBackgroundWithBlock{
-                    (objects:[AnyObject]!, error:NSError!) -> Void in
-                    
-                    if error == nil {
-                        // Do something with the found objects
-                        self.tableContent[2] = objects as Array<PFObject>
-                        self.coursesTableView.reloadData()
-                    } else {
-                        println("fout in all courses")
-                    }
-                }
-            default:
-                println("No segment selected")
-            }
-        }
-    }
-    */
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,7 +50,12 @@ class CoursesTableViewController: UITableViewController {
     
     func refresh(sender:AnyObject){
         // Code to refresh table view
-        Functions.Instance().refreshCoursesData(coursesTable: coursesTableView)
+        
+        DataProvider.Instance().fetchCoursesData(){
+            (result:Array<Array<PFObject>>) in
+            self.coursesTableView.reloadData()
+        }
+        
         sleep(1)
         self.refreshController.endRefreshing()
     }
@@ -134,10 +78,10 @@ class CoursesTableViewController: UITableViewController {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
         
-        if Functions.Instance().coursesTableContent.count == 0 {
+        if DataProvider.Instance().CoursesTableContent.count == 0 {
             return 0
         } else {
-            return Functions.Instance().coursesTableContent[currentSegment].count
+            return DataProvider.Instance().CoursesTableContent[currentSegment].count
         }
 
     }
@@ -147,19 +91,19 @@ class CoursesTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("CourseCell", forIndexPath: indexPath) as UITableViewCell
 
         // Configure the cell...
-        cell.textLabel?.text = Functions.Instance().coursesTableContent[currentSegment][indexPath.row]["title"] as? String
+        cell.textLabel?.text = DataProvider.Instance().CoursesTableContent[currentSegment][indexPath.row]["title"] as? String
         cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
 
         return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        selectedCourse = Functions.Instance().coursesTableContent[currentSegment][indexPath.row]
+        selectedCourse = DataProvider.Instance().CoursesTableContent[currentSegment][indexPath.row]
         performSegueWithIdentifier("courseDetailSegue", sender: self)
     }
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        if (Functions.Instance().coursesTableContent[currentSegment][indexPath.row]["userObjectId"] as PFUser).objectId == PFUser.currentUser().objectId {
+        if (DataProvider.Instance().CoursesTableContent[currentSegment][indexPath.row]["userObjectId"] as PFUser).objectId == PFUser.currentUser().objectId {
             return true
         } else {
             return false
@@ -170,12 +114,15 @@ class CoursesTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
-            Functions.Instance().coursesTableContent[currentSegment][indexPath.row].deleteInBackgroundWithBlock{
+            DataProvider.Instance().CoursesTableContent[currentSegment][indexPath.row].deleteInBackgroundWithBlock{
                 (complete:Bool!, error:NSError!) -> Void in
-                Functions.Instance().refreshCoursesData(coursesTable: self.coursesTableView)
+                DataProvider.Instance().fetchCoursesData(){
+                    (result:Array<Array<PFObject>>) in
+                    
+                }
             }
             
-            Functions.Instance().coursesTableContent[currentSegment].removeAtIndex(indexPath.row)
+            DataProvider.Instance().CoursesTableContent[currentSegment].removeAtIndex(indexPath.row)
             
             
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
