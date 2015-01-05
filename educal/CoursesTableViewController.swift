@@ -80,15 +80,18 @@ class CoursesTableViewController: UITableViewController {
         switch currentSegment {
         case 0:
             var countObjects = PFQuery(className: "CourseForUser")
+            countObjects.whereKey("active", equalTo:true)
             countObjects.fromLocalDatastore()
             return countObjects.countObjects()
         case 1:
             var countObjects = PFQuery(className: "Course")
+            countObjects.whereKey("active", equalTo:true)
             countObjects.whereKey("userObjectId", equalTo: PFUser.currentUser())
             countObjects.fromLocalDatastore()
             return countObjects.countObjects()
         case 2:
             var countObjects = PFQuery(className: "Course")
+            countObjects.whereKey("active", equalTo:true)
             countObjects.fromLocalDatastore()
             return countObjects.countObjects()
         default:
@@ -105,6 +108,7 @@ class CoursesTableViewController: UITableViewController {
         switch currentSegment {
         case 0:
             var Objects = PFQuery(className: "CourseForUser")
+            Objects.whereKey("active", equalTo:true)
             Objects.includeKey("courseObjectId")
             Objects.fromLocalDatastore()
             Objects.skip = indexPath.row
@@ -119,6 +123,7 @@ class CoursesTableViewController: UITableViewController {
             cell.textLabel?.text = "Course \(indexPath.row)"
         case 1:
             var Objects = PFQuery(className: "Course")
+            Objects.whereKey("active", equalTo:true)
             Objects.whereKey("userObjectId", equalTo: PFUser.currentUser())
             Objects.fromLocalDatastore()
             Objects.orderByAscending("title")
@@ -134,6 +139,7 @@ class CoursesTableViewController: UITableViewController {
             cell.textLabel?.text = "Course \(indexPath.row)"
         case 2:
             var Objects = PFQuery(className: "Course")
+            Objects.whereKey("active", equalTo:true)
             Objects.fromLocalDatastore()
             Objects.orderByAscending("title")
             Objects.skip = indexPath.row

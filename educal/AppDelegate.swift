@@ -36,23 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            
 //        }
         
-        var query = PFQuery(className: "Course")
-        query.fromLocalDatastore()
-        query.findObjectsInBackgroundWithBlock() {
-            (result:[AnyObject]!, error:NSError!) in
-            for object in result {
-                object.unpin()            }
-        }
-        
-        var newquery = PFQuery(className: "CourseForUser")
-        newquery.fromLocalDatastore()
-        newquery.findObjectsInBackgroundWithBlock() {
-            (result:[AnyObject]!, error:NSError!) in
-            for object in result {
-                object.unpin()
-            }
-        }
-        
         DataProvider.Instance().updateLocalCourses()
         DataProvider.Instance().updateLocalCoursesForUser()
         

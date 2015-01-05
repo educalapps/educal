@@ -24,7 +24,7 @@ class DataProvider {
         return DPinstance!
     }
     
-    func updateLocalCourses(){
+    func updateLocalCourses(){        
         var myCourses = PFQuery(className:"Course")
         myCourses.findObjectsInBackgroundWithBlock{
             (objects:[AnyObject]!, error:NSError!) -> Void in

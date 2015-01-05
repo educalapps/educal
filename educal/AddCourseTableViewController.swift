@@ -29,6 +29,7 @@ class AddCourseTableViewController: UITableViewController, UITextViewDelegate {
             course?["title"] = titleTextField.text
             course?["code"] = codeTextField.text
             course?["description"] = descriptionTextField.text
+            course?["active"] = true
             course?.saveEventually()
             course?.pinInBackgroundWithBlock() {
                 (succeeded:Bool, error:NSError!) in
@@ -55,8 +56,9 @@ class AddCourseTableViewController: UITableViewController, UITextViewDelegate {
     }
     
     func unjoinCoursePressed() {
-        joinRelation?.deleteEventually()
-        joinRelation?.unpinInBackgroundWithBlock() {
+        joinRelation?["active"] = false
+        joinRelation?.saveEventually()
+        joinRelation?.pinInBackgroundWithBlock() {
             (succeeded:Bool, error:NSError!) in
             Functions.Instance().showAlert("", description: "You have now left this course")
             self.navigationItem.setRightBarButtonItem(UIBarButtonItem(title: "Join", style: .Plain, target: self, action: "joinCoursePressed"), animated: true)
