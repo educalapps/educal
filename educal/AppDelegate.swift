@@ -25,21 +25,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+        // enable local parse localDataStore
+        Parse.enableLocalDatastore()
+        
         // Set Parse connection
         Parse.setApplicationId("pGbBNc60UqTk3vNk0ue93OTTZ5qD8e2fN6pvtfiS", clientKey: "38RE77R80UHiPfXsxi1YSDGaT4tkuAmEnhYpK47V")
         
-        DataProvider.Instance().fetchHomeworkData(){
-            (result:Array<Array<Array<PFObject>>>) in
-            
+//        DataProvider.Instance().fetchHomeworkData(){
+//            (result:Array<Array<Array<PFObject>>>) in
+//            
+//        }
+        
+        var query = PFQuery(className: "Course")
+        query.fromLocalDatastore()
+        query.findObjectsInBackgroundWithBlock() {
+            (result:[AnyObject]!, error:NSError!) in
+            for object in result {
+                object.unpin()            }
         }
         
-        DataProvider.Instance().fetchCoursesData(){
-            (result:Array<Array<PFObject>>) in
-            
+        var newquery = PFQuery(className: "CourseForUser")
+        newquery.fromLocalDatastore()
+        newquery.findObjectsInBackgroundWithBlock() {
+            (result:[AnyObject]!, error:NSError!) in
+            for object in result {
+                object.unpin()
+            }
         }
         
-        // Show launchscreen for 1 seconds
-        sleep(1);
+        DataProvider.Instance().updateLocalCourses()
+        DataProvider.Instance().updateLocalCoursesForUser()
         
         // Set Shadow
         var barShadow: NSShadow = NSShadow()

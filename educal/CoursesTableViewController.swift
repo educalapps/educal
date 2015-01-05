@@ -17,17 +17,16 @@ class CoursesTableViewController: UITableViewController {
     var tableContent = Array<Array<PFObject>>()
     var currentSegment = 0
     var selectedCourse:PFObject?
+    var allCoursesInTable = Array<PFObject>()
     
     func didFinishFetchingString(text: String) {
         println(text)
     }
     
     @IBAction func unwindToCoursesList(sender:UIStoryboardSegue){
-        //retrieve data from database and reload tableview
-        DataProvider.Instance().fetchCoursesData(){
-            (result:Array<Array<PFObject>>) in
-            self.coursesTableView.reloadData()
-        }
+        //reload tableview
+        
+        
     }
     
     @IBAction func addCoursePressed(sender: UIBarButtonItem) {
@@ -48,13 +47,12 @@ class CoursesTableViewController: UITableViewController {
         self.tableView.addSubview(self.refreshController)
     }
     
+    override func viewWillAppear(animated: Bool) {
+        coursesTableView.reloadData()
+    }
+    
     func refresh(sender:AnyObject){
         // Code to refresh table view
-        
-        DataProvider.Instance().fetchCoursesData(){
-            (result:Array<Array<PFObject>>) in
-            self.coursesTableView.reloadData()
-        }
         
         sleep(1)
         self.refreshController.endRefreshing()
@@ -70,7 +68,7 @@ class CoursesTableViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        
+        //allCoursesInTable.removeAll(keepCapacity: false)
         return 1
     }
 
@@ -78,75 +76,90 @@ class CoursesTableViewController: UITableViewController {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
         
-        if DataProvider.Instance().CoursesTableContent.count == 0 {
-            return 0
-        } else {
-            return DataProvider.Instance().CoursesTableContent[currentSegment].count
-        }
 
+        switch currentSegment {
+        case 0:
+            var countObjects = PFQuery(className: "CourseForUser")
+            countObjects.fromLocalDatastore()
+            return countObjects.countObjects()
+        case 1:
+            var countObjects = PFQuery(className: "Course")
+            countObjects.whereKey("userObjectId", equalTo: PFUser.currentUser())
+            countObjects.fromLocalDatastore()
+            return countObjects.countObjects()
+        case 2:
+            var countObjects = PFQuery(className: "Course")
+            countObjects.fromLocalDatastore()
+            return countObjects.countObjects()
+        default:
+            println("no segment selected")
+            return 0
+        }
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("CourseCell", forIndexPath: indexPath) as UITableViewCell
-
-        // Configure the cell...
-        cell.textLabel?.text = DataProvider.Instance().CoursesTableContent[currentSegment][indexPath.row]["title"] as? String
+        
+        
+        switch currentSegment {
+        case 0:
+            var Objects = PFQuery(className: "CourseForUser")
+            Objects.includeKey("courseObjectId")
+            Objects.fromLocalDatastore()
+            Objects.skip = indexPath.row
+            Objects.limit = 1
+            Objects.findObjectsInBackgroundWithBlock(){
+                (result:[AnyObject]!, error:NSError!) in
+                
+                var object = (result[0]["courseObjectId"] as PFObject)
+                cell.textLabel?.text = object["title"] as? String
+                self.allCoursesInTable.append(object)
+            }
+            cell.textLabel?.text = "Course \(indexPath.row)"
+        case 1:
+            var Objects = PFQuery(className: "Course")
+            Objects.whereKey("userObjectId", equalTo: PFUser.currentUser())
+            Objects.fromLocalDatastore()
+            Objects.orderByAscending("title")
+            Objects.skip = indexPath.row
+            Objects.limit = 1
+            Objects.findObjectsInBackgroundWithBlock(){
+                (result:[AnyObject]!, error:NSError!) in
+                
+                var object = result[0] as PFObject
+                cell.textLabel?.text = object["title"] as? String
+                self.allCoursesInTable.append(object)
+            }
+            cell.textLabel?.text = "Course \(indexPath.row)"
+        case 2:
+            var Objects = PFQuery(className: "Course")
+            Objects.fromLocalDatastore()
+            Objects.orderByAscending("title")
+            Objects.skip = indexPath.row
+            Objects.limit = 1
+            Objects.findObjectsInBackgroundWithBlock(){
+                (result:[AnyObject]!, error:NSError!) in
+                
+                var object = result[0] as PFObject
+                cell.textLabel?.text = object["title"] as? String
+                self.allCoursesInTable.append(object)
+            }
+            cell.textLabel?.text = "Course \(indexPath.row)"
+        default:
+            println("no segment selected")
+        }
+        
+        
         cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
 
         return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        selectedCourse = DataProvider.Instance().CoursesTableContent[currentSegment][indexPath.row]
+        selectedCourse = allCoursesInTable[indexPath.row]
         performSegueWithIdentifier("courseDetailSegue", sender: self)
     }
-    
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        if (DataProvider.Instance().CoursesTableContent[currentSegment][indexPath.row]["userObjectId"] as PFUser).objectId == PFUser.currentUser().objectId {
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            DataProvider.Instance().CoursesTableContent[currentSegment][indexPath.row].deleteInBackgroundWithBlock{
-                (complete:Bool!, error:NSError!) -> Void in
-                DataProvider.Instance().fetchCoursesData(){
-                    (result:Array<Array<PFObject>>) in
-                    
-                }
-            }
-            
-            DataProvider.Instance().CoursesTableContent[currentSegment].removeAtIndex(indexPath.row)
-            
-            
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-            
-            
-        }
-    }
-    
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
 
     // MARK: - Navigation
 

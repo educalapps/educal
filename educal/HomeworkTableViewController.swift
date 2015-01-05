@@ -45,10 +45,10 @@ class HomeworkTableViewController: UITableViewController {
     
     @IBAction func unwindToHomework(segue: UIStoryboardSegue) {
         // Get new data
-        DataProvider.Instance().fetchHomeworkData(){
-            (result:Array<Array<Array<PFObject>>>) in
-            self.homeworkTableView.reloadData()
-        }
+//        DataProvider.Instance().fetchHomeworkData(){
+//            (result:Array<Array<Array<PFObject>>>) in
+//            self.homeworkTableView.reloadData()
+//        }
         homeworkTableView.reloadData()
     }
     
@@ -56,11 +56,11 @@ class HomeworkTableViewController: UITableViewController {
     
     func refresh(sender:AnyObject){
         // Get new data
-        DataProvider.Instance().fetchHomeworkData(){
-            (result:Array<Array<Array<PFObject>>>) in
-            self.homeworkTableView.reloadData()
-            println("reloading")
-        }
+//        DataProvider.Instance().fetchHomeworkData(){
+//            (result:Array<Array<Array<PFObject>>>) in
+//            self.homeworkTableView.reloadData()
+//            println("reloading")
+//        }
         
         // Keeps the refresher a second longer
         sleep(1)

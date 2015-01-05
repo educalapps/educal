@@ -37,10 +37,10 @@ class DetailHomeworkTableViewController: UITableViewController {
             }
         }
         
-        DataProvider.Instance().fetchHomeworkData(){
-            (result:Array<Array<Array<PFObject>>>) in
-            
-        }
+//        DataProvider.Instance().fetchHomeworkData(){
+//            (result:Array<Array<Array<PFObject>>>) in
+//            
+//        }
     }
     
     func setValues(){

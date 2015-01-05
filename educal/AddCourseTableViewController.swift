@@ -29,8 +29,9 @@ class AddCourseTableViewController: UITableViewController, UITextViewDelegate {
             course?["title"] = titleTextField.text
             course?["code"] = codeTextField.text
             course?["description"] = descriptionTextField.text
-            course?.saveInBackgroundWithBlock{
-                (succeeded:Bool, error:NSError!) -> Void in
+            course?.saveEventually()
+            course?.pinInBackgroundWithBlock() {
+                (succeeded:Bool, error:NSError!) in
                 self.performSegueWithIdentifier("BackToCoursesTableView", sender: self)
             }
             
@@ -44,27 +45,23 @@ class AddCourseTableViewController: UITableViewController, UITextViewDelegate {
         var courseForUser = PFObject(className: "CourseForUser")
         courseForUser["courseObjectId"] = course
         courseForUser["userObjectId"] = PFUser.currentUser()
-        courseForUser.saveInBackgroundWithBlock{
-            (succeeded:Bool, error:NSError!) -> Void in
+        courseForUser.saveEventually()
+        courseForUser.pinInBackgroundWithBlock() {
+            (succeeded:Bool, error:NSError!) in
             Functions.Instance().showAlert("Congratulations!", description: "You have successfully joined this course")
-            
-            self.navigationItem.setRightBarButtonItem(UIBarButtonItem(title: "Unjoin", style: .Plain, target: self, action: "unjoinCoursePressed"), animated: true)
-            
-            DataProvider.Instance().fetchCoursesData(){
-                (result:Array<Array<PFObject>>) in
-            }
+            self.navigationItem.setRightBarButtonItem(UIBarButtonItem(title: "Leave", style: .Plain, target: self, action: "unjoinCoursePressed"), animated: true)
         }
+        
     }
     
     func unjoinCoursePressed() {
-        joinRelation?.deleteInBackgroundWithBlock{
-            (succeeded:Bool, error:NSError!) -> Void in
-            Functions.Instance().showAlert("", description: "You have now unjoined this course")
-            DataProvider.Instance().fetchCoursesData(){
-                (result:Array<Array<PFObject>>) in
-            }
+        joinRelation?.deleteEventually()
+        joinRelation?.unpinInBackgroundWithBlock() {
+            (succeeded:Bool, error:NSError!) in
+            Functions.Instance().showAlert("", description: "You have now left this course")
             self.navigationItem.setRightBarButtonItem(UIBarButtonItem(title: "Join", style: .Plain, target: self, action: "joinCoursePressed"), animated: true)
         }
+        
     }
 
     override func viewDidLoad() {
