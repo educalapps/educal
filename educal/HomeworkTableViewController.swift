@@ -12,11 +12,10 @@ class HomeworkTableViewController: UITableViewController {
     
     // Variables
     var refreshController:UIRefreshControl!
-    var showableArray = Array<PFObject>()
-    var thisArray = Array<PFObject>()
-    var nextArray = Array<PFObject>()
-    var allArray = Array<PFObject>()
     var activeSegment:Int = 0
+    var homeworkInTable = Array<PFObject>()
+    var oneWeekFurther = NSDate().dateByAddingTimeInterval(60 * 60 * 24 * 7)
+    var twoWeekFurther = NSDate().dateByAddingTimeInterval(60 * 60 * 24 * 14)
     
     // Outlets
     @IBOutlet var homeworkTableView: UITableView!
@@ -45,22 +44,17 @@ class HomeworkTableViewController: UITableViewController {
     
     @IBAction func unwindToHomework(segue: UIStoryboardSegue) {
         // Get new data
-//        DataProvider.Instance().fetchHomeworkData(){
-//            (result:Array<Array<Array<PFObject>>>) in
-//            self.homeworkTableView.reloadData()
-//        }
+
         homeworkTableView.reloadData()
     }
     
+    @IBAction func addHomeworkPressed(sender: UIBarButtonItem) {
+        performSegueWithIdentifier("editHomework", sender: self)
+    }
     // Custom functions
     
     func refresh(sender:AnyObject){
         // Get new data
-//        DataProvider.Instance().fetchHomeworkData(){
-//            (result:Array<Array<Array<PFObject>>>) in
-//            self.homeworkTableView.reloadData()
-//            println("reloading")
-//        }
         
         // Keeps the refresher a second longer
         sleep(1)
@@ -74,22 +68,16 @@ class HomeworkTableViewController: UITableViewController {
     // Default
     
     override func viewWillAppear(animated: Bool) {
+        homeworkTableView.reloadData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "reloadTable", userInfo: nil, repeats: false)
-        
-        
         // Pull to refresh
         self.refreshController = UIRefreshControl()
         self.refreshController.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(self.refreshController)
-    }
-    
-    func reloadTable(){
-        homeworkTableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -100,61 +88,163 @@ class HomeworkTableViewController: UITableViewController {
     // Tableview
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
-    }
-    
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0{
-            return "Uncompleted"
-        } else{
-            return "Completed"
-        }
+        homeworkInTable.removeAll(keepCapacity: false)
+        return 1
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if DataProvider.Instance().homeworkTableContent.count == 0 {
-            return 0
-        } else {
-            return DataProvider.Instance().homeworkTableContent[activeSegment][section].count
+        switch activeSegment {
+            case 0:
+                var query1 = PFQuery(className: "Homework")
+                query1.fromLocalDatastore()
+                query1.whereKey("active", equalTo: true)
+                query1.whereKey("deadline", greaterThan: NSDate() )
+                query1.whereKey("deadline", lessThan: oneWeekFurther )
+                return query1.countObjects()
+            case 1:
+                var query1 = PFQuery(className: "Homework")
+                query1.fromLocalDatastore()
+                query1.whereKey("active", equalTo: true)
+                query1.whereKey("deadline", greaterThan: oneWeekFurther )
+                query1.whereKey("deadline", lessThan: twoWeekFurther )
+                return query1.countObjects()
+            case 2:
+                var query1 = PFQuery(className: "Homework")
+                query1.fromLocalDatastore()
+                query1.whereKey("active", equalTo: true)
+                return query1.countObjects()
+            default:
+                return 0
         }
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {        
         let cell:CustomTableViewCell = tableView.dequeueReusableCellWithIdentifier("homeworkCell", forIndexPath: indexPath) as CustomTableViewCell
         
-        var thisHomework = DataProvider.Instance().homeworkTableContent[activeSegment][indexPath.section][indexPath.row] as PFObject
-        
-        // Set title of tablecell
-        cell.homeworkTitleLabel?.text = thisHomework["title"] as? String
-        
-        // Set subtitle of tablecell
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "d MMM-HH:mm" // d MMM 'at' HH:mm
-        let newDate = dateFormatter.stringFromDate(thisHomework["deadline"] as NSDate)
-        
-        // Set accessorytype
-        if thisHomework["completed"] as NSObject == true {
-            cell.tintColor = UIColor.grayColor()
-            cell.accessoryType = .Checkmark
-            cell.dateBackgroundView.backgroundColor = UIColor.grayColor()
-            cell.homeworkDeadlineLabel.textColor = UIColor.grayColor()
-            cell.homeworkTitleLabel.textColor = UIColor.grayColor()
-        } else{
-            cell.accessoryType = .DisclosureIndicator
-            cell.dateBackgroundView.backgroundColor = Functions.Instance().UIColorFromRGB(0xd1190d)
-            cell.homeworkDeadlineLabel.textColor = Functions.Instance().UIColorFromRGB(0xd1190d)
-            cell.homeworkTitleLabel.textColor = UIColor.blackColor()
+        switch activeSegment {
+            case 0:
+                var query = PFQuery(className: "Homework")
+                query.fromLocalDatastore()
+                query.whereKey("active", equalTo: true)
+                query.addAscendingOrder("deadline")
+                query.addAscendingOrder("completed")
+                query.whereKey("deadline", greaterThan: NSDate() )
+                query.whereKey("deadline", lessThan: oneWeekFurther )
+                query.findObjectsInBackgroundWithBlock(){
+                    (objects:[AnyObject]?, error:NSError!) in
+                    
+                    var myObjects = objects as [PFObject]?
+                    
+                    self.homeworkInTable = myObjects!
+                    
+                    // Set title of tablecell
+                    cell.homeworkTitleLabel?.text = myObjects?[indexPath.row]["title"] as? String
+                    
+                    // Set subtitle of tablecell
+                    let dateFormatter = NSDateFormatter()
+                    dateFormatter.dateFormat = "d MMM-HH:mm" // d MMM 'at' HH:mm
+                    let newDate = dateFormatter.stringFromDate(myObjects?[indexPath.row]["deadline"] as NSDate)
+                    
+                    // Split date by day and month
+                    var newDateArray = split(newDate) {$0 == "-"}
+                    var onlyDate = newDateArray[0]
+                    var onlyTime = newDateArray[1]
+                    
+                    var onlyDateArray = split(onlyDate) {$0 == " "}
+                    cell.dateDayLabel?.text = onlyDateArray[0].uppercaseString
+                    cell.dateMonthLabel?.text = onlyDateArray[1].uppercaseString
+                    cell.homeworkDeadlineLabel?.text = onlyTime
+                    
+                    if myObjects?[indexPath.row]["completed"] as Bool == true {
+                        cell.accessoryType = .Checkmark
+                    } else {
+                        cell.accessoryType = .None
+                    }
+                    
+                }
+            case 1:
+                var query = PFQuery(className: "Homework")
+                query.fromLocalDatastore()
+                query.whereKey("active", equalTo: true)
+                query.addAscendingOrder("deadline")
+                query.addAscendingOrder("completed")
+                query.whereKey("deadline", greaterThan: oneWeekFurther )
+                query.whereKey("deadline", lessThan: twoWeekFurther )
+                query.findObjectsInBackgroundWithBlock(){
+                    (objects:[AnyObject]?, error:NSError!) in
+                    
+                    var myObjects = objects as [PFObject]?
+                    
+                    self.homeworkInTable = myObjects!
+                    
+                    // Set title of tablecell
+                    cell.homeworkTitleLabel?.text = myObjects?[indexPath.row]["title"] as? String
+                    
+                    // Set subtitle of tablecell
+                    let dateFormatter = NSDateFormatter()
+                    dateFormatter.dateFormat = "d MMM-HH:mm" // d MMM 'at' HH:mm
+                    let newDate = dateFormatter.stringFromDate(myObjects?[indexPath.row]["deadline"] as NSDate)
+                    
+                    // Split date by day and month
+                    var newDateArray = split(newDate) {$0 == "-"}
+                    var onlyDate = newDateArray[0]
+                    var onlyTime = newDateArray[1]
+                    
+                    var onlyDateArray = split(onlyDate) {$0 == " "}
+                    cell.dateDayLabel?.text = onlyDateArray[0].uppercaseString
+                    cell.dateMonthLabel?.text = onlyDateArray[1].uppercaseString
+                    cell.homeworkDeadlineLabel?.text = onlyTime
+                    
+                    if myObjects?[indexPath.row]["completed"] as Bool == true {
+                        cell.accessoryType = .Checkmark
+                    } else {
+                        cell.accessoryType = .None
+                    }
+                    
+                }
+            case 2:
+                var query = PFQuery(className: "Homework")
+                query.fromLocalDatastore()
+                query.whereKey("active", equalTo: true)
+                query.addAscendingOrder("deadline")
+                query.addAscendingOrder("completed")
+                query.findObjectsInBackgroundWithBlock(){
+                    (objects:[AnyObject]?, error:NSError!) in
+                    
+                    var myObjects = objects as [PFObject]?
+                    
+                    self.homeworkInTable = myObjects!
+                    
+                    // Set title of tablecell
+                    cell.homeworkTitleLabel?.text = myObjects?[indexPath.row]["title"] as? String
+                    
+                    // Set subtitle of tablecell
+                    let dateFormatter = NSDateFormatter()
+                    dateFormatter.dateFormat = "d MMM-HH:mm" // d MMM 'at' HH:mm
+                    let newDate = dateFormatter.stringFromDate(myObjects?[indexPath.row]["deadline"] as NSDate)
+                    
+                    // Split date by day and month
+                    var newDateArray = split(newDate) {$0 == "-"}
+                    var onlyDate = newDateArray[0]
+                    var onlyTime = newDateArray[1]
+                    
+                    var onlyDateArray = split(onlyDate) {$0 == " "}
+                    cell.dateDayLabel?.text = onlyDateArray[0].uppercaseString
+                    cell.dateMonthLabel?.text = onlyDateArray[1].uppercaseString
+                    cell.homeworkDeadlineLabel?.text = onlyTime
+                    
+                    if myObjects?[indexPath.row]["completed"] as Bool == true {
+                        cell.accessoryType = .Checkmark
+                    } else {
+                        cell.accessoryType = .None
+                    }
+                    
+                }
+            default:
+                println("no segment")
         }
         
-        // Split date by day and month
-        var newDateArray = split(newDate) {$0 == "-"}
-        var onlyDate = newDateArray[0]
-        var onlyTime = newDateArray[1]
         
-        var onlyDateArray = split(onlyDate) {$0 == " "}
-        cell.dateDayLabel?.text = onlyDateArray[0].uppercaseString
-        cell.dateMonthLabel?.text = onlyDateArray[1].uppercaseString
-        cell.homeworkDeadlineLabel?.text = onlyTime
         
         
         return cell
@@ -165,7 +255,7 @@ class HomeworkTableViewController: UITableViewController {
     }
     
     
-    
+    /*
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
@@ -179,12 +269,13 @@ class HomeworkTableViewController: UITableViewController {
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
     }
-    
+*/
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if segue.identifier == "showDetail" {
             let DetailViewController = segue.destinationViewController as DetailHomeworkTableViewController
-            DetailViewController.title = DataProvider.Instance().homeworkTableContent[activeSegment][sender.section][sender.row]["title"] as? String
-            DetailViewController.homeworkObject = DataProvider.Instance().homeworkTableContent[activeSegment][sender.section][sender.row]
+            DetailViewController.title = homeworkInTable[sender.row]["title"] as? String
+            DetailViewController.homeworkObject = homeworkInTable[sender.row]
         }
     }
 }

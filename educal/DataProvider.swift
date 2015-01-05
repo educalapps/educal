@@ -51,6 +51,36 @@ class DataProvider {
         }
     }
     
+    func updateLocalHomework(){
+        var allHomework = PFQuery(className:"Homework")
+        allHomework.whereKey("userObjectId", equalTo:PFUser.currentUser())
+        allHomework.whereKey("personal", equalTo: true)
+        allHomework.findObjectsInBackgroundWithBlock() {
+            (objects:[AnyObject]!, error:NSError!) -> Void in
+            
+            if error == nil {
+                for object in objects {
+                    object.pinInBackgroundWithName(nil, block: nil)
+                }
+            }
+        }
+    }
+    
+    func updateLocalHomeworkForUser(){
+        var homeworkForUser = PFQuery(className: "HomeworkForUser")
+        homeworkForUser.whereKey("userObjectId", equalTo: PFUser.currentUser())
+        homeworkForUser.findObjectsInBackgroundWithBlock() {
+            (objects:[AnyObject]!, error:NSError!) -> Void in
+            
+            if error == nil {
+                for object in objects {
+                    object.pinInBackgroundWithName(nil, block: nil)
+                }
+            }
+        }
+        
+    }
+    
 //    func fetchHomeworkData(completion:(result:Array<Array<Array<PFObject>>>)->Void) {
 //        homeworkTableContent.removeAll(keepCapacity: false)
 //        

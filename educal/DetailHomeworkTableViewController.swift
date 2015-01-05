@@ -25,22 +25,25 @@ class DetailHomeworkTableViewController: UITableViewController {
     
     @IBAction func switchChanged(sender: UISwitch) {
         if sender.on {
-            if homeworkObject?["personal"] as NSObject == true {
+            if homeworkObject?["personal"] as Bool == true {
                 homeworkObject?["completed"] = true
                 homeworkObject?["completedAt"] = NSDate()
-                homeworkObject?.saveInBackgroundWithTarget(nil, selector: nil)
+                homeworkObject?.saveEventually()
+                homeworkObject?.pinInBackgroundWithBlock() {
+                    (succeeded:Bool, error:NSError!) in
+                    
+                }
             }
         } else{
-            if homeworkObject?["personal"] as NSObject == true {
+            if homeworkObject?["personal"] as Bool == true {
                 homeworkObject?["completed"] = false
-                homeworkObject?.saveInBackgroundWithTarget(nil, selector: nil)
+                homeworkObject?.saveEventually()
+                homeworkObject?.pinInBackgroundWithBlock() {
+                    (succeeded:Bool, error:NSError!) in
+                    
+                }
             }
         }
-        
-//        DataProvider.Instance().fetchHomeworkData(){
-//            (result:Array<Array<Array<PFObject>>>) in
-//            
-//        }
     }
     
     func setValues(){

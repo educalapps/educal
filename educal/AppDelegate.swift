@@ -31,11 +31,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Set Parse connection
         Parse.setApplicationId("pGbBNc60UqTk3vNk0ue93OTTZ5qD8e2fN6pvtfiS", clientKey: "38RE77R80UHiPfXsxi1YSDGaT4tkuAmEnhYpK47V")
         
-//        DataProvider.Instance().fetchHomeworkData(){
-//            (result:Array<Array<Array<PFObject>>>) in
-//            
-//        }
-        
+        // update all local data
+        DataProvider.Instance().updateLocalHomework()
+        DataProvider.Instance().updateLocalHomeworkForUser()
         DataProvider.Instance().updateLocalCourses()
         DataProvider.Instance().updateLocalCoursesForUser()
         

@@ -523,7 +523,11 @@
                                 <action selector="signOutPressed:" destination="xGi-yh-Poz" id="1Iz-BU-HaW"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="kMg-O5-Pfs"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="kMg-O5-Pfs">
+                            <connections>
+                                <action selector="addHomeworkPressed:" destination="xGi-yh-Poz" id="PJO-GC-un3"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
