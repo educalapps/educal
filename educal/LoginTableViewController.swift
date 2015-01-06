@@ -18,6 +18,14 @@ class LoginTableViewController: UITableViewController, UITextFieldDelegate {
             (user: PFUser!, error: NSError!) -> Void in
             if user != nil {
                 // Do stuff after successful login.
+                
+                // update all local data
+                DataProvider.Instance().updateLocalHomework()
+                DataProvider.Instance().updateLocalHomeworkForUser()
+                DataProvider.Instance().updateLocalCourses()
+                DataProvider.Instance().updateLocalCoursesForUser()
+                
+                // remove login viewcontroller
                 self.dismissViewControllerAnimated(true, completion: nil)
             } else {
                 // The login failed. Check error to see why. 
