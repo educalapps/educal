@@ -8,9 +8,6 @@
 
 import UIKit
 
-var homeworkTitle:String?
-
-
 class DetailHomeworkTableViewController: UITableViewController {
     
     var homeworkObject:PFObject?
@@ -81,7 +78,7 @@ class DetailHomeworkTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.title = homeworkObject?["title"] as? String
         setValues()
     }
 

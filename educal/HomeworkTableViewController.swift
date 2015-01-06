@@ -13,9 +13,7 @@ class HomeworkTableViewController: UITableViewController {
     // Variables
     var refreshController:UIRefreshControl!
     var activeSegment:Int = 0
-    var homeworkInTable = Array<PFObject>()
-    var oneWeekFurther = NSDate().dateByAddingTimeInterval(60 * 60 * 24 * 7)
-    var twoWeekFurther = NSDate().dateByAddingTimeInterval(60 * 60 * 24 * 14)
+    var homeworkInTable:Array<Array<Array<PFObject>>>?
     
     // Outlets
     @IBOutlet var homeworkTableView: UITableView!
@@ -68,6 +66,7 @@ class HomeworkTableViewController: UITableViewController {
     // Default
     
     override func viewWillAppear(animated: Bool) {
+        homeworkInTable = [[Array<PFObject>(), Array<PFObject>()],[Array<PFObject>(), Array<PFObject>()],[Array<PFObject>(), Array<PFObject>()]]
         homeworkTableView.reloadData()
     }
     
@@ -88,157 +87,141 @@ class HomeworkTableViewController: UITableViewController {
     // Tableview
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        homeworkInTable.removeAll(keepCapacity: false)
-        return 1
+        return 2
+    }
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {        
+        switch section {
+            case 0:
+                return ""
+            case 1:
+                return "Complete"
+            default:
+                return ""
+        }
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch activeSegment {
             case 0:
-                var query1 = PFQuery(className: "Homework")
-                query1.fromLocalDatastore()
-                query1.whereKey("active", equalTo: true)
-                query1.whereKey("deadline", greaterThan: NSDate() )
-                query1.whereKey("deadline", lessThan: oneWeekFurther )
-                return query1.countObjects()
+                if section == 0 {
+                    var count = DataProvider.Instance().countHomeworkForThisWeek(false)
+                    for var i = 0; i < count; i++ {
+                        homeworkInTable?[activeSegment][section].append(PFObject(className: "Homework"))
+                    }
+                    
+                    return count
+                } else {
+                    var count = DataProvider.Instance().countHomeworkForThisWeek(true)
+                    for var i = 0; i < count; i++ {
+                        homeworkInTable?[activeSegment][section].append(PFObject(className: "Homework"))
+                    }
+                    
+                    return count
+                }
             case 1:
-                var query1 = PFQuery(className: "Homework")
-                query1.fromLocalDatastore()
-                query1.whereKey("active", equalTo: true)
-                query1.whereKey("deadline", greaterThan: oneWeekFurther )
-                query1.whereKey("deadline", lessThan: twoWeekFurther )
-                return query1.countObjects()
+                if section == 0 {
+                    var count = DataProvider.Instance().countHomeworkForNextWeek(false)
+                    for var i = 0; i < count; i++ {
+                        homeworkInTable?[activeSegment][section].append(PFObject(className: "Homework"))
+                    }
+                    
+                    return count
+                } else {
+                    var count = DataProvider.Instance().countHomeworkForNextWeek(true)
+                    for var i = 0; i < count; i++ {
+                        homeworkInTable?[activeSegment][section].append(PFObject(className: "Homework"))
+                    }
+                    
+                    return count
+                }
             case 2:
-                var query1 = PFQuery(className: "Homework")
-                query1.fromLocalDatastore()
-                query1.whereKey("active", equalTo: true)
-                return query1.countObjects()
+                if section == 0 {
+                    var count = DataProvider.Instance().countHomeworkForAll(false)
+                    for var i = 0; i < count; i++ {
+                        homeworkInTable?[activeSegment][section].append(PFObject(className: "Homework"))
+                    }
+                    
+                    return count
+                } else {
+                    var count = DataProvider.Instance().countHomeworkForAll(true)
+                    for var i = 0; i < count; i++ {
+                        homeworkInTable?[activeSegment][section].append(PFObject(className: "Homework"))
+                    }
+                    
+                    return count
+                }
             default:
                 return 0
         }
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {        
-        let cell:CustomTableViewCell = tableView.dequeueReusableCellWithIdentifier("homeworkCell", forIndexPath: indexPath) as CustomTableViewCell
+        var cell:CustomTableViewCell?
+        
+        switch indexPath.section {
+            case 0:
+                cell = tableView.dequeueReusableCellWithIdentifier("homeworkCell", forIndexPath: indexPath) as? CustomTableViewCell
+            case 1:
+                cell = tableView.dequeueReusableCellWithIdentifier("completeCell", forIndexPath: indexPath) as? CustomTableViewCell
+            default:
+                cell = tableView.dequeueReusableCellWithIdentifier("homeworkCell", forIndexPath: indexPath) as? CustomTableViewCell
+        }
         
         switch activeSegment {
             case 0:
-                var query = PFQuery(className: "Homework")
-                query.fromLocalDatastore()
-                query.whereKey("active", equalTo: true)
-                query.addAscendingOrder("deadline")
-                query.addAscendingOrder("completed")
-                query.whereKey("deadline", greaterThan: NSDate() )
-                query.whereKey("deadline", lessThan: oneWeekFurther )
-                query.findObjectsInBackgroundWithBlock(){
-                    (objects:[AnyObject]?, error:NSError!) in
-                    
-                    var myObjects = objects as [PFObject]?
-                    
-                    self.homeworkInTable = myObjects!
-                    
-                    // Set title of tablecell
-                    cell.homeworkTitleLabel?.text = myObjects?[indexPath.row]["title"] as? String
-                    
-                    // Set subtitle of tablecell
-                    let dateFormatter = NSDateFormatter()
-                    dateFormatter.dateFormat = "d MMM-HH:mm" // d MMM 'at' HH:mm
-                    let newDate = dateFormatter.stringFromDate(myObjects?[indexPath.row]["deadline"] as NSDate)
-                    
-                    // Split date by day and month
-                    var newDateArray = split(newDate) {$0 == "-"}
-                    var onlyDate = newDateArray[0]
-                    var onlyTime = newDateArray[1]
-                    
-                    var onlyDateArray = split(onlyDate) {$0 == " "}
-                    cell.dateDayLabel?.text = onlyDateArray[0].uppercaseString
-                    cell.dateMonthLabel?.text = onlyDateArray[1].uppercaseString
-                    cell.homeworkDeadlineLabel?.text = onlyTime
-                    
-                    if myObjects?[indexPath.row]["completed"] as Bool == true {
-                        cell.accessoryType = .Checkmark
-                    } else {
-                        cell.accessoryType = .None
-                    }
-                    
+                if indexPath.section == 0 {
+                    DataProvider.Instance().getHomeworkForRowForThisWeek(indexPath.row, completed: false, completion: { (title:String, dateNr:String, dateName:String, time:String, object:PFObject) -> Void in
+                        cell?.homeworkTitleLabel.text = title
+                        cell?.dateDayLabel.text = dateNr
+                        cell?.dateMonthLabel.text = dateName
+                        cell?.homeworkDeadlineLabel.text = time
+                        self.homeworkInTable?[self.activeSegment][indexPath.section][indexPath.row] = object
+                    })
+                } else {
+                    DataProvider.Instance().getHomeworkForRowForThisWeek(indexPath.row, completed: true, completion: { (title:String, dateNr:String, dateName:String, time:String, object:PFObject) -> Void in
+                        cell?.homeworkTitleLabel.text = title
+                        cell?.dateDayLabel.text = dateNr
+                        cell?.dateMonthLabel.text = dateName
+                        cell?.homeworkDeadlineLabel.text = time
+                        self.homeworkInTable?[self.activeSegment][indexPath.section][indexPath.row] = object
+                    })
                 }
             case 1:
-                var query = PFQuery(className: "Homework")
-                query.fromLocalDatastore()
-                query.whereKey("active", equalTo: true)
-                query.addAscendingOrder("deadline")
-                query.addAscendingOrder("completed")
-                query.whereKey("deadline", greaterThan: oneWeekFurther )
-                query.whereKey("deadline", lessThan: twoWeekFurther )
-                query.findObjectsInBackgroundWithBlock(){
-                    (objects:[AnyObject]?, error:NSError!) in
-                    
-                    var myObjects = objects as [PFObject]?
-                    
-                    self.homeworkInTable = myObjects!
-                    
-                    // Set title of tablecell
-                    cell.homeworkTitleLabel?.text = myObjects?[indexPath.row]["title"] as? String
-                    
-                    // Set subtitle of tablecell
-                    let dateFormatter = NSDateFormatter()
-                    dateFormatter.dateFormat = "d MMM-HH:mm" // d MMM 'at' HH:mm
-                    let newDate = dateFormatter.stringFromDate(myObjects?[indexPath.row]["deadline"] as NSDate)
-                    
-                    // Split date by day and month
-                    var newDateArray = split(newDate) {$0 == "-"}
-                    var onlyDate = newDateArray[0]
-                    var onlyTime = newDateArray[1]
-                    
-                    var onlyDateArray = split(onlyDate) {$0 == " "}
-                    cell.dateDayLabel?.text = onlyDateArray[0].uppercaseString
-                    cell.dateMonthLabel?.text = onlyDateArray[1].uppercaseString
-                    cell.homeworkDeadlineLabel?.text = onlyTime
-                    
-                    if myObjects?[indexPath.row]["completed"] as Bool == true {
-                        cell.accessoryType = .Checkmark
-                    } else {
-                        cell.accessoryType = .None
-                    }
-                    
+                if indexPath.section == 0 {
+                    DataProvider.Instance().getHomeworkForRowForNextWeek(indexPath.row, completed: false, completion: { (title:String, dateNr:String, dateName:String, time:String, object:PFObject) -> Void in
+                        cell?.homeworkTitleLabel.text = title
+                        cell?.dateDayLabel.text = dateNr
+                        cell?.dateMonthLabel.text = dateName
+                        cell?.homeworkDeadlineLabel.text = time
+                        self.homeworkInTable?[self.activeSegment][indexPath.section][indexPath.row] = object
+                    })
+                } else {
+                    DataProvider.Instance().getHomeworkForRowForNextWeek(indexPath.row, completed: true, completion: { (title:String, dateNr:String, dateName:String, time:String, object:PFObject) -> Void in
+                        cell?.homeworkTitleLabel.text = title
+                        cell?.dateDayLabel.text = dateNr
+                        cell?.dateMonthLabel.text = dateName
+                        cell?.homeworkDeadlineLabel.text = time
+                        self.homeworkInTable?[self.activeSegment][indexPath.section][indexPath.row] = object
+                    })
                 }
             case 2:
-                var query = PFQuery(className: "Homework")
-                query.fromLocalDatastore()
-                query.whereKey("active", equalTo: true)
-                query.addAscendingOrder("deadline")
-                query.addAscendingOrder("completed")
-                query.findObjectsInBackgroundWithBlock(){
-                    (objects:[AnyObject]?, error:NSError!) in
-                    
-                    var myObjects = objects as [PFObject]?
-                    
-                    self.homeworkInTable = myObjects!
-                    
-                    // Set title of tablecell
-                    cell.homeworkTitleLabel?.text = myObjects?[indexPath.row]["title"] as? String
-                    
-                    // Set subtitle of tablecell
-                    let dateFormatter = NSDateFormatter()
-                    dateFormatter.dateFormat = "d MMM-HH:mm" // d MMM 'at' HH:mm
-                    let newDate = dateFormatter.stringFromDate(myObjects?[indexPath.row]["deadline"] as NSDate)
-                    
-                    // Split date by day and month
-                    var newDateArray = split(newDate) {$0 == "-"}
-                    var onlyDate = newDateArray[0]
-                    var onlyTime = newDateArray[1]
-                    
-                    var onlyDateArray = split(onlyDate) {$0 == " "}
-                    cell.dateDayLabel?.text = onlyDateArray[0].uppercaseString
-                    cell.dateMonthLabel?.text = onlyDateArray[1].uppercaseString
-                    cell.homeworkDeadlineLabel?.text = onlyTime
-                    
-                    if myObjects?[indexPath.row]["completed"] as Bool == true {
-                        cell.accessoryType = .Checkmark
-                    } else {
-                        cell.accessoryType = .None
-                    }
-                    
+                if indexPath.section == 0 {
+                    DataProvider.Instance().getHomeworkForRowForAll(indexPath.row, completed: false, completion: { (title:String, dateNr:String, dateName:String, time:String, object:PFObject) -> Void in
+                        cell?.homeworkTitleLabel.text = title
+                        cell?.dateDayLabel.text = dateNr
+                        cell?.dateMonthLabel.text = dateName
+                        cell?.homeworkDeadlineLabel.text = time
+                        self.homeworkInTable?[self.activeSegment][indexPath.section][indexPath.row] = object
+                    })
+                } else {
+                    DataProvider.Instance().getHomeworkForRowForAll(indexPath.row, completed: true, completion: { (title:String, dateNr:String, dateName:String, time:String, object:PFObject) -> Void in
+                        cell?.homeworkTitleLabel.text = title
+                        cell?.dateDayLabel.text = dateNr
+                        cell?.dateMonthLabel.text = dateName
+                        cell?.homeworkDeadlineLabel.text = time
+                        self.homeworkInTable?[self.activeSegment][indexPath.section][indexPath.row] = object
+                    })
                 }
             default:
                 println("no segment")
@@ -247,7 +230,7 @@ class HomeworkTableViewController: UITableViewController {
         
         
         
-        return cell
+        return cell!
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -274,8 +257,10 @@ class HomeworkTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if segue.identifier == "showDetail" {
             let DetailViewController = segue.destinationViewController as DetailHomeworkTableViewController
-            DetailViewController.title = homeworkInTable[sender.row]["title"] as? String
-            DetailViewController.homeworkObject = homeworkInTable[sender.row]
+            DetailViewController.homeworkObject = homeworkInTable?[activeSegment][sender.section][sender.row]
+            println(activeSegment)
+            println(sender.section)
+            println(sender.row)
         }
     }
 }
