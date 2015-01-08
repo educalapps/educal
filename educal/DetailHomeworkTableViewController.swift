@@ -26,19 +26,13 @@ class DetailHomeworkTableViewController: UITableViewController {
                 homeworkObject?["completed"] = true
                 homeworkObject?["completedAt"] = NSDate()
                 homeworkObject?.saveEventually()
-                homeworkObject?.pinInBackgroundWithBlock() {
-                    (succeeded:Bool, error:NSError!) in
-                    
-                }
+                homeworkObject?.pinInBackgroundWithName("homework", block: nil)
             }
         } else{
             if homeworkObject?["personal"] as Bool == true {
                 homeworkObject?["completed"] = false
                 homeworkObject?.saveEventually()
-                homeworkObject?.pinInBackgroundWithBlock() {
-                    (succeeded:Bool, error:NSError!) in
-                    
-                }
+                homeworkObject?.pinInBackgroundWithName("homework", block: nil)
             }
         }
     }

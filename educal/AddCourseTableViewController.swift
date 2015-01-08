@@ -31,10 +31,10 @@ class AddCourseTableViewController: UITableViewController, UITextViewDelegate {
             course?["description"] = descriptionTextField.text
             course?["active"] = true
             course?.saveEventually()
-            course?.pinInBackgroundWithBlock() {
-                (succeeded:Bool, error:NSError!) in
+            course?.pinInBackgroundWithName("course", block: { (succes, error) -> Void in
                 self.performSegueWithIdentifier("BackToCoursesTableView", sender: self)
-            }
+            })
+            
             
         } else {
             Functions.Instance().showAlert("Error!", description: "Fill in the required fields.")
@@ -46,24 +46,22 @@ class AddCourseTableViewController: UITableViewController, UITextViewDelegate {
         var courseForUser = PFObject(className: "CourseForUser")
         courseForUser["courseObjectId"] = course
         courseForUser["userObjectId"] = PFUser.currentUser()
+        courseForUser["active"] = true
         courseForUser.saveEventually()
-        courseForUser.pinInBackgroundWithBlock() {
-            (succeeded:Bool, error:NSError!) in
+        courseForUser.pinInBackgroundWithName("joinedCourseRelationship", block: { (succes, error) -> Void in
             Functions.Instance().showAlert("Congratulations!", description: "You have successfully joined this course")
             self.navigationItem.setRightBarButtonItem(UIBarButtonItem(title: "Leave", style: .Plain, target: self, action: "unjoinCoursePressed"), animated: true)
-        }
+        })
         
     }
     
     func unjoinCoursePressed() {
         joinRelation?["active"] = false
         joinRelation?.saveEventually()
-        joinRelation?.pinInBackgroundWithBlock() {
-            (succeeded:Bool, error:NSError!) in
+        joinRelation?.pinInBackgroundWithName("joinedCourseRelationship", block: { (succes, error) -> Void in
             Functions.Instance().showAlert("", description: "You have now left this course")
             self.navigationItem.setRightBarButtonItem(UIBarButtonItem(title: "Join", style: .Plain, target: self, action: "joinCoursePressed"), animated: true)
-        }
-        
+        })
     }
 
     override func viewDidLoad() {

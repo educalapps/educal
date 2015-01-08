@@ -63,10 +63,9 @@ class AddHomeworkTableViewController: UITableViewController, UITextFieldDelegate
             homework?["userObjectId"] = PFUser.currentUser()
             homework?["active"] = true
             homework?.saveEventually()
-            homework?.pinInBackgroundWithBlock(){
-                (succeeded:Bool, error:NSError!) in
+            homework?.pinInBackgroundWithName("homework", block: { (succes, error) -> Void in
                 self.performSegueWithIdentifier("backToHomework", sender: sender)
-            }
+            })
             
         } else{
             Functions.Instance().showAlert("Error!", description: "Fill in the required fields.")

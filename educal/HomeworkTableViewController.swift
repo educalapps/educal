@@ -32,6 +32,9 @@ class HomeworkTableViewController: UITableViewController {
         alert.addAction(UIAlertAction(title: "Ok", style: .Default , handler: {
             (action: UIAlertAction!) in
             
+            // remove all local objects
+            DataProvider.Instance().removeAllLocalData()
+            
             // Sign out user
             PFUser.logOut()
             Functions.Instance().showLoginViewController(self)
@@ -227,7 +230,7 @@ class HomeworkTableViewController: UITableViewController {
                 println("no segment")
         }
         
-        
+        cell?.accessoryType = .DisclosureIndicator
         
         
         return cell!
@@ -238,29 +241,26 @@ class HomeworkTableViewController: UITableViewController {
     }
     
     
-    /*
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
         if editingStyle == .Delete {
             // Delete the row from the data source
-            var thisHomework = DataProvider.Instance().homeworkTableContent[activeSegment][indexPath.section][indexPath.row] as PFObject
             
-            thisHomework.deleteInBackgroundWithTarget(nil, selector: nil)
+            var selectedHomework = homeworkInTable?[activeSegment][indexPath.section][indexPath.row]
+            selectedHomework?["active"] = false
+            selectedHomework?.saveEventually()
+            selectedHomework?.pinWithName("homework")
             
-            DataProvider.Instance().homeworkTableContent[activeSegment][indexPath.section].removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
     }
-*/
+
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if segue.identifier == "showDetail" {
             let DetailViewController = segue.destinationViewController as DetailHomeworkTableViewController
             DetailViewController.homeworkObject = homeworkInTable?[activeSegment][sender.section][sender.row]
-            println(activeSegment)
-            println(sender.section)
-            println(sender.row)
         }
     }
 }

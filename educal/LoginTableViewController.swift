@@ -20,10 +20,7 @@ class LoginTableViewController: UITableViewController, UITextFieldDelegate {
                 // Do stuff after successful login.
                 
                 // update all local data
-                DataProvider.Instance().updateLocalHomework()
-                DataProvider.Instance().updateLocalHomeworkForUser()
-                DataProvider.Instance().updateLocalCourses()
-                DataProvider.Instance().updateLocalCoursesForUser()
+                DataProvider.Instance().updateAllLocalData()
                 
                 // remove login viewcontroller
                 self.dismissViewControllerAnimated(true, completion: nil)

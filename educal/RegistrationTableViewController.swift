@@ -29,10 +29,7 @@ class RegistrationTableViewController: UITableViewController, UITextFieldDelegat
                 // Hooray! Let them use the app now.
                 
                 // update all local data
-                DataProvider.Instance().updateLocalHomework()
-                DataProvider.Instance().updateLocalHomeworkForUser()
-                DataProvider.Instance().updateLocalCourses()
-                DataProvider.Instance().updateLocalCoursesForUser()
+                DataProvider.Instance().updateAllLocalData()
                 
                 self.dismissViewControllerAnimated(true, completion: nil)
             } else {

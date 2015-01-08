@@ -38,8 +38,6 @@
 		E1B2A0271A52CD1F0082960E /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1B2A0221A52CD1F0082960E /* ParseFacebookUtils.framework */; };
 		E1B2A0281A52CD1F0082960E /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1B2A0231A52CD1F0082960E /* ParseUI.framework */; };
 		E1C9C78E1A399C33006E4071 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9C78D1A399C33006E4071 /* MainTabBarController.swift */; };
-		E1EAAD251A3EDF3B001D12BE /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EAAD241A3EDF3B001D12BE /* Group.swift */; };
-		E1EAAD281A3EF0F5001D12BE /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EAAD271A3EF0F5001D12BE /* Course.swift */; };
 		E1EAAD2A1A3F05A6001D12BE /* CoursesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EAAD291A3F05A6001D12BE /* CoursesTableViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -90,8 +88,6 @@
 		E1B2A0221A52CD1F0082960E /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
 		E1B2A0231A52CD1F0082960E /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 		E1C9C78D1A399C33006E4071 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
-		E1EAAD241A3EDF3B001D12BE /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
-		E1EAAD271A3EF0F5001D12BE /* Course.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		E1EAAD291A3F05A6001D12BE /* CoursesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoursesTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -199,7 +195,6 @@
 			isa = PBXGroup;
 			children = (
 				2894809A1A35CA68008507BF /* Frameworks */,
-				E1EAAD261A3EDF54001D12BE /* Model */,
 				28AE49811A2DFC9400C9A67D /* Controllers */,
 				E11AA4CD1A2C8D0C008C162F /* AppDelegate.swift */,
 				E11AA4D41A2C8D0C008C162F /* Main.storyboard */,
@@ -234,15 +229,6 @@
 				E11AA4E51A2C8D0C008C162F /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		E1EAAD261A3EDF54001D12BE /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				E1EAAD241A3EDF3B001D12BE /* Group.swift */,
-				E1EAAD271A3EF0F5001D12BE /* Course.swift */,
-			);
-			name = Model;
 			sourceTree = "<group>";
 		};
 		E1EAAD2B1A40663C001D12BE /* Courses */ = {
@@ -354,9 +340,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1EAAD251A3EDF3B001D12BE /* Group.swift in Sources */,
 				28C61A1B1A3873E500D396E8 /* Functions.swift in Sources */,
-				E1EAAD281A3EF0F5001D12BE /* Course.swift in Sources */,
 				28C61A211A3898E300D396E8 /* HomeworkTableViewController.swift in Sources */,
 				28C61A191A38689C00D396E8 /* RegistrationTableViewController.swift in Sources */,
 				28B351EF1A39BD3200DBE2D0 /* AddHomeworkTableViewController.swift in Sources */,

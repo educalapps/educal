@@ -22,14 +22,32 @@ class DataProvider {
         return DPinstance!
     }
     
+    // update all local data
+    func updateAllLocalData(){
+        updateLocalHomework()
+        updateLocalHomeworkForUser()
+        updateLocalCourses()
+        updateLocalCoursesForUser()
+        
+    }
+    
+    func removeAllLocalData(){
+        PFObject.unpinAllObjectsInBackgroundWithName("course", block: nil)
+        PFObject.unpinAllObjectsInBackgroundWithName("homework", block: nil)
+        PFObject.unpinAllObjectsInBackgroundWithName("joinedCourseRelationship", block: nil)
+        PFObject.unpinAllObjectsInBackgroundWithName("courseHomework", block: nil)
+    }
+    
     // get all courses and set locally
     func updateLocalCourses(){        
         var myCourses = PFQuery(className:"Course")
         myCourses.findObjectsInBackgroundWithBlock{
             (objects:[AnyObject]!, error:NSError!) -> Void in
             
-            if error == nil {
-                PFObject.pinAllInBackground(objects, block: nil)
+            if error == nil {                
+                PFObject.unpinAllObjectsInBackgroundWithName("course", block: { (succes, error) -> Void in
+                    PFObject.pinAllInBackground(objects, withName: "course", block: nil)
+                })
             }
         }
     }
@@ -43,7 +61,9 @@ class DataProvider {
                 (objects:[AnyObject]!, error:NSError!) -> Void in
                 
                 if error == nil {
-                    PFObject.pinAllInBackground(objects, block: nil)
+                    PFObject.unpinAllObjectsInBackgroundWithName("joinedCourseRelationship", block: { (succes, error) -> Void in
+                        PFObject.pinAllInBackground(objects, withName: "joinedCourseRelationship", block: nil)
+                    })
                 }
             }
         }
@@ -59,7 +79,9 @@ class DataProvider {
                 (objects:[AnyObject]!, error:NSError!) -> Void in
                 
                 if error == nil {
-                    PFObject.pinAllInBackground(objects, block: nil)
+                    PFObject.unpinAllObjectsInBackgroundWithName("homework", block: { (succes, error) -> Void in
+                        PFObject.pinAllInBackground(objects, withName: "homework", block: nil)
+                    })
                 }
             }
         }
@@ -74,7 +96,9 @@ class DataProvider {
                 (objects:[AnyObject]!, error:NSError!) -> Void in
                 
                 if error == nil {
-                    PFObject.pinAllInBackground(objects, block: nil)
+                    PFObject.unpinAllObjectsInBackgroundWithName("courseHomework", block: { (succes, error) -> Void in
+                        PFObject.pinAllInBackground(objects, withName: "courseHomework", block: nil)
+                    })
                 }
             }
         }
@@ -100,19 +124,16 @@ class DataProvider {
         query.addAscendingOrder("deadline")
         query.whereKey("deadline", greaterThan: NSDate() )
         query.whereKey("deadline", lessThan: oneWeekFurther )
-        query.findObjectsInBackgroundWithBlock(){
-            (objects:[AnyObject]?, error:NSError!) in
-            
-            var myObjects = objects as [PFObject]?
-            var myObject = myObjects?[row]
+        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+            var object = objects[row] as PFObject
             
             // Set title of tablecell
-            var title = myObjects?[row]["title"] as? String
+            var title = object["title"] as? String
             
             // Set subtitle of tablecell
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "d MMM-HH:mm" // d MMM 'at' HH:mm
-            let newDate = dateFormatter.stringFromDate(myObjects?[row]["deadline"] as NSDate)
+            let newDate = dateFormatter.stringFromDate(object["deadline"] as NSDate)
             
             // Split date by day and month
             var newDateArray = split(newDate) {$0 == "-"}
@@ -124,7 +145,7 @@ class DataProvider {
             var dateName = onlyDateArray[1].uppercaseString
             var time = onlyTime
             
-            completion(title: title!, dateNr: dateNumber, dateName: dateName, time: time, object:myObject!)
+            completion(title: title!, dateNr: dateNumber, dateName: dateName, time: time, object:object)
         }
     }
     
@@ -148,19 +169,16 @@ class DataProvider {
         query.addAscendingOrder("deadline")
         query.whereKey("deadline", greaterThan: oneWeekFurther )
         query.whereKey("deadline", lessThan: twoWeekFurther )
-        query.findObjectsInBackgroundWithBlock(){
-            (objects:[AnyObject]?, error:NSError!) in
-            
-            var myObjects = objects as [PFObject]?
-            var myObject = myObjects?[row]
+        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+            var object = objects[row] as PFObject
             
             // Set title of tablecell
-            var title = myObjects?[row]["title"] as? String
+            var title = object["title"] as? String
             
             // Set subtitle of tablecell
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "d MMM-HH:mm" // d MMM 'at' HH:mm
-            let newDate = dateFormatter.stringFromDate(myObjects?[row]["deadline"] as NSDate)
+            let newDate = dateFormatter.stringFromDate(object["deadline"] as NSDate)
             
             // Split date by day and month
             var newDateArray = split(newDate) {$0 == "-"}
@@ -172,7 +190,7 @@ class DataProvider {
             var dateName = onlyDateArray[1].uppercaseString
             var time = onlyTime
             
-            completion(title: title!, dateNr: dateNumber, dateName: dateName, time: time, object:myObject!)
+            completion(title: title!, dateNr: dateNumber, dateName: dateName, time: time, object:object)
         }
     }
     
@@ -192,19 +210,16 @@ class DataProvider {
         query.whereKey("active", equalTo: true)
         query.whereKey("completed", equalTo: completed)
         query.addAscendingOrder("deadline")
-        query.findObjectsInBackgroundWithBlock(){
-            (objects:[AnyObject]?, error:NSError!) in
-            
-            var myObjects = objects as [PFObject]?
-            var myObject = myObjects?[row]
+        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+            var object = objects[row] as PFObject
             
             // Set title of tablecell
-            var title = myObjects?[row]["title"] as? String
+            var title = object["title"] as? String
             
             // Set subtitle of tablecell
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "d MMM-HH:mm" // d MMM 'at' HH:mm
-            let newDate = dateFormatter.stringFromDate(myObjects?[row]["deadline"] as NSDate)
+            let newDate = dateFormatter.stringFromDate(object["deadline"] as NSDate)
             
             // Split date by day and month
             var newDateArray = split(newDate) {$0 == "-"}
@@ -216,7 +231,75 @@ class DataProvider {
             var dateName = onlyDateArray[1].uppercaseString
             var time = onlyTime
             
-            completion(title: title!, dateNr: dateNumber, dateName: dateName, time: time, object:myObject!)
+            completion(title: title!, dateNr: dateNumber, dateName: dateName, time: time, object:object)
+        }
+    }
+    
+    // count joined courses for user
+    func countJoinedCourses() -> Int {
+        var countObjects = PFQuery(className: "CourseForUser")
+        countObjects.whereKey("active", equalTo:true)
+        countObjects.fromLocalDatastore()
+        return countObjects.countObjects()
+    }
+    
+    // get joined course for user
+    func getJoinedCourse(row:Int, completion: (object:PFObject) -> Void) {
+        var Objects = PFQuery(className: "CourseForUser")
+        Objects.whereKey("active", equalTo:true)
+        Objects.includeKey("courseObjectId")
+        Objects.fromLocalDatastore()
+        Objects.findObjectsInBackgroundWithBlock(){
+            (result:[AnyObject]!, error:NSError!) in
+            
+            var selectedObject = result[row]["courseObjectId"] as PFObject
+            completion(object:selectedObject)
+        }
+    }
+    
+    // count hosted courses for user
+    func countHostedCourses() -> Int {
+        var countObjects = PFQuery(className: "Course")
+        countObjects.whereKey("active", equalTo:true)
+        countObjects.whereKey("userObjectId", equalTo: PFUser.currentUser())
+        countObjects.fromLocalDatastore()
+        return countObjects.countObjects()
+    }
+    
+    // get hosted course for user
+    func getHostedCourse(row:Int, completion: (object:PFObject) -> Void) {
+        var Objects = PFQuery(className: "Course")
+        Objects.whereKey("active", equalTo:true)
+        Objects.whereKey("userObjectId", equalTo: PFUser.currentUser())
+        Objects.fromLocalDatastore()
+        Objects.orderByAscending("title")
+        Objects.findObjectsInBackgroundWithBlock(){
+            (result:[AnyObject]!, error:NSError!) in
+            
+            var selectedObject = result[row] as PFObject
+            
+            completion(object:selectedObject)
+        }
+    }
+    
+    // count all courses
+    func countAllCourses() -> Int {
+        var countObjects = PFQuery(className: "Course")
+        countObjects.whereKey("active", equalTo:true)
+        countObjects.fromLocalDatastore()
+        return countObjects.countObjects()
+    }
+    
+    // get course from all courses
+    func getCourse(row:Int, completion: (object:PFObject) -> Void) {
+        var Objects = PFQuery(className: "Course")
+        Objects.whereKey("active", equalTo:true)
+        Objects.fromLocalDatastore()
+        Objects.orderByAscending("title")
+        Objects.findObjectsInBackgroundWithBlock(){
+            (result:[AnyObject]!, error:NSError!) in
+            var selectedObject = result[row] as PFObject
+            completion(object:selectedObject)
         }
     }
 }
