@@ -56,9 +56,7 @@ class HomeworkTableViewController: UITableViewController {
     
     func refresh(sender:AnyObject){
         // Get new data
-        
-        // Keeps the refresher a second longer
-        sleep(1)
+        homeworkTableView.reloadData()
         
         // Stop refreshing
         self.refreshController.endRefreshing()

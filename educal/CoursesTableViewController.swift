@@ -68,7 +68,7 @@ class CoursesTableViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         coursesInTable = [Array<PFObject>(), Array<PFObject>(), Array<PFObject>()]
-        coursesTableView.reloadData()
+        self.coursesTableView.reloadData()
     }
     
     func refresh(sender:AnyObject){
