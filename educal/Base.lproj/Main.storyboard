@@ -81,7 +81,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Courses" id="02I-Vc-MFr">
-                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="uHh-Jp-xhN"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="uHh-Jp-xhN">
+                            <connections>
+                                <action selector="signOutPressed:" destination="Ndw-8X-NoP" id="ZbT-M6-Akr"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="cFb-2C-sJ7">
                             <connections>
                                 <action selector="addCoursePressed:" destination="Ndw-8X-NoP" id="TUY-nb-n3t"/>

@@ -26,7 +26,7 @@ class CoursesTableViewController: UITableViewController {
     @IBAction func unwindToCoursesList(sender:UIStoryboardSegue){
         //reload tableview
         
-        
+        coursesTableView.reloadData()
     }
     
     @IBAction func addCoursePressed(sender: UIBarButtonItem) {
@@ -38,6 +38,25 @@ class CoursesTableViewController: UITableViewController {
         coursesTableView.reloadData()
     }
 
+    @IBAction func signOutPressed(sender: UIBarButtonItem) {
+        var alert = UIAlertController(title: "Sign out", message: "Are you sure you want to sign out?", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler:nil))
+        
+        alert.addAction(UIAlertAction(title: "Ok", style: .Default , handler: {
+            (action: UIAlertAction!) in
+            
+            // remove all local objects
+            DataProvider.Instance().removeAllLocalData()
+            
+            // Sign out user
+            PFUser.logOut()
+            Functions.Instance().showLoginViewController(self)
+        }))
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -155,7 +174,7 @@ class CoursesTableViewController: UITableViewController {
                 
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             } else {
-                Functions.Instance().showAlert("", description: "You can't delete this course, because you are not the host!")
+                Functions.Instance().showAlert("Permission denied", description: "You can't delete this course, because you are not the host")
             }
         }
     }

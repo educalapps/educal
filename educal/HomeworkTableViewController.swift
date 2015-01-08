@@ -248,11 +248,16 @@ class HomeworkTableViewController: UITableViewController {
             // Delete the row from the data source
             
             var selectedHomework = homeworkInTable?[activeSegment][indexPath.section][indexPath.row]
-            selectedHomework?["active"] = false
-            selectedHomework?.saveEventually()
-            selectedHomework?.pinWithName("homework")
+            if selectedHomework?["userObjectId"] as PFUser == PFUser.currentUser() {
+                selectedHomework?["active"] = false
+                selectedHomework?.saveEventually()
+                selectedHomework?.pinWithName("homework")
+                
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            } else {
+                Functions.Instance().showAlert("Permission denied", description: "You are not the host of the course this homework belongs to")
+            }
             
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
     }
 
