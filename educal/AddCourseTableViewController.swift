@@ -133,6 +133,12 @@ class AddCourseTableViewController: UITableViewController, UITextViewDelegate {
         return footerTitles[section]
     }
 
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showHomeworkSegue" {
+            var vc = segue.destinationViewController as ShowHomeworkTableViewController
+            vc.course = course
+        }
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -302,4 +302,17 @@ class DataProvider {
             completion(object:selectedObject)
         }
     }
+    
+    // get all homework for course
+    func getCourseHomework(course:PFObject, completion:(result:Array<PFObject>) -> Void) {
+        var query = PFQuery(className: "Homework")
+        query.whereKey("courseObjectid", equalTo: course)
+        query.whereKey("personal", equalTo: false)
+        query.whereKey("active", equalTo: true)
+        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+            var selectedObject = objects[0] as PFObject
+
+            completion(result: objects as Array<PFObject>)
+        }
+    }
 }

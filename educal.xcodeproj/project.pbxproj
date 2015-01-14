@@ -133,7 +133,6 @@
 				28B351EE1A39BD3200DBE2D0 /* AddHomeworkTableViewController.swift */,
 				28C702151A3F7B1D00B012A3 /* DetailHomeworkTableViewController.swift */,
 				28C61A201A3898E300D396E8 /* HomeworkTableViewController.swift */,
-				2894A7171A666145006FF710 /* ShowHomeworkTableViewController.swift */,
 				28137FAA1A407FB300B12CC4 /* CustomTableViewCell.swift */,
 			);
 			name = Homework;
@@ -237,6 +236,7 @@
 		E1EAAD2B1A40663C001D12BE /* Courses */ = {
 			isa = PBXGroup;
 			children = (
+				2894A7171A666145006FF710 /* ShowHomeworkTableViewController.swift */,
 				E139677C1A3B6FFB00E8D40A /* AddCourseTableViewController.swift */,
 				E1EAAD291A3F05A6001D12BE /* CoursesTableViewController.swift */,
 			);
