@@ -18,6 +18,7 @@
 		289480AC1A35CB45008507BF /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 289480A31A35CB45008507BF /* Security.framework */; };
 		289480AD1A35CB45008507BF /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 289480A41A35CB45008507BF /* StoreKit.framework */; };
 		289480AE1A35CB45008507BF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 289480A51A35CB45008507BF /* SystemConfiguration.framework */; };
+		2894A7181A666145006FF710 /* ShowHomeworkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2894A7171A666145006FF710 /* ShowHomeworkTableViewController.swift */; };
 		28B351EF1A39BD3200DBE2D0 /* AddHomeworkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B351EE1A39BD3200DBE2D0 /* AddHomeworkTableViewController.swift */; };
 		28C61A191A38689C00D396E8 /* RegistrationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C61A181A38689C00D396E8 /* RegistrationTableViewController.swift */; };
 		28C61A1B1A3873E500D396E8 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C61A1A1A3873E500D396E8 /* Functions.swift */; };
@@ -64,6 +65,7 @@
 		289480A41A35CB45008507BF /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		289480A51A35CB45008507BF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		289480AF1A35CC62008507BF /* educal-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "educal-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		2894A7171A666145006FF710 /* ShowHomeworkTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShowHomeworkTableViewController.swift; path = ../ShowHomeworkTableViewController.swift; sourceTree = "<group>"; };
 		28B351EE1A39BD3200DBE2D0 /* AddHomeworkTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddHomeworkTableViewController.swift; sourceTree = "<group>"; };
 		28C61A181A38689C00D396E8 /* RegistrationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationTableViewController.swift; sourceTree = "<group>"; };
 		28C61A1A1A3873E500D396E8 /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				28B351EE1A39BD3200DBE2D0 /* AddHomeworkTableViewController.swift */,
 				28C702151A3F7B1D00B012A3 /* DetailHomeworkTableViewController.swift */,
 				28C61A201A3898E300D396E8 /* HomeworkTableViewController.swift */,
+				2894A7171A666145006FF710 /* ShowHomeworkTableViewController.swift */,
 				28137FAA1A407FB300B12CC4 /* CustomTableViewCell.swift */,
 			);
 			name = Homework;
@@ -348,6 +351,7 @@
 				28C61A1F1A387AE600D396E8 /* LoginTableViewController.swift in Sources */,
 				E11AA4CE1A2C8D0C008C162F /* AppDelegate.swift in Sources */,
 				E1EAAD2A1A3F05A6001D12BE /* CoursesTableViewController.swift in Sources */,
+				2894A7181A666145006FF710 /* ShowHomeworkTableViewController.swift in Sources */,
 				28137FAB1A407FB300B12CC4 /* CustomTableViewCell.swift in Sources */,
 				E139677D1A3B6FFB00E8D40A /* AddCourseTableViewController.swift in Sources */,
 				E13A6F1C1A42011100C8AFD7 /* DataProvider.swift in Sources */,

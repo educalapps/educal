@@ -133,12 +133,11 @@ class AddCourseTableViewController: UITableViewController, UITextViewDelegate {
         return footerTitles[section]
     }
 
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     
-    
-
 }
