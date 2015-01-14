@@ -114,34 +114,49 @@ class DataProvider {
     func countHomeworkForThisWeek(completed:Bool) -> Int {
         var query = PFQuery(className: "Homework")
         query.fromLocalDatastore()
-        query.whereKey("active", equalTo: true)
         query.whereKey("completed", equalTo: completed)
-        query.whereKey("personal", equalTo: true)
         query.whereKey("deadline", greaterThan: NSDate() )
         query.whereKey("deadline", lessThan: oneWeekFurther )
-        return query.countObjects()
+        
+        var query1 = PFQuery(className: "Homework")
+        query1.fromLocalDatastore()
+        query1.whereKey("personal", equalTo: false)
+        query1.whereKey("deadline", greaterThan: NSDate() )
+        query1.whereKey("deadline", lessThan: oneWeekFurther )
+        if completed {
+            query1.whereKey("completedBy", equalTo: PFUser.currentUser())
+        } else {
+            query1.whereKey("completedBy", notEqualTo: PFUser.currentUser())
+        }
+        
+        var mainQuery = PFQuery.orQueryWithSubqueries([query, query1])
+        mainQuery.fromLocalDatastore()
+        return mainQuery.countObjects()
     }
     
     // get homework for this week
     func getHomeworkForRowForThisWeek(row:Int, completed:Bool, completion: (title:String, dateNr:String, dateName:String, time:String, object:PFObject) -> Void) {
         var query = PFQuery(className: "Homework")
         query.fromLocalDatastore()
-        query.whereKey("active", equalTo: true)
         query.whereKey("completed", equalTo: completed)
-        query.whereKey("personal", equalTo: true)
         query.whereKey("deadline", greaterThan: NSDate() )
         query.whereKey("deadline", lessThan: oneWeekFurther )
         
         var query1 = PFQuery(className: "Homework")
         query1.fromLocalDatastore()
+        query1.whereKey("personal", equalTo: false)
+        query1.whereKey("deadline", greaterThan: NSDate() )
+        query1.whereKey("deadline", lessThan: oneWeekFurther )
         if completed {
-            query1.whereKey("completedBy", containsAllObjectsInArray: [PFUser.currentUser()])
+            query1.whereKey("completedBy", equalTo: PFUser.currentUser())
         } else {
-            query1.whereKey("completedBy", notContainedIn: [PFUser.currentUser()])
+            query1.whereKey("completedBy", notEqualTo: PFUser.currentUser())
         }
         
         var mainQuery = PFQuery.orQueryWithSubqueries([query, query1])
-        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+        mainQuery.fromLocalDatastore()
+        //mainQuery.orderByAscending("deadline")
+        mainQuery.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
             var object = objects[row] as PFObject
             
             // Set title of tablecell
@@ -170,23 +185,49 @@ class DataProvider {
     func countHomeworkForNextWeek(completed:Bool) -> Int {
         var query = PFQuery(className: "Homework")
         query.fromLocalDatastore()
-        query.whereKey("active", equalTo: true)
         query.whereKey("completed", equalTo: completed)
         query.whereKey("deadline", greaterThan: oneWeekFurther )
         query.whereKey("deadline", lessThan: twoWeekFurther )
-        return query.countObjects()
+        
+        var query1 = PFQuery(className: "Homework")
+        query1.fromLocalDatastore()
+        query1.whereKey("personal", equalTo: false)
+        query1.whereKey("deadline", greaterThan: oneWeekFurther )
+        query1.whereKey("deadline", lessThan: twoWeekFurther )
+        if completed {
+            query1.whereKey("completedBy", equalTo: PFUser.currentUser())
+        } else {
+            query1.whereKey("completedBy", notEqualTo: PFUser.currentUser())
+        }
+        
+        var mainQuery = PFQuery.orQueryWithSubqueries([query, query1])
+        mainQuery.fromLocalDatastore()
+        return mainQuery.countObjects()
     }
     
     // get homework for next week
     func getHomeworkForRowForNextWeek(row:Int, completed:Bool, completion: (title:String, dateNr:String, dateName:String, time:String, object:PFObject) -> Void) {
         var query = PFQuery(className: "Homework")
         query.fromLocalDatastore()
-        query.whereKey("active", equalTo: true)
         query.whereKey("completed", equalTo: completed)
-        query.addAscendingOrder("deadline")
         query.whereKey("deadline", greaterThan: oneWeekFurther )
         query.whereKey("deadline", lessThan: twoWeekFurther )
-        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+        
+        var query1 = PFQuery(className: "Homework")
+        query1.fromLocalDatastore()
+        query1.whereKey("personal", equalTo: false)
+        query1.whereKey("deadline", greaterThan: oneWeekFurther )
+        query1.whereKey("deadline", lessThan: twoWeekFurther )
+        if completed {
+            query1.whereKey("completedBy", equalTo: PFUser.currentUser())
+        } else {
+            query1.whereKey("completedBy", notEqualTo: PFUser.currentUser())
+        }
+        
+        var mainQuery = PFQuery.orQueryWithSubqueries([query, query1])
+        mainQuery.fromLocalDatastore()
+        mainQuery.orderByAscending("deadline")
+        mainQuery.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
             var object = objects[row] as PFObject
             
             // Set title of tablecell
@@ -215,7 +256,6 @@ class DataProvider {
     func countHomeworkForAll(completed:Bool) -> Int {
         var query = PFQuery(className: "Homework")
         query.fromLocalDatastore()
-        query.whereKey("active", equalTo: true)
         query.whereKey("personal", equalTo: true)
         query.whereKey("completed", equalTo: completed)
         
@@ -223,9 +263,9 @@ class DataProvider {
         query1.fromLocalDatastore()
         query1.whereKey("personal", equalTo: false)
         if completed {
-            query1.whereKey("completedBy", containedIn: [PFUser.currentUser()])
+            query1.whereKey("completedBy", equalTo: PFUser.currentUser())
         } else {
-            query1.whereKey("completedBy", notContainedIn: [PFUser.currentUser()])
+            query1.whereKey("completedBy", notEqualTo: PFUser.currentUser())
         }
         
         var mainQuery = PFQuery.orQueryWithSubqueries([query, query1])
@@ -237,7 +277,6 @@ class DataProvider {
     func getHomeworkForRowForAll(row:Int, completed:Bool, completion: (title:String, dateNr:String, dateName:String, time:String, object:PFObject) -> Void) {
         var query = PFQuery(className: "Homework")
         query.fromLocalDatastore()
-        query.whereKey("active", equalTo: true)
         query.whereKey("personal", equalTo: true)
         query.whereKey("completed", equalTo: completed)
         
@@ -245,13 +284,14 @@ class DataProvider {
         query1.fromLocalDatastore()
         query1.whereKey("personal", equalTo: false)
         if completed {
-            query1.whereKey("completedBy", containedIn: [PFUser.currentUser()])
+            query1.whereKey("completedBy", equalTo: PFUser.currentUser())
         } else {
-            query1.whereKey("completedBy", notContainedIn: [PFUser.currentUser()])
+            query1.whereKey("completedBy", notEqualTo: PFUser.currentUser())
         }
         
         var mainQuery = PFQuery.orQueryWithSubqueries([query, query1])
         mainQuery.fromLocalDatastore()
+        mainQuery.orderByAscending("deadline")
         mainQuery.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
             var object = objects[row] as PFObject
             
@@ -280,7 +320,6 @@ class DataProvider {
     // count joined courses for user
     func countJoinedCourses() -> Int {
         var countObjects = PFQuery(className: "CourseForUser")
-        countObjects.whereKey("active", equalTo:true)
         countObjects.fromLocalDatastore()
         return countObjects.countObjects()
     }
@@ -288,7 +327,6 @@ class DataProvider {
     // get joined course for user
     func getJoinedCourse(row:Int, completion: (object:PFObject) -> Void) {
         var Objects = PFQuery(className: "CourseForUser")
-        Objects.whereKey("active", equalTo:true)
         Objects.includeKey("courseObjectId")
         Objects.fromLocalDatastore()
         Objects.findObjectsInBackgroundWithBlock(){
@@ -302,7 +340,6 @@ class DataProvider {
     // count hosted courses for user
     func countHostedCourses() -> Int {
         var countObjects = PFQuery(className: "Course")
-        countObjects.whereKey("active", equalTo:true)
         countObjects.whereKey("userObjectId", equalTo: PFUser.currentUser())
         countObjects.fromLocalDatastore()
         return countObjects.countObjects()
@@ -311,7 +348,6 @@ class DataProvider {
     // get hosted course for user
     func getHostedCourse(row:Int, completion: (object:PFObject) -> Void) {
         var Objects = PFQuery(className: "Course")
-        Objects.whereKey("active", equalTo:true)
         Objects.whereKey("userObjectId", equalTo: PFUser.currentUser())
         Objects.fromLocalDatastore()
         Objects.orderByAscending("title")
@@ -327,7 +363,6 @@ class DataProvider {
     // count all courses
     func countAllCourses() -> Int {
         var countObjects = PFQuery(className: "Course")
-        countObjects.whereKey("active", equalTo:true)
         countObjects.fromLocalDatastore()
         return countObjects.countObjects()
     }
@@ -335,7 +370,6 @@ class DataProvider {
     // get course from all courses
     func getCourse(row:Int, completion: (object:PFObject) -> Void) {
         var Objects = PFQuery(className: "Course")
-        Objects.whereKey("active", equalTo:true)
         Objects.fromLocalDatastore()
         Objects.orderByAscending("title")
         Objects.findObjectsInBackgroundWithBlock(){
@@ -350,7 +384,6 @@ class DataProvider {
         var query = PFQuery(className: "Homework")
         query.whereKey("courseObjectId", equalTo: course)
         query.whereKey("personal", equalTo: false)
-        query.whereKey("active", equalTo: true)
         query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
             completion(result: objects as Array<PFObject>)
         }

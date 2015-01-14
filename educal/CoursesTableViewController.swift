@@ -73,6 +73,7 @@ class CoursesTableViewController: UITableViewController {
     
     func refresh(sender:AnyObject){
         // Code to refresh table view
+        DataProvider.Instance().updateAllLocalData()
         coursesTableView.reloadData()
         self.refreshController.endRefreshing()
     }
@@ -168,9 +169,8 @@ class CoursesTableViewController: UITableViewController {
             
             var selectedCourse = coursesInTable?[currentSegment][indexPath.row]
             if selectedCourse?["userObjectId"] as PFUser == PFUser.currentUser() {
-                selectedCourse?["active"] = false
-                selectedCourse?.saveEventually()
-                selectedCourse?.pinWithName("course")
+                selectedCourse?.deleteEventually()
+                selectedCourse?.unpinWithName("course")
                 
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             } else {
