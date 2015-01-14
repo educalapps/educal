@@ -17,6 +17,10 @@ class ShowHomeworkTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if course?["userObjectId"] as PFUser == PFUser.currentUser() {
+            self.navigationItem.setRightBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addPressed"), animated: true)
+        }
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -35,7 +39,18 @@ class ShowHomeworkTableViewController: UITableViewController {
             }
         })
     }
+    
+    @IBAction func unwindToCourseHomework(segue: UIStoryboardSegue) {
+        DataProvider.Instance().getCourseHomework((segue.sourceViewController as AddHomeworkTableViewController).course!, completion: { (result) -> Void in
+            self.homeworkInList = result
+            self.homeworkTableView.reloadData()
+        })
+    }
 
+    func addPressed(){
+        performSegueWithIdentifier("addCourseHomeworkSegue", sender: self)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -60,11 +75,35 @@ class ShowHomeworkTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("homeworkCell", forIndexPath: indexPath) as UITableViewCell as CustomTableViewCell
+        
+        var object = homeworkInList[indexPath.row]
+        
+        // Set subtitle of tablecell
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "d MMM-HH:mm" // d MMM 'at' HH:mm
+        let newDate = dateFormatter.stringFromDate(object["deadline"] as NSDate)
+        
+        // Split date by day and month
+        var newDateArray = split(newDate) {$0 == "-"}
+        var onlyDate = newDateArray[0]
+        var onlyTime = newDateArray[1]
+        
+        var onlyDateArray = split(onlyDate) {$0 == " "}
+        var dateNumber = onlyDateArray[0].uppercaseString
+        var dateName = onlyDateArray[1].uppercaseString
+        var time = onlyTime
 
         // Configure the cell...
-        cell.homeworkTitleLabel.text = homeworkInList[indexPath.row]["title"] as? String
+        cell.homeworkTitleLabel.text = object["title"] as? String
+        cell.homeworkDeadlineLabel.text = time
+        cell.dateDayLabel.text = dateNumber
+        cell.dateMonthLabel.text = dateName
 
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        performSegueWithIdentifier("courseHomeworkDetailSegue", sender: indexPath.row)
     }
     
 
@@ -103,14 +142,24 @@ class ShowHomeworkTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "addCourseHomeworkSegue" {
+            var vc = segue.destinationViewController as AddHomeworkTableViewController
+            vc.course = course
+        } else if segue.identifier == "courseHomeworkDetailSegue" {
+            var vc = segue.destinationViewController as DetailHomeworkTableViewController
+            vc.homeworkObject = homeworkInList[sender as Int]
+            vc.hideCompleteSwitch = true
+            vc.course = course
+        }
     }
-    */
+    
 
 }

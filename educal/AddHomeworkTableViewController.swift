@@ -12,6 +12,7 @@ class AddHomeworkTableViewController: UITableViewController, UITextFieldDelegate
 
     // Variables
     var homework:PFObject?
+    var course:PFObject?
     
     // Outlets
     @IBOutlet weak var titleTextfield: UITextField!
@@ -58,14 +59,25 @@ class AddHomeworkTableViewController: UITableViewController, UITextFieldDelegate
             homework?["title"] = titleTextfield.text
             homework?["description"] = descriptionTextfield.text
             homework?["deadline"] = dateFromString
-            homework?["personal"] = true
+            
             homework?["completed"] = false
             homework?["userObjectId"] = PFUser.currentUser()
             homework?["active"] = true
-            homework?.saveEventually()
-            homework?.pinInBackgroundWithName("homework", block: { (succes, error) -> Void in
-                self.performSegueWithIdentifier("backToHomework", sender: sender)
-            })
+            if course == nil {
+                homework?["personal"] = true
+                homework?.saveEventually()
+                homework?.pinInBackgroundWithName("homework", block: { (succes, error) -> Void in
+                    self.performSegueWithIdentifier("backToHomework", sender: sender)
+                })
+            } else {
+                homework?["personal"] = false
+                homework?["courseObjectId"] = course
+                homework?.saveEventually({ (succes, error) -> Void in
+                    self.performSegueWithIdentifier("backToCourseHomework", sender: self)
+                })
+                
+            }
+            
             
         } else{
             Functions.Instance().showAlert("Error!", description: "Fill in the required fields.")

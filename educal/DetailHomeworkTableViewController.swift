@@ -11,6 +11,8 @@ import UIKit
 class DetailHomeworkTableViewController: UITableViewController {
     
     var homeworkObject:PFObject?
+    var hideCompleteSwitch:Bool = false
+    var course:PFObject?
     
     @IBOutlet var detailView: UITableView!
     @IBOutlet weak var dateMonthLabel: UILabel!
@@ -19,6 +21,7 @@ class DetailHomeworkTableViewController: UITableViewController {
     @IBOutlet weak var homeLabel: UILabel!
     @IBOutlet weak var descriptionTextview: UITextView!
     @IBOutlet weak var finshedSwitch: UISwitch!
+    @IBOutlet weak var completeCell: UITableViewCell!
     
     @IBAction func switchChanged(sender: UISwitch) {
         if sender.on {
@@ -38,6 +41,8 @@ class DetailHomeworkTableViewController: UITableViewController {
     }
     
     func setValues(){
+        
+        completeCell.hidden = hideCompleteSwitch
         
         // Dateformat
         let newDate = Functions.Instance().showStringFromDate("d MMM-HH:mm", date: homeworkObject?["deadline"] as NSDate)
@@ -144,6 +149,7 @@ class DetailHomeworkTableViewController: UITableViewController {
         if segue.identifier == "editHomework"{
             var dc = segue.destinationViewController as AddHomeworkTableViewController
             dc.homework = homeworkObject
+            dc.course = course
         }
         
     }
