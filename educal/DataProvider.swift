@@ -28,7 +28,6 @@ class DataProvider {
         updateLocalHomeworkForUser()
         updateLocalCourses()
         updateLocalCoursesForUser()
-        
     }
     
     func removeAllLocalData(){
@@ -36,6 +35,7 @@ class DataProvider {
         PFObject.unpinAllObjectsInBackgroundWithName("homework", block: nil)
         PFObject.unpinAllObjectsInBackgroundWithName("joinedCourseRelationship", block: nil)
         PFObject.unpinAllObjectsInBackgroundWithName("courseHomework", block: nil)
+        PFObject.unpinAllObjectsInBackgroundWithName("homeworkForUser", block: nil)
     }
     
     // get all courses and set locally
@@ -90,15 +90,21 @@ class DataProvider {
     // get all course homework for user and set locally
     func updateLocalHomeworkForUser(){
         if PFUser.currentUser() != nil {
-            var homeworkForUser = PFQuery(className: "HomeworkForUser")
-            homeworkForUser.whereKey("userObjectId", equalTo: PFUser.currentUser())
-            homeworkForUser.findObjectsInBackgroundWithBlock() {
+            var query1 = PFQuery(className: "CourseForUser")
+            query1.whereKey("userObjectId", equalTo: PFUser.currentUser())
+            
+            var query2 = PFQuery(className: "Homework")
+            query2.whereKey("courseObjectId", matchesKey: "courseObjectId", inQuery: query1)
+            
+            query2.findObjectsInBackgroundWithBlock() {
                 (objects:[AnyObject]!, error:NSError!) -> Void in
                 
                 if error == nil {
+                    
                     PFObject.unpinAllObjectsInBackgroundWithName("courseHomework", block: { (succes, error) -> Void in
                         PFObject.pinAllInBackground(objects, withName: "courseHomework", block: nil)
                     })
+                    
                 }
             }
         }
@@ -110,6 +116,7 @@ class DataProvider {
         query.fromLocalDatastore()
         query.whereKey("active", equalTo: true)
         query.whereKey("completed", equalTo: completed)
+        query.whereKey("personal", equalTo: true)
         query.whereKey("deadline", greaterThan: NSDate() )
         query.whereKey("deadline", lessThan: oneWeekFurther )
         return query.countObjects()
@@ -121,9 +128,19 @@ class DataProvider {
         query.fromLocalDatastore()
         query.whereKey("active", equalTo: true)
         query.whereKey("completed", equalTo: completed)
-        query.addAscendingOrder("deadline")
+        query.whereKey("personal", equalTo: true)
         query.whereKey("deadline", greaterThan: NSDate() )
         query.whereKey("deadline", lessThan: oneWeekFurther )
+        
+        var query1 = PFQuery(className: "Homework")
+        query1.fromLocalDatastore()
+        if completed {
+            query1.whereKey("completedBy", containsAllObjectsInArray: [PFUser.currentUser()])
+        } else {
+            query1.whereKey("completedBy", notContainedIn: [PFUser.currentUser()])
+        }
+        
+        var mainQuery = PFQuery.orQueryWithSubqueries([query, query1])
         query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
             var object = objects[row] as PFObject
             
@@ -199,8 +216,21 @@ class DataProvider {
         var query = PFQuery(className: "Homework")
         query.fromLocalDatastore()
         query.whereKey("active", equalTo: true)
+        query.whereKey("personal", equalTo: true)
         query.whereKey("completed", equalTo: completed)
-        return query.countObjects()
+        
+        var query1 = PFQuery(className: "Homework")
+        query1.fromLocalDatastore()
+        query1.whereKey("personal", equalTo: false)
+        if completed {
+            query1.whereKey("completedBy", containedIn: [PFUser.currentUser()])
+        } else {
+            query1.whereKey("completedBy", notContainedIn: [PFUser.currentUser()])
+        }
+        
+        var mainQuery = PFQuery.orQueryWithSubqueries([query, query1])
+        mainQuery.fromLocalDatastore()
+        return mainQuery.countObjects()
     }
     
     // get homework for all
@@ -208,9 +238,21 @@ class DataProvider {
         var query = PFQuery(className: "Homework")
         query.fromLocalDatastore()
         query.whereKey("active", equalTo: true)
+        query.whereKey("personal", equalTo: true)
         query.whereKey("completed", equalTo: completed)
-        query.addAscendingOrder("deadline")
-        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+        
+        var query1 = PFQuery(className: "Homework")
+        query1.fromLocalDatastore()
+        query1.whereKey("personal", equalTo: false)
+        if completed {
+            query1.whereKey("completedBy", containedIn: [PFUser.currentUser()])
+        } else {
+            query1.whereKey("completedBy", notContainedIn: [PFUser.currentUser()])
+        }
+        
+        var mainQuery = PFQuery.orQueryWithSubqueries([query, query1])
+        mainQuery.fromLocalDatastore()
+        mainQuery.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
             var object = objects[row] as PFObject
             
             // Set title of tablecell

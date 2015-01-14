@@ -28,15 +28,28 @@ class DetailHomeworkTableViewController: UITableViewController {
             if homeworkObject?["personal"] as Bool == true {
                 homeworkObject?["completed"] = true
                 homeworkObject?["completedAt"] = NSDate()
-                homeworkObject?.saveEventually()
-                homeworkObject?.pinInBackgroundWithName("homework", block: nil)
+            } else {
+                var completedBy = homeworkObject?["completedBy"] as [PFUser]
+                completedBy.append(PFUser.currentUser())
+                homeworkObject?["completedBy"] = completedBy
             }
+            homeworkObject?.saveEventually()
+            homeworkObject?.pinInBackgroundWithName("homework", block: nil)
         } else{
             if homeworkObject?["personal"] as Bool == true {
                 homeworkObject?["completed"] = false
-                homeworkObject?.saveEventually()
-                homeworkObject?.pinInBackgroundWithName("homework", block: nil)
+            } else {
+                var completedBy = homeworkObject?["completedBy"] as [PFUser]
+                for var i = 0; i < completedBy.count; i++ {
+                    if completedBy[i] as PFUser == PFUser.currentUser() {
+                        completedBy.removeAtIndex(i)
+                        break
+                    }
+                }
+                homeworkObject?["completedBy"] = completedBy
             }
+            homeworkObject?.saveEventually()
+            homeworkObject?.pinInBackgroundWithName("homework", block: nil)
         }
     }
     
@@ -57,10 +70,17 @@ class DetailHomeworkTableViewController: UITableViewController {
         homeLabel?.text = newDateArray[1]
         nameLabel?.text = homeworkObject?["title"] as? String
         descriptionTextview.text = homeworkObject?["description"] as? String
-        if homeworkObject?["completed"] as NSObject == true {
-            finshedSwitch.setOn(true, animated: true)
+        
+        if homeworkObject?["personal"] as Bool == true {
+            if homeworkObject?["completed"] as NSObject == true {
+                finshedSwitch.setOn(true, animated: true)
+            }
+        } else {
+            var completedBy = homeworkObject?["completedBy"] as [PFUser]
+            if contains(completedBy, PFUser.currentUser()) {
+                finshedSwitch.setOn(true, animated: true)
+            }
         }
-
         
         // Hide unused cells
         self.tableView.tableFooterView = UIView(frame: CGRectZero)

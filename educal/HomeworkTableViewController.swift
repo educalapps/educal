@@ -56,8 +56,8 @@ class HomeworkTableViewController: UITableViewController {
     
     func refresh(sender:AnyObject){
         // Get new data
-        homeworkTableView.reloadData()
         
+        homeworkTableView.reloadData()
         // Stop refreshing
         self.refreshController.endRefreshing()
     }
@@ -212,7 +212,8 @@ class HomeworkTableViewController: UITableViewController {
                         cell?.homeworkTitleLabel.text = title
                         cell?.dateDayLabel.text = dateNr
                         cell?.dateMonthLabel.text = dateName
-                        cell?.homeworkDeadlineLabel.text = time
+                        var courseTitle = (object["courseObjectId"] as PFObject)["title"] as String
+                        cell?.homeworkDeadlineLabel.text = "\(time) - \(courseTitle)"
                         self.homeworkInTable?[self.activeSegment][indexPath.section][indexPath.row] = object
                     })
                 } else {
