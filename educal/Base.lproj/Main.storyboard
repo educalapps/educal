@@ -81,7 +81,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Courses" id="02I-Vc-MFr">
-                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="uHh-Jp-xhN">
+                        <barButtonItem key="leftBarButtonItem" image="logout-icon" id="uHh-Jp-xhN">
                             <connections>
                                 <action selector="signOutPressed:" destination="Ndw-8X-NoP" id="ZbT-M6-Akr"/>
                             </connections>
@@ -958,7 +958,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Homework" id="rFp-vY-F0y">
                         <barButtonItem key="backBarButtonItem" title=" " id="WWw-Cm-zEt"/>
-                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="Y83-6O-9cH">
+                        <barButtonItem key="leftBarButtonItem" image="logout-icon" id="Y83-6O-9cH">
                             <connections>
                                 <action selector="signOutPressed:" destination="xGi-yh-Poz" id="1Iz-BU-HaW"/>
                             </connections>
@@ -986,7 +986,7 @@
             <objects>
                 <tableViewController id="vZ4-Pp-uVw" customClass="AddHomeworkTableViewController" customModule="educal" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="static" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="wIJ-L4-qWQ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="700"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -1850,7 +1850,7 @@
             <objects>
                 <tableViewController id="38S-6u-HTP" customClass="DetailHomeworkTableViewController" customModule="educal" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="2j0-Lo-NV7">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="700"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -2146,9 +2146,10 @@
         <image name="Logo" width="508" height="299"/>
         <image name="courses-icon" width="48" height="48"/>
         <image name="homework-icon" width="32" height="32"/>
+        <image name="logout-icon" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="DYD-XT-GhL"/>
-        <segue reference="dJ8-ML-hCN"/>
+        <segue reference="MM8-S4-h23"/>
+        <segue reference="2hQ-LK-c8a"/>
     </inferredMetricsTieBreakers>
 </document>
