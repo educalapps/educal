@@ -27,8 +27,12 @@ class ShowHomeworkTableViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         DataProvider.Instance().getCourseHomework(course!, completion: { (result) -> Void in
-            self.homeworkInList = result
-            self.homeworkTableView.reloadData()
+            if result.count != 0 {
+                self.homeworkInList = result
+                self.homeworkTableView.reloadData()
+            } else{
+                Functions.Instance().showAlert("Not found", description:"There is no homework for this course")
+            }
         })
     }
 

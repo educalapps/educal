@@ -68,6 +68,7 @@ class AddCourseTableViewController: UITableViewController, UITextViewDelegate {
         super.viewDidLoad()
         
         if  course != nil {
+            self.title = course?["title"] as? String
             titleTextField.text = course?["title"] as String
             codeTextField.text = course?["code"] as String
             descriptionTextField.text = course?["description"] as String
