@@ -114,9 +114,9 @@ class AddCourseTableViewController: UITableViewController, UITextViewDelegate {
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         var headerTitles = Array<String>()
         if course != nil && (course?["userObjectId"] as PFUser).objectId as String != PFUser.currentUser().objectId {
-            headerTitles = ["Title", "Code", "Description"]
+            headerTitles = ["Title", "Code", "Description", "Homework"]
         } else {
-            headerTitles = ["Title*", "Code*", "Description"]
+            headerTitles = ["Title*", "Code*", "Description", "Homework"]
         }
         
         return headerTitles[section]
@@ -125,9 +125,9 @@ class AddCourseTableViewController: UITableViewController, UITextViewDelegate {
     override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         var footerTitles = Array<String>()
         if course != nil && (course?["userObjectId"] as PFUser).objectId as String != PFUser.currentUser().objectId {
-            footerTitles = ["", "", ""]
+            footerTitles = ["", "", "", ""]
         } else {
-            footerTitles = ["", "", "* Required fields"]
+            footerTitles = ["", "", "* Required fields", ""]
         }
         
         return footerTitles[section]
