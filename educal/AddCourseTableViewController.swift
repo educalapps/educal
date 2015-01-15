@@ -47,18 +47,33 @@ class AddCourseTableViewController: UITableViewController, UITextViewDelegate {
         courseForUser["courseObjectId"] = course
         courseForUser["userObjectId"] = PFUser.currentUser()
         courseForUser["active"] = true
-        courseForUser.saveEventually()
         courseForUser.pinWithName("joinedCourseRelationship")
-        DataProvider.Instance().updateAllLocalData()
+        courseForUser.saveEventually { (succes, error) -> Void in
+            if error == nil {
+                DataProvider.Instance().updateAllLocalData()
+            }
+        }
         Functions.Instance().showAlert("Congratulations!", description: "You have successfully joined this course")
         self.navigationItem.setRightBarButtonItem(UIBarButtonItem(title: "Leave", style: .Plain, target: self, action: "unjoinCoursePressed"), animated: true)
         
     }
     
     func unjoinCoursePressed() {
+        
+        var query = PFQuery(className: "Homework")
+        query.fromLocalDatastore()
+        query.whereKey("courseObjectId", equalTo: joinRelation?["courseObjectId"])
         joinRelation?.deleteEventually()
-        joinRelation?.unpinWithName("joinedCourseRelationship")
-        DataProvider.Instance().updateAllLocalData()
+        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+            var pfobjects = objects as [PFObject]
+            PFObject.unpinAllInBackground(pfobjects, withName: "courseHomework", block: { (succes, error) -> Void in
+                
+                if error == nil {
+                    self.joinRelation?.unpinWithName("joinedCourseRelationship")
+                }
+                
+            })
+        }
         Functions.Instance().showAlert("", description: "You have now left this course")
         self.navigationItem.setRightBarButtonItem(UIBarButtonItem(title: "Join", style: .Plain, target: self, action: "joinCoursePressed"), animated: true)
     }

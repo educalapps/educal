@@ -25,6 +25,7 @@ class DetailHomeworkTableViewController: UITableViewController {
     
     @IBAction func switchChanged(sender: UISwitch) {
         if sender.on {
+            homeworkObject?.unpinWithName("homework")
             if homeworkObject?["personal"] as Bool == true {
                 homeworkObject?["completed"] = true
                 homeworkObject?["completedAt"] = NSDate()
@@ -36,6 +37,7 @@ class DetailHomeworkTableViewController: UITableViewController {
             homeworkObject?.saveEventually()
             homeworkObject?.pinInBackgroundWithName("homework", block: nil)
         } else{
+            homeworkObject?.unpinWithName("homework")
             if homeworkObject?["personal"] as Bool == true {
                 homeworkObject?["completed"] = false
             } else {

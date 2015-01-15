@@ -35,7 +35,6 @@ class DataProvider {
         PFObject.unpinAllObjectsInBackgroundWithName("homework", block: nil)
         PFObject.unpinAllObjectsInBackgroundWithName("joinedCourseRelationship", block: nil)
         PFObject.unpinAllObjectsInBackgroundWithName("courseHomework", block: nil)
-        PFObject.unpinAllObjectsInBackgroundWithName("homeworkForUser", block: nil)
     }
     
     // get all courses and set locally
@@ -110,11 +109,39 @@ class DataProvider {
         }
     }
     
+//    // count homework for section
+//    func countHomeworkForSegmentAndSection(segment:Int, completed:Bool) -> Int {
+//        var query = PFQuery(className: "Homework")
+//        query.fromLocalDatastore()
+//        query.whereKey("completed", equalTo: completed)
+//        query.whereKey("personal", equalTo: true)
+//        
+//        var query1 = PFQuery(className: "Homework")
+//        query1.fromLocalDatastore()
+//        query1.whereKey("completed", equalTo: completed)
+//        query1.whereKey("personal", equalTo: false)
+//        switch segment {
+//            case 0:
+//                query.whereKey("deadline", greaterThan: NSDate() )
+//                query.whereKey("deadline", lessThan: oneWeekFurther )
+//            case 1:
+//                query.whereKey("deadline", greaterThan: oneWeekFurther )
+//                query.whereKey("deadline", lessThan: twoWeekFurther )
+//            default:
+//                break
+//            
+//        }
+//        
+//        
+//        
+//    }
+    
     // count homework for this week
     func countHomeworkForThisWeek(completed:Bool) -> Int {
         var query = PFQuery(className: "Homework")
         query.fromLocalDatastore()
         query.whereKey("completed", equalTo: completed)
+        query.whereKey("personal", equalTo: true)
         query.whereKey("deadline", greaterThan: NSDate() )
         query.whereKey("deadline", lessThan: oneWeekFurther )
         
@@ -139,6 +166,7 @@ class DataProvider {
         var query = PFQuery(className: "Homework")
         query.fromLocalDatastore()
         query.whereKey("completed", equalTo: completed)
+        query.whereKey("personal", equalTo: true)
         query.whereKey("deadline", greaterThan: NSDate() )
         query.whereKey("deadline", lessThan: oneWeekFurther )
         
@@ -155,7 +183,7 @@ class DataProvider {
         
         var mainQuery = PFQuery.orQueryWithSubqueries([query, query1])
         mainQuery.fromLocalDatastore()
-        //mainQuery.orderByAscending("deadline")
+        mainQuery.orderByAscending("deadline")
         mainQuery.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
             var object = objects[row] as PFObject
             
@@ -186,6 +214,7 @@ class DataProvider {
         var query = PFQuery(className: "Homework")
         query.fromLocalDatastore()
         query.whereKey("completed", equalTo: completed)
+        query.whereKey("personal", equalTo: true)
         query.whereKey("deadline", greaterThan: oneWeekFurther )
         query.whereKey("deadline", lessThan: twoWeekFurther )
         
@@ -210,6 +239,7 @@ class DataProvider {
         var query = PFQuery(className: "Homework")
         query.fromLocalDatastore()
         query.whereKey("completed", equalTo: completed)
+        query.whereKey("personal", equalTo: true)
         query.whereKey("deadline", greaterThan: oneWeekFurther )
         query.whereKey("deadline", lessThan: twoWeekFurther )
         

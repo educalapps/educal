@@ -67,9 +67,16 @@ class HomeworkTableViewController: UITableViewController {
     // Default
     
     override func viewWillAppear(animated: Bool) {
+        DataProvider.Instance().updateAllLocalData()
         homeworkInTable = [[Array<PFObject>(), Array<PFObject>()],[Array<PFObject>(), Array<PFObject>()],[Array<PFObject>(), Array<PFObject>()]]
         homeworkTableView.reloadData()
+        Functions.Instance().delay(2.0) {
+            DataProvider.Instance().updateAllLocalData()
+            self.homeworkTableView.reloadData()
+        }
     }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
