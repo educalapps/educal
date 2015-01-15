@@ -55,14 +55,15 @@ class AddHomeworkTableViewController: UITableViewController, UITextFieldDelegate
             // Add data to parse
             if homework == nil {
                 homework = PFObject(className:"Homework")
+                homework?["completedBy"] = Array<PFUser>()
             }
             homework?["title"] = titleTextfield.text
             homework?["description"] = descriptionTextfield.text
             homework?["deadline"] = dateFromString
-            
             homework?["completed"] = false
             homework?["userObjectId"] = PFUser.currentUser()
             homework?["active"] = true
+            
             if course == nil {
                 homework?["personal"] = true
                 homework?.saveEventually()

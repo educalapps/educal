@@ -18,6 +18,7 @@ class CoursesTableViewController: UITableViewController {
     var currentSegment = 0
     var selectedCourse:PFObject?
     var coursesInTable:Array<Array<PFObject>>?
+    var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
     
     func didFinishFetchingString(text: String) {
         println(text)
@@ -60,6 +61,9 @@ class CoursesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        activityIndicator.center = self.view.center
+        self.view.addSubview(activityIndicator)
+        
         //set the pull to refresh
         self.refreshController = UIRefreshControl()
         self.refreshController.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
@@ -73,6 +77,7 @@ class CoursesTableViewController: UITableViewController {
     
     func refresh(sender:AnyObject){
         // Code to refresh table view
+        DataProvider.Instance().updateAllLocalData()
         coursesTableView.reloadData()
         self.refreshController.endRefreshing()
     }
@@ -87,7 +92,6 @@ class CoursesTableViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        //allCoursesInTable.removeAll(keepCapacity: false)
         return 1
     }
 
@@ -168,11 +172,15 @@ class CoursesTableViewController: UITableViewController {
             
             var selectedCourse = coursesInTable?[currentSegment][indexPath.row]
             if selectedCourse?["userObjectId"] as PFUser == PFUser.currentUser() {
-                selectedCourse?["active"] = false
-                selectedCourse?.saveEventually()
-                selectedCourse?.pinWithName("course")
+                selectedCourse?.deleteEventually()
+                selectedCourse?.unpinWithName("course")
+                activityIndicator.startAnimating()
                 
-                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+                Functions.Instance().delay(0.8) {
+                    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+                    self.activityIndicator.stopAnimating()
+                }
+                
             } else {
                 Functions.Instance().showAlert("Permission denied", description: "You can't delete this course, because you are not the host")
             }

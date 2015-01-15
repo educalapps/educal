@@ -60,4 +60,32 @@ class Functions {
             alpha: CGFloat(1.0)
         )
     }
+    
+    func giveDateAsStrings(date:NSDate) -> (day:String, month:String, time:String){
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "d MMM-HH:mm" // d MMM 'at' HH:mm
+        let newDate = dateFormatter.stringFromDate(date as NSDate)
+        
+        // Split date by day and month
+        var newDateArray = split(newDate) {$0 == "-"}
+        var onlyDate = newDateArray[0]
+        var onlyTime = newDateArray[1]
+        
+        var onlyDateArray = split(onlyDate) {$0 == " "}
+        var day = onlyDateArray[0].uppercaseString
+        var month = onlyDateArray[1].uppercaseString
+        var time = onlyTime
+        
+        return (day, month, time)
+    }
+    
+    // delay function
+    func delay(delay:Double, closure:()->()) {
+        dispatch_after(
+            dispatch_time(
+                DISPATCH_TIME_NOW,
+                Int64(delay * Double(NSEC_PER_SEC))
+            ),
+            dispatch_get_main_queue(), closure)
+    }
 }

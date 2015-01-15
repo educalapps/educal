@@ -56,8 +56,8 @@ class HomeworkTableViewController: UITableViewController {
     
     func refresh(sender:AnyObject){
         // Get new data
+        DataProvider.Instance().updateAllLocalData()
         homeworkTableView.reloadData()
-        
         // Stop refreshing
         self.refreshController.endRefreshing()
     }
@@ -67,9 +67,16 @@ class HomeworkTableViewController: UITableViewController {
     // Default
     
     override func viewWillAppear(animated: Bool) {
+        DataProvider.Instance().updateAllLocalData()
         homeworkInTable = [[Array<PFObject>(), Array<PFObject>()],[Array<PFObject>(), Array<PFObject>()],[Array<PFObject>(), Array<PFObject>()]]
         homeworkTableView.reloadData()
+        Functions.Instance().delay(2.0) {
+            DataProvider.Instance().updateAllLocalData()
+            self.homeworkTableView.reloadData()
+        }
     }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -176,7 +183,12 @@ class HomeworkTableViewController: UITableViewController {
                         cell?.homeworkTitleLabel.text = title
                         cell?.dateDayLabel.text = dateNr
                         cell?.dateMonthLabel.text = dateName
-                        cell?.homeworkDeadlineLabel.text = time
+                        if object["courseObjectId"] != nil {
+                            var courseTitle = (object["courseObjectId"] as PFObject)["title"] as String
+                            cell?.homeworkDeadlineLabel.text = "\(time) - \(courseTitle)"
+                        } else {
+                            cell?.homeworkDeadlineLabel.text = time
+                        }
                         self.homeworkInTable?[self.activeSegment][indexPath.section][indexPath.row] = object
                     })
                 } else {
@@ -184,7 +196,12 @@ class HomeworkTableViewController: UITableViewController {
                         cell?.homeworkTitleLabel.text = title
                         cell?.dateDayLabel.text = dateNr
                         cell?.dateMonthLabel.text = dateName
-                        cell?.homeworkDeadlineLabel.text = time
+                        if object["courseObjectId"] != nil {
+                            var courseTitle = (object["courseObjectId"] as PFObject)["title"] as String
+                            cell?.homeworkDeadlineLabel.text = "\(time) - \(courseTitle)"
+                        } else {
+                            cell?.homeworkDeadlineLabel.text = time
+                        }
                         self.homeworkInTable?[self.activeSegment][indexPath.section][indexPath.row] = object
                     })
                 }
@@ -194,7 +211,12 @@ class HomeworkTableViewController: UITableViewController {
                         cell?.homeworkTitleLabel.text = title
                         cell?.dateDayLabel.text = dateNr
                         cell?.dateMonthLabel.text = dateName
-                        cell?.homeworkDeadlineLabel.text = time
+                        if object["courseObjectId"] != nil {
+                            var courseTitle = (object["courseObjectId"] as PFObject)["title"] as String
+                            cell?.homeworkDeadlineLabel.text = "\(time) - \(courseTitle)"
+                        } else {
+                            cell?.homeworkDeadlineLabel.text = time
+                        }
                         self.homeworkInTable?[self.activeSegment][indexPath.section][indexPath.row] = object
                     })
                 } else {
@@ -202,7 +224,12 @@ class HomeworkTableViewController: UITableViewController {
                         cell?.homeworkTitleLabel.text = title
                         cell?.dateDayLabel.text = dateNr
                         cell?.dateMonthLabel.text = dateName
-                        cell?.homeworkDeadlineLabel.text = time
+                        if object["courseObjectId"] != nil {
+                            var courseTitle = (object["courseObjectId"] as PFObject)["title"] as String
+                            cell?.homeworkDeadlineLabel.text = "\(time) - \(courseTitle)"
+                        } else {
+                            cell?.homeworkDeadlineLabel.text = time
+                        }
                         self.homeworkInTable?[self.activeSegment][indexPath.section][indexPath.row] = object
                     })
                 }
@@ -212,7 +239,13 @@ class HomeworkTableViewController: UITableViewController {
                         cell?.homeworkTitleLabel.text = title
                         cell?.dateDayLabel.text = dateNr
                         cell?.dateMonthLabel.text = dateName
-                        cell?.homeworkDeadlineLabel.text = time
+                        if object["courseObjectId"] != nil {
+                            var courseTitle = (object["courseObjectId"] as PFObject)["title"] as String
+                            cell?.homeworkDeadlineLabel.text = "\(time) - \(courseTitle)"
+                        } else {
+                            cell?.homeworkDeadlineLabel.text = time
+                        }
+                        
                         self.homeworkInTable?[self.activeSegment][indexPath.section][indexPath.row] = object
                     })
                 } else {
@@ -220,7 +253,12 @@ class HomeworkTableViewController: UITableViewController {
                         cell?.homeworkTitleLabel.text = title
                         cell?.dateDayLabel.text = dateNr
                         cell?.dateMonthLabel.text = dateName
-                        cell?.homeworkDeadlineLabel.text = time
+                        if object["courseObjectId"] != nil {
+                            var courseTitle = (object["courseObjectId"] as PFObject)["title"] as String
+                            cell?.homeworkDeadlineLabel.text = "\(time) - \(courseTitle)"
+                        } else {
+                            cell?.homeworkDeadlineLabel.text = time
+                        }
                         self.homeworkInTable?[self.activeSegment][indexPath.section][indexPath.row] = object
                     })
                 }
@@ -247,9 +285,8 @@ class HomeworkTableViewController: UITableViewController {
             
             var selectedHomework = homeworkInTable?[activeSegment][indexPath.section][indexPath.row]
             if selectedHomework?["userObjectId"] as PFUser == PFUser.currentUser() {
-                selectedHomework?["active"] = false
-                selectedHomework?.saveEventually()
-                selectedHomework?.pinWithName("homework")
+                selectedHomework?.deleteEventually()
+                selectedHomework?.unpinWithName("homework")
                 
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             } else {
