@@ -172,6 +172,23 @@ class CoursesTableViewController: UITableViewController {
             
             var selectedCourse = coursesInTable?[currentSegment][indexPath.row]
             if selectedCourse?["userObjectId"] as PFUser == PFUser.currentUser() {
+                
+                var query = PFQuery(className: "Homework")
+                query.whereKey("courseObjectId", equalTo: selectedCourse?)
+                query.findObjectsInBackgroundWithBlock({ (objects, error) -> Void in
+                    if error == nil {
+                        PFObject.deleteAllInBackground(objects, block: nil)
+                    }
+                })
+                
+                var query2 = PFQuery(className: "CourseForUser")
+                query2.whereKey("courseObjectId", equalTo: selectedCourse?)
+                query2.findObjectsInBackgroundWithBlock({ (objects, error) -> Void in
+                    if error == nil {
+                        PFObject.deleteAllInBackground(objects, block: nil)
+                    }
+                })
+                
                 selectedCourse?.deleteEventually()
                 selectedCourse?.unpinWithName("course")
                 activityIndicator.startAnimating()

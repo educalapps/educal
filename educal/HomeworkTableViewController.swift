@@ -14,6 +14,7 @@ class HomeworkTableViewController: UITableViewController {
     var refreshController:UIRefreshControl!
     var activeSegment:Int = 0
     var homeworkInTable:Array<Array<Array<PFObject>>>?
+    var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
     
     // Outlets
     @IBOutlet var homeworkTableView: UITableView!
@@ -80,6 +81,9 @@ class HomeworkTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        activityIndicator.center = self.view.center
+        self.view.addSubview(activityIndicator)
         
         // Pull to refresh
         self.refreshController = UIRefreshControl()
@@ -287,8 +291,13 @@ class HomeworkTableViewController: UITableViewController {
             if selectedHomework?["userObjectId"] as PFUser == PFUser.currentUser() {
                 selectedHomework?.deleteEventually()
                 selectedHomework?.unpinWithName("homework")
+                activityIndicator.startAnimating()
+                Functions.Instance().delay(0.8) {
+                    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+                    self.activityIndicator.stopAnimating()
+                }
                 
-                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+                
             } else {
                 Functions.Instance().showAlert("Permission denied", description: "You are not the host of the course this homework belongs to")
             }
@@ -300,7 +309,9 @@ class HomeworkTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if segue.identifier == "showDetail" {
             let DetailViewController = segue.destinationViewController as DetailHomeworkTableViewController
-            DetailViewController.homeworkObject = homeworkInTable?[activeSegment][sender.section][sender.row]
+            var homeworkObject = homeworkInTable?[activeSegment][sender.section][sender.row]
+            DetailViewController.homeworkObject = homeworkObject
+            DetailViewController.course = homeworkObject?["courseObjectId"] as? PFObject
         }
     }
 }

@@ -150,10 +150,12 @@ class DataProvider {
         query1.whereKey("personal", equalTo: false)
         query1.whereKey("deadline", greaterThan: NSDate() )
         query1.whereKey("deadline", lessThan: oneWeekFurther )
-        if completed {
-            query1.whereKey("completedBy", equalTo: PFUser.currentUser())
-        } else {
-            query1.whereKey("completedBy", notEqualTo: PFUser.currentUser())
+        if PFUser.currentUser() != nil {
+            if completed {
+                query1.whereKey("completedBy", equalTo: PFUser.currentUser())
+            } else {
+                query1.whereKey("completedBy", notEqualTo: PFUser.currentUser())
+            }
         }
         
         var mainQuery = PFQuery.orQueryWithSubqueries([query, query1])
