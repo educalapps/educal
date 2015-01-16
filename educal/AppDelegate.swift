@@ -24,9 +24,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-       
-        // Show launchscreen for 2 seconds
-        sleep(2);
+        
+        // enable local parse localDataStore
+        Parse.enableLocalDatastore()
+        
+        // Set Parse connection
+        Parse.setApplicationId("pGbBNc60UqTk3vNk0ue93OTTZ5qD8e2fN6pvtfiS", clientKey: "38RE77R80UHiPfXsxi1YSDGaT4tkuAmEnhYpK47V")
+        
+        // update all local data
+        DataProvider.Instance().updateAllLocalData()
         
         // Set Shadow
         var barShadow: NSShadow = NSShadow()
@@ -37,14 +43,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         navigationBarAppearace.tintColor = UIColor.whiteColor()
         navigationBarAppearace.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
-        //navigationBarAppearace.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor(),  NSShadowAttributeName: barShadow]
         navigationBarAppearace.barTintColor = UIColorFromRGB(0xd1190d)
+        navigationBarAppearace.translucent = false
         
         // Set status bar to white
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
         
-
         
+                
         return true
     }
 

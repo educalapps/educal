@@ -7,14 +7,39 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		284AA48A1A2C9DCF00B76945 /* ClassesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284AA4891A2C9DCF00B76945 /* ClassesTableViewController.swift */; };
+		28137FAB1A407FB300B12CC4 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28137FAA1A407FB300B12CC4 /* CustomTableViewCell.swift */; };
+		2894809C1A35CA98008507BF /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2894809B1A35CA98008507BF /* AudioToolbox.framework */; };
+		289480A61A35CB45008507BF /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2894809D1A35CB45008507BF /* CFNetwork.framework */; };
+		289480A71A35CB45008507BF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2894809E1A35CB45008507BF /* CoreGraphics.framework */; };
+		289480A81A35CB45008507BF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2894809F1A35CB45008507BF /* CoreLocation.framework */; };
+		289480A91A35CB45008507BF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 289480A01A35CB45008507BF /* libz.dylib */; };
+		289480AA1A35CB45008507BF /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 289480A11A35CB45008507BF /* MobileCoreServices.framework */; };
+		289480AB1A35CB45008507BF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 289480A21A35CB45008507BF /* QuartzCore.framework */; };
+		289480AC1A35CB45008507BF /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 289480A31A35CB45008507BF /* Security.framework */; };
+		289480AD1A35CB45008507BF /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 289480A41A35CB45008507BF /* StoreKit.framework */; };
+		289480AE1A35CB45008507BF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 289480A51A35CB45008507BF /* SystemConfiguration.framework */; };
+		2894A7181A666145006FF710 /* ShowHomeworkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2894A7171A666145006FF710 /* ShowHomeworkTableViewController.swift */; };
+		28B351EF1A39BD3200DBE2D0 /* AddHomeworkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B351EE1A39BD3200DBE2D0 /* AddHomeworkTableViewController.swift */; };
+		28C61A191A38689C00D396E8 /* RegistrationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C61A181A38689C00D396E8 /* RegistrationTableViewController.swift */; };
+		28C61A1B1A3873E500D396E8 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C61A1A1A3873E500D396E8 /* Functions.swift */; };
+		28C61A1F1A387AE600D396E8 /* LoginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C61A1E1A387AE600D396E8 /* LoginTableViewController.swift */; };
+		28C61A211A3898E300D396E8 /* HomeworkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C61A201A3898E300D396E8 /* HomeworkTableViewController.swift */; };
+		28C702161A3F7B1D00B012A3 /* DetailHomeworkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C702151A3F7B1D00B012A3 /* DetailHomeworkTableViewController.swift */; };
 		E11AA4CE1A2C8D0C008C162F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11AA4CD1A2C8D0C008C162F /* AppDelegate.swift */; };
 		E11AA4D11A2C8D0C008C162F /* educal.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E11AA4CF1A2C8D0C008C162F /* educal.xcdatamodeld */; };
-		E11AA4D31A2C8D0C008C162F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11AA4D21A2C8D0C008C162F /* ViewController.swift */; };
 		E11AA4D61A2C8D0C008C162F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E11AA4D41A2C8D0C008C162F /* Main.storyboard */; };
 		E11AA4D81A2C8D0C008C162F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E11AA4D71A2C8D0C008C162F /* Images.xcassets */; };
 		E11AA4E71A2C8D0C008C162F /* educalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11AA4E61A2C8D0C008C162F /* educalTests.swift */; };
-		E15C109C1A2C9DCC00731772 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15C109B1A2C9DCC00731772 /* LoginViewController.swift */; };
+		E139677D1A3B6FFB00E8D40A /* AddCourseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E139677C1A3B6FFB00E8D40A /* AddCourseTableViewController.swift */; };
+		E13A6F1C1A42011100C8AFD7 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13A6F1B1A42011100C8AFD7 /* DataProvider.swift */; };
+		E1B2A01E1A52C7FD0082960E /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E1B2A01D1A52C7FD0082960E /* libsqlite3.dylib */; };
+		E1B2A0241A52CD1F0082960E /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1B2A01F1A52CD1F0082960E /* Bolts.framework */; };
+		E1B2A0251A52CD1F0082960E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1B2A0201A52CD1F0082960E /* Parse.framework */; };
+		E1B2A0261A52CD1F0082960E /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1B2A0211A52CD1F0082960E /* ParseCrashReporting.framework */; };
+		E1B2A0271A52CD1F0082960E /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1B2A0221A52CD1F0082960E /* ParseFacebookUtils.framework */; };
+		E1B2A0281A52CD1F0082960E /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1B2A0231A52CD1F0082960E /* ParseUI.framework */; };
+		E1C9C78E1A399C33006E4071 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C9C78D1A399C33006E4071 /* MainTabBarController.swift */; };
+		E1EAAD2A1A3F05A6001D12BE /* CoursesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EAAD291A3F05A6001D12BE /* CoursesTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,18 +53,44 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		284AA4891A2C9DCF00B76945 /* ClassesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassesTableViewController.swift; sourceTree = "<group>"; };
+		28137FAA1A407FB300B12CC4 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		2894809B1A35CA98008507BF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		2894809D1A35CB45008507BF /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		2894809E1A35CB45008507BF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		2894809F1A35CB45008507BF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		289480A01A35CB45008507BF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		289480A11A35CB45008507BF /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		289480A21A35CB45008507BF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		289480A31A35CB45008507BF /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		289480A41A35CB45008507BF /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		289480A51A35CB45008507BF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		289480AF1A35CC62008507BF /* educal-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "educal-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		2894A7171A666145006FF710 /* ShowHomeworkTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShowHomeworkTableViewController.swift; path = ../ShowHomeworkTableViewController.swift; sourceTree = "<group>"; };
+		28B351EE1A39BD3200DBE2D0 /* AddHomeworkTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddHomeworkTableViewController.swift; sourceTree = "<group>"; };
+		28C61A181A38689C00D396E8 /* RegistrationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationTableViewController.swift; sourceTree = "<group>"; };
+		28C61A1A1A3873E500D396E8 /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
+		28C61A1E1A387AE600D396E8 /* LoginTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTableViewController.swift; sourceTree = "<group>"; };
+		28C61A201A3898E300D396E8 /* HomeworkTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeworkTableViewController.swift; sourceTree = "<group>"; };
+		28C702151A3F7B1D00B012A3 /* DetailHomeworkTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailHomeworkTableViewController.swift; sourceTree = "<group>"; };
 		E11AA4C81A2C8D0C008C162F /* educal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = educal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E11AA4CC1A2C8D0C008C162F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E11AA4CD1A2C8D0C008C162F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E11AA4D01A2C8D0C008C162F /* educal.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = educal.xcdatamodel; sourceTree = "<group>"; };
-		E11AA4D21A2C8D0C008C162F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E11AA4D51A2C8D0C008C162F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E11AA4D71A2C8D0C008C162F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E11AA4E01A2C8D0C008C162F /* educalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = educalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E11AA4E51A2C8D0C008C162F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E11AA4E61A2C8D0C008C162F /* educalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = educalTests.swift; sourceTree = "<group>"; };
-		E15C109B1A2C9DCC00731772 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		E139677C1A3B6FFB00E8D40A /* AddCourseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCourseTableViewController.swift; sourceTree = "<group>"; };
+		E13A6F1B1A42011100C8AFD7 /* DataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
+		E1B2A01D1A52C7FD0082960E /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		E1B2A01F1A52CD1F0082960E /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		E1B2A0201A52CD1F0082960E /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		E1B2A0211A52CD1F0082960E /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
+		E1B2A0221A52CD1F0082960E /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
+		E1B2A0231A52CD1F0082960E /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
+		E1C9C78D1A399C33006E4071 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		E1EAAD291A3F05A6001D12BE /* CoursesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoursesTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +98,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1B2A01E1A52C7FD0082960E /* libsqlite3.dylib in Frameworks */,
+				289480A61A35CB45008507BF /* CFNetwork.framework in Frameworks */,
+				289480A71A35CB45008507BF /* CoreGraphics.framework in Frameworks */,
+				E1B2A0241A52CD1F0082960E /* Bolts.framework in Frameworks */,
+				289480A81A35CB45008507BF /* CoreLocation.framework in Frameworks */,
+				E1B2A0261A52CD1F0082960E /* ParseCrashReporting.framework in Frameworks */,
+				E1B2A0281A52CD1F0082960E /* ParseUI.framework in Frameworks */,
+				289480A91A35CB45008507BF /* libz.dylib in Frameworks */,
+				E1B2A0251A52CD1F0082960E /* Parse.framework in Frameworks */,
+				E1B2A0271A52CD1F0082960E /* ParseFacebookUtils.framework in Frameworks */,
+				289480AA1A35CB45008507BF /* MobileCoreServices.framework in Frameworks */,
+				289480AB1A35CB45008507BF /* QuartzCore.framework in Frameworks */,
+				289480AC1A35CB45008507BF /* Security.framework in Frameworks */,
+				289480AD1A35CB45008507BF /* StoreKit.framework in Frameworks */,
+				289480AE1A35CB45008507BF /* SystemConfiguration.framework in Frameworks */,
+				2894809C1A35CA98008507BF /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,12 +127,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		280A4D081A404B930092DF56 /* Homework */ = {
+			isa = PBXGroup;
+			children = (
+				28B351EE1A39BD3200DBE2D0 /* AddHomeworkTableViewController.swift */,
+				28C702151A3F7B1D00B012A3 /* DetailHomeworkTableViewController.swift */,
+				28C61A201A3898E300D396E8 /* HomeworkTableViewController.swift */,
+				28137FAA1A407FB300B12CC4 /* CustomTableViewCell.swift */,
+			);
+			name = Homework;
+			sourceTree = "<group>";
+		};
+		2894809A1A35CA68008507BF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E1B2A01F1A52CD1F0082960E /* Bolts.framework */,
+				E1B2A0201A52CD1F0082960E /* Parse.framework */,
+				E1B2A0211A52CD1F0082960E /* ParseCrashReporting.framework */,
+				E1B2A0221A52CD1F0082960E /* ParseFacebookUtils.framework */,
+				E1B2A0231A52CD1F0082960E /* ParseUI.framework */,
+				2894809D1A35CB45008507BF /* CFNetwork.framework */,
+				2894809E1A35CB45008507BF /* CoreGraphics.framework */,
+				2894809F1A35CB45008507BF /* CoreLocation.framework */,
+				289480A01A35CB45008507BF /* libz.dylib */,
+				289480A11A35CB45008507BF /* MobileCoreServices.framework */,
+				289480A21A35CB45008507BF /* QuartzCore.framework */,
+				289480A31A35CB45008507BF /* Security.framework */,
+				289480A41A35CB45008507BF /* StoreKit.framework */,
+				289480A51A35CB45008507BF /* SystemConfiguration.framework */,
+				2894809B1A35CA98008507BF /* AudioToolbox.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		28AE49811A2DFC9400C9A67D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				284AA4891A2C9DCF00B76945 /* ClassesTableViewController.swift */,
-				E15C109B1A2C9DCC00731772 /* LoginViewController.swift */,
-				E11AA4D21A2C8D0C008C162F /* ViewController.swift */,
+				280A4D081A404B930092DF56 /* Homework */,
+				E1EAAD2B1A40663C001D12BE /* Courses */,
+				28C61A1E1A387AE600D396E8 /* LoginTableViewController.swift */,
+				28C61A181A38689C00D396E8 /* RegistrationTableViewController.swift */,
+				28C61A1A1A3873E500D396E8 /* Functions.swift */,
+				E1C9C78D1A399C33006E4071 /* MainTabBarController.swift */,
+				E13A6F1B1A42011100C8AFD7 /* DataProvider.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -73,6 +177,7 @@
 		E11AA4BF1A2C8D0C008C162F = {
 			isa = PBXGroup;
 			children = (
+				E1B2A01D1A52C7FD0082960E /* libsqlite3.dylib */,
 				E11AA4CA1A2C8D0C008C162F /* educal */,
 				E11AA4E31A2C8D0C008C162F /* educalTests */,
 				E11AA4C91A2C8D0C008C162F /* Products */,
@@ -91,11 +196,13 @@
 		E11AA4CA1A2C8D0C008C162F /* educal */ = {
 			isa = PBXGroup;
 			children = (
+				2894809A1A35CA68008507BF /* Frameworks */,
 				28AE49811A2DFC9400C9A67D /* Controllers */,
 				E11AA4CD1A2C8D0C008C162F /* AppDelegate.swift */,
 				E11AA4D41A2C8D0C008C162F /* Main.storyboard */,
 				E11AA4D71A2C8D0C008C162F /* Images.xcassets */,
 				E11AA4CF1A2C8D0C008C162F /* educal.xcdatamodeld */,
+				289480AF1A35CC62008507BF /* educal-Bridging-Header.h */,
 				E11AA4CB1A2C8D0C008C162F /* Supporting Files */,
 			);
 			path = educal;
@@ -124,6 +231,16 @@
 				E11AA4E51A2C8D0C008C162F /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E1EAAD2B1A40663C001D12BE /* Courses */ = {
+			isa = PBXGroup;
+			children = (
+				2894A7171A666145006FF710 /* ShowHomeworkTableViewController.swift */,
+				E139677C1A3B6FFB00E8D40A /* AddCourseTableViewController.swift */,
+				E1EAAD291A3F05A6001D12BE /* CoursesTableViewController.swift */,
+			);
+			name = Courses;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -175,6 +292,7 @@
 				TargetAttributes = {
 					E11AA4C71A2C8D0C008C162F = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = J94YFTX9KL;
 					};
 					E11AA4DF1A2C8D0C008C162F = {
 						CreatedOnToolsVersion = 6.1;
@@ -225,10 +343,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				284AA48A1A2C9DCF00B76945 /* ClassesTableViewController.swift in Sources */,
-				E11AA4D31A2C8D0C008C162F /* ViewController.swift in Sources */,
+				28C61A1B1A3873E500D396E8 /* Functions.swift in Sources */,
+				28C61A211A3898E300D396E8 /* HomeworkTableViewController.swift in Sources */,
+				28C61A191A38689C00D396E8 /* RegistrationTableViewController.swift in Sources */,
+				28B351EF1A39BD3200DBE2D0 /* AddHomeworkTableViewController.swift in Sources */,
+				E1C9C78E1A399C33006E4071 /* MainTabBarController.swift in Sources */,
+				28C61A1F1A387AE600D396E8 /* LoginTableViewController.swift in Sources */,
 				E11AA4CE1A2C8D0C008C162F /* AppDelegate.swift in Sources */,
-				E15C109C1A2C9DCC00731772 /* LoginViewController.swift in Sources */,
+				E1EAAD2A1A3F05A6001D12BE /* CoursesTableViewController.swift in Sources */,
+				2894A7181A666145006FF710 /* ShowHomeworkTableViewController.swift in Sources */,
+				28137FAB1A407FB300B12CC4 /* CustomTableViewCell.swift in Sources */,
+				E139677D1A3B6FFB00E8D40A /* AddCourseTableViewController.swift in Sources */,
+				E13A6F1C1A42011100C8AFD7 /* DataProvider.swift in Sources */,
+				28C702161A3F7B1D00B012A3 /* DetailHomeworkTableViewController.swift in Sources */,
 				E11AA4D11A2C8D0C008C162F /* educal.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -345,9 +472,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/educal",
+				);
 				INFOPLIST_FILE = educal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "educal-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -356,9 +493,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/educal",
+				);
 				INFOPLIST_FILE = educal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "educal-Bridging-Header.h";
 			};
 			name = Release;
 		};
